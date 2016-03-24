@@ -1,0 +1,449 @@
+{
+	"appConfig": {
+		"tzOffset": "-4",
+		"syncInterval": "1",
+		"baseImageURL": "http://serverxyz.com/images",
+		"contactImage": "contactUs.jpg",
+		"contactEmail": "appsupport@serverxyz.com",
+		"defaultLocation": "Crowne Plaza",
+		"defaultMap": "38.1900409,-85.7529637",
+		"eventLegendDay": "100, 200, 300, 400",
+		"eventLegendCategory": "10=car show,20=registration,30-40=tech session,50=tour,60=shops,70=banquet,90=other",
+		"aboutInfo": "This is the unofficial MG 2016 application.\n Information presented by this application is intended exclusively for the use of MG 2016 participants and sponsoring Registers.\n Times shown in the event diary are correct to the best of our knowledge, but subject to change. Please check the app for important updates and also refer to the registration area at the Crowne Plaza hotel."
+	},
+	"lodgingInfo": [{
+		"id": "1",
+		"image": "comfort.png",
+		"name": "Comfort Suites",
+		"addr1": "653 Phillips Ln",
+		"addr2": "Louisville, KY 40209",
+		"phone": "502-375-2233",
+		"details": "No trailer parking allowed; Children 18 and under - free w/existing bedding; Complimentary breakfast; Complimentary guestroom internet; Complimentary car washing station; Free toll-free/local calls from guestroom; On-site guest laundry (coin operated); Complimentary airport shuttle; Complimentary fitness center; Indoor pool; Pets: Not allowed; Check in: 3:00pm; Check out: 12:00pm"
+	}, {
+		"id": "2",
+		"image": "courtyard.png",
+		"name": "Courtyard by Marriot",
+		"addr1": "819 Phillips Ln",
+		"addr2": "Louisville, KY 40209",
+		"phone": "502-368-5678",
+		"details": "No trailer parking allowed; Children 18 and under - free w/existing bedding; Breakfast NOT included in rate; Complimentary guestroom internet; Complimentary car washing station ; free toll-free/local calls from guestroom; Complimentary airport shuttle; Complimentary fitness center; Indoor pool and whirlpool; Pets: Not allowed; Check in: 3:00pm ; Check out: 12:00pm"
+	}, {
+		"id": "3",
+		"image": "crowne.png",
+		"name": "Crowne Plaza",
+		"addr1": "830 Phillips Ln",
+		"addr2": "Louisville, KY 40209",
+		"phone": "502-367-2251",
+		"details": "No trailer parking allowed; Children 18 and under - free w/existing bedding; Complimentary continental breakfast; Complimentary guestroom internet; Complimentary car washing station; Free toll-free/local calls from guestroom; Complimentary airport shuttle; Complimentary fitness center; Indoor/outdoor pool; Pet friendly: $50 (max 125 lbs); Check in: 3:00pm; Check out: 11:00am"
+	}, {
+		"id": "4",
+		"image": "hampton.png",
+		"name": "Hampton Inn",
+		"addr1": "800 Phillips Ln",
+		"addr2": "Louisville, KY 40209",
+		"phone": "502-366-8100",
+		"details": "No trailer parking allowed; Children 18 and under - free w/existing bedding; Complimentary breakfast; Complimentary guestroom internet; Complimentary car washing station; Free local calls from guestroom; Complimentary airport shuttle; Complimentary fitness center; Outdoor pool; Pets: Not Allowed; Check in: 3:00pm; Check out: 12:00pm"
+	}, {
+		"id": "5",
+		"image": "howard.png",
+		"name": "Howard Johnson",
+		"addr1": "709 Phillips Ln",
+		"addr2": "Louisville, KY 40209",
+		"phone": "502-363-9952",
+		"details": "No trailer parking allowed; Children 17 and under - free w/existing bedding; Complimentary breakfast; Complimentary guestroom internet; Complimentary car washing station; Free local calls from guestroom; Complimentary airport shuttle; On-site laundry (coin-operated); NO fitness center; Pet friendly ($25); Check in: 2:00pm; Check out: 11:00am"
+	}, {
+		"id": "6",
+		"image": "residence.png",
+		"name": "Residence Inn",
+		"addr1": "700 Phillips Ln",
+		"addr2": "Louisville, KY 40209",
+		"phone": "502-363-8800",
+		"details": "No trailer parking allowed; Children 18 and under - free w/existing bedding; Complimentary full breakfast buffet; Complimentary light meal with free beer, wine and sodas Tuesday-Thursday, 6:00pm-7:30pm; Complimentary guestroom internet; Complimentary car washing station; Free toll-free/local calls from guestroom; On-site guest laundry (coin operated); Outdoor pool; Complimentary airport shuttle; Complimentary fitness center; Pet friendly ($100 fee); Check in: 3:00pm; Check out: 12:00pm"
+	}, {
+		"id": "7",
+		"image": "spring.png",
+		"name": "Spring Hill Suites",
+		"addr1": "820 Phillips Ln",
+		"addr2": "Louisville, KY 40209",
+		"phone": "502-361-9009",
+		"details": "No trailer parking allowed; Children 18 and under - free w/existing bedding; Complimentary breakfast; Complimentary guestroom internet; Complimentary car washing station; Free local calls from guestroom; Complimentary airport shuttle; Complimentary fitness center; On-site laundry (coin-operated); Indoor pool; Pets: Not Allowed; Check in: 3:00pm; Check out: 12:00pm"
+	}],
+	"newsFeed": [{
+		"id": "1",
+		"publishDate": "2016/03/22",
+		"publishTime": "00:00",
+		"image": "maintaining.jpg",
+		"title": "Welcome to MG 2016",
+		"byline1": "June 13-16, 2016",
+		"content": "MG2016 is the fifth gathering of MG enthusiasts hosted by the North American Council of MG Registers. There are a lot of good genes in its pool -that of MG96, MG2001, MG2006, and MG2011. Each of these events developed their own personality and you can expect nothing less from MG2016!\nYou will want to arrive on Monday in order to attend our cocktail reception at Churchill Downs Derby Museum and Racing Facility. Running from 6pm-10pm, the reception will have a cash bar (we advise eating dinner before or after your visit as there will be no food available during the event). You will have time to peruse the exhibits in the museum as well as take a guided tour of the grounds. This is a not-to-miss event. Spaces are limited, so register early!\nOur daily activities begin on Tuesday with driving tours, motorcoach tours, tech sessions, and Register Night. We'll cap off the evening with a performance by the band Captain Rat and the Blind Rivets at the Crowne Plaza.\nWednesday will offer more opportunities for you to learn about your MG during our tech sessions; you can travel the fantastic roads of Indiana and Kentucky by taking one of the self-guided tours; hit downtown Louisville and visit the Louisville Slugger Museum and Factory; visit the Muhammed Ali Center; take in an early afternoon baseball game at the home of the Louisville Bats, a farm league team for the Cincinnati Reds. Plan on attending our auction at the Crowne Plaza on Wednesday evening!\nThursday is show day! We will have our MGs on display at Waterfront Park on the banks of the Ohio River in downtown Louisville. Each Register will have their respective models displayed by class for popular voting by attendees. (NAMGBR will also hold Concours.) Our awards ceremonies and banquet will be held at the Crowne Plaza on Thursday evening. Awards other than First Place (and other special awards) will be given out by Register prior to the banquet as we did at MG2011. We are pleased to announce that DENNIS GAGE of 'My Classic Car' will be our guest on Thursday at Waterfront Park. He will be wandering the showfield and will be available for 'photo ops' and autographs. Dennis will also be our keynote speaker at the Awards Banquet that evening at the Crowne Plaza. After the awards banquet, head out to the parking lot(s)to kick a few more tires and swap a few more lies before you head for home on Friday!\nMG2016 - Be there to help us 'Maintain the Breed'!\nBe sure to register early as some activities have limited spaces available."
+	}, {
+		"id": "2",
+		"publishDate": "2016/03/22",
+		"publishTime": "00:02",
+		"image": "concours.jpg",
+		"title": "NAMGBR Concours Judging Guidelines",
+		"content": "To be eligible to participate in Concours judging:\n\t\u2022 <b>The exhibitor must be a current member in good standing of the North American MGB Register.</b>\n\t\u2022 <b>Only MGs 'recognized' by NAMGBR - MGB, Modern MG Midget/AH Sprite (1961 Mk II - 1979), MGC, MG 1100/1300 (and variants thereof), and all 'Post-Abingdon' MGs - will be allowed to compete in Concours.</b>\n\n\t\u2022 Concours Judging will be held in a distinct and separate area of the show field.\n\t\u2022 Cars entered into the Concours competition are not eligible for participation in standard car show display, voting and awards.\n\t\u2022 Judging teams will be made up of both NAMGBR 'officials' and members selected from the general NAMGBR membership. Under NO circumstances may a Concours exhibitor be considered to judge in the Concours event.\n\t\u2022 A minimum of three (3) teams of judges will score each vehicle. The only scoring sheets used in Concours judging will be those provided by NAMGBR.\n\t\u2022 All vehicles competing in Concours judging must be driven to their respective area under their own power.\n\t\u2022 Once official judging begins all exhibitors must cease all efforts to prepare their vehicles. Vehicles will be judged on 'originality', 'condition', and 'technical inspection'. Official reference books of NAMGBR Concours judging are 'Original MGB' and 'Original Sprite and Midget'.\n\t\u2022 Judges will not manipulate any part of the vehicle to facilitate judging; judges do have the option of asking the exhibitor to reveal parts that are not readily accessible.\n\t\u2022 Under NO circumstances should the exhibitor converse with the judge(s) unless asked a specific question by the judge(s). There will be NO lounging in the scoring area.\n\t\u2022 No judging sheet will be changed or revised by anyone other than the original signing judge. Judges will turn completed judging sheets into the Concours Coordinator (or delegated member) for final tally and examination. Decisions of the judges and Concours Coordinator are final.\n\t\u2022 No signage of any type (Previous Awards, BMHT Certificate, Advertising Brochuers, Vehicle History or Pictures Restoration Photos and Documentation etc.) is permitted. In addition any event grill badges (Amelia Island, Hilton Head, Pebble Beach, ACCA Awards etc.) Must be removed PRIOR to positioning on the show field. The car is being judged as it sits on that day, not any of its previous history.. Use of 'FOR SALE' signs on vehicles in Concours judging is strictly prohibited.\n\t\u2022 Vehicles on display in Concours cannot be dismantled or moved prior to the completion of the show without prior consent of the Concours Coordinator.\n\t\u2022 Judging sheets will be mailed to the exhibitors after the event."
+	}, {
+		"id": "3",
+		"publishDate": "2016/03/22",
+		"publishTime": "00:03",
+		"image": "rocker.jpg",
+		"title": "Official MG2016 Rocker Cover Racer Rules",
+		"byline1": "These are the OFFICIAL RULES for MG2016 - Local, Regional or Club rules will not be accepted",
+		"byline2": "Last Updated July 2013 - Posted December 1, 2015",
+		"content": "<b>The Course</b>\t\u2022 The course shall consist of a launch incline eight feet long, followed by a level run of twenty feet.\n\t\u2022 The launch incline shall be divided into two lanes, each 18-24 inches wide. The incline shall be two feet high at the rearmost part and level with the course at the front edge.\n\t\u2022 The front edge shall be mitered so as to provide a smooth transition from the incline to the run out area.\n\t\u2022 The official 'Starting Line' shall be two feet from the rear edge of the incline. A mechanized starting gate may be provided.\n\t\u2022 The run out section of the course shall consist of two lanes, each three feet wide. The lanes shall be clearly marked.\n\t\u2022 The finish line shall be marked twenty feet from the front edge of the launch incline.\n\n<b>The Cars</b>\t\u2022 The cars shall have no power source. All motive force is provided by gravity.\n\t\u2022 Cars shall be based on an actual rocker cover from a British automobile engine.\n\t\u2022 Wheelbase shall be no more that twenty-four inches.\n\t\u2022 The car's wheelbase must fit within the starting gate and the ramp's rear-edge (24 inches TOTAL)\n\t\u2022 The cars body may 'hang-over' the front starting gate or rear-edge of the ramp, but the wheels must fit within the starting area of the track.\n\t\u2022 Wheel track shall be no more that fourteen inches.\n\t\u2022 Cars must have four wheels, each no more than six inches in diameter <u>and all wheels must be in contact with the ground.</u>\n\t\u2022 A car may not 'jettison' any type of object </u>onto the ramp</u> on its descent.\n\n<b>The Races</b>\t\u2022 As practical, Awards will presented in a 'Kids' Class (16 and under) and an Adult 'For Fun' Class and an Adult 'Serious Racer' Class.\n\t\u2022 Cars will be run in heats of two cars each.\n\t\u2022 One alignment run down the course will be allowed prior to each heat.\n\t\u2022 The cars are to be launched with their front wheels on the starting gate. The first car to have its front wheels cross the finish line is the winner of that race.  If neither car makes it to the finish line, the car going the furthest in its lane wins.\n\t\u2022 If the wheels of a car should touch the lane markers, or cross over the lane marker, the car shall be disqualified. The competing car immediately becomes the winner for that race.\n\t\u2022 The car that wins two out of three races in that heat will be declared the winner and will advance to the next round until all are eliminated except one car."
+	}],
+	"eventDiary": [{
+		"id": "120",
+		"startDate": "2016/06/13",
+		"startTime": "10:00",
+		"endTime": "16:00",
+		"title": "Registration Open",
+		"location": "default"
+	}, {
+		"id": "150",
+		"startDate": "2016/06/13",
+		"startTime": "18:00",
+		"endTime": "22:00",
+		"title": "Churchill Downs",
+		"location": "Derby Museum",
+		"mapLocation": "38.2028492,-85.771889",
+		"content": "Our <b>Monday evening</b> gala cocktail reception will run from 6pm to 10pm at the Derby Museum. You will be free to explore the exhibits and take pictures; there will be guided tours of the grounds available which is included in your ticket price. You may even have a surprise or two waiting for you!\n<b>Please plan on eating a meal before or after your visit to the museum as there will only be lite snacks available during the event, with a Cash Bar.</b>\n"
+	}, {
+		"id": "170",
+		"startDate": "2016/06/13",
+		"startTime": "16:30",
+		"title": "NAMGAR Magnette Enthusiasts Dinner",
+		"location": "default"
+	}, {
+		"id": "220",
+		"startDate": "2016/06/14",
+		"startTime": "09:00",
+		"endTime": "16:00",
+		"title": "Registration Open",
+		"location": "default"
+	}, {
+		"id": "230",
+		"startDate": "2016/06/14",
+		"startTime": "09:00",
+		"endTime": "10:00",
+		"title": "Tech Session - Restoration Tips to Save Time/Money",
+		"location": "default",
+		"content": "Presented by Doug Pelton"
+	}, {
+		"id": "231",
+		"startDate": "2016/06/14",
+		"startTime": "09:00",
+		"endTime": "10:30",
+		"title": "Tech Session - 5 Speed for Post-War MGs",
+		"location": "default",
+		"content": "Presented by Bruce Woodson"
+	}, {
+		"id": "232",
+		"startDate": "2016/06/14",
+		"startTime": "09:00",
+		"endTime": "11:30",
+		"title": "Tech Session - MGC",
+		"location": "default",
+		"content": "Presented by John Rogers"
+	}, {
+		"id": "233",
+		"startDate": "2016/06/14",
+		"startTime": "09:00",
+		"endTime": "11:30",
+		"title": "Tech Session - Rolling",
+		"location": "default",
+		"content": "Presented by <b>John Twist</b>"
+	}, {
+		"id": "234",
+		"startDate": "2016/06/14",
+		"startTime": "10:30",
+		"endTime": "11:30",
+		"title": "Tech Session - MG/T Series Coachwork",
+		"location": "default",
+		"content": "Presented by Horst Schach"
+	}, {
+		"id": "235",
+		"startDate": "2016/06/14",
+		"startTime": "09:00",
+		"title": "Tech Session - Powdercoating 101",
+		"location": "default",
+		"content": "Presented by Pete Mantell"
+	}, {
+		"id": "236",
+		"startDate": "2016/06/14",
+		"startTime": "13:00",
+		"endTime": "15:30",
+		"title": "Tech Session - Rolling",
+		"location": "default",
+		"content": "Presented by <b>John Twist</b>"
+	}, {
+		"id": "237",
+		"startDate": "2016/06/14",
+		"startTime": "14:30",
+		"endTime": "15:30",
+		"title": "Tech Session - Originality and the MGB",
+		"location": "default",
+		"content": "Presented by Lloyd Faust"
+	}, {
+		"id": "238",
+		"startDate": "2016/06/14",
+		"startTime": "04:30",
+		"endTime": "15:30",
+		"title": "Tech Session - Circumnavigating the World in Classic MGs",
+		"location": "default",
+		"content": "Presented by Dave Godwin"
+	}, {
+		"id": "239",
+		"startDate": "2016/06/14",
+		"startTime": "13:00",
+		"endTime": "14:00",
+		"title": "Tech Session - Insurance: Hagerty Valuation",
+		"location": "default",
+		"content": "Presented by Hagerty"
+	}, {
+		"id": "250",
+		"startDate": "2016/06/14",
+		"startTime": "08:30",
+		"endTime": "16:00",
+		"title": "Bourbon Trail/Bardstown Tour",
+		"location": "Leaves from Crowne Plaza",
+		"mapLocation": "38.1900409,-85.7529637",
+		"content": "Hop on the bus and leave the driving to us.\nEnjoy a tour of Stephen Foster's 'My Old Kentucky Home', explore the Heritage Bourbon Center along with a tasting, downtown Bardstown where you can select one of the many eating options for lunch, and last but not least a stop at Jim Beam for complimentary tastings and for any who wish to purchase a barn tour."
+	}, {
+		"id": "251",
+		"startDate": "2016/06/14",
+		"startTime": "10:00",
+		"endTime": "15:00",
+		"title": "Spirited Drive to O'Bannon Woods State Park for MG V6-V8's",
+		"content": "We will depart on Tuesday morning at 10:00 AM from New Albany IN. Gas up as there are no fuel stops on the twisty back roads we will travel. Once at O'Bannon woods, we will picnic on a bluff overlooking the Ohio River. At the Nature center we will be introduced to the 1850 hay press, hopefully they will operate it for us. We will then travel to Turtle Winery and then home. We expect to drive about 90 miles during the 5 hour trip.\nPark admission is $9.00 per car - payable at the park."
+	}, {
+		"id": "252",
+		"startDate": "2016/06/14",
+		"startTime": "11:00",
+		"endTime": "15:30",
+		"title": "MG Drive to Huber Winery in Southern IN",
+		"content": "This follow the leader drive is destined to one of the most popular family destinations in Southern IN. There are several quick ways to get there, however, we have chosen a way that from NEW ALBANY, IN. uses all back roads. This means that the ride is for 15 cars (MGA, MGTD,MGTF and MGTC) top speed 45 MPH on these roads. There will be one drive on Tuesday and one Wednesday departing New Albany at 11:00 AM. After a casual lunch at Huber's we will return a different way, and you will experience breathtaking views of Louisville metro from Skyline Drive. Total distance is about 50 miles for the four and one half hour trip. We will order off the menu at Huber's and expect to sample and purchase wines."
+	}, {
+		"id": "253",
+		"startDate": "2016/06/14",
+		"startTime": "13:00",
+		"title": "Funkhana",
+		"location": "Rear Parking Lot of Crowne Plaza",
+		"mapLocation": "38.1900409,-85.7529637",
+		"content": "A Funkana is a slow-speed driving event that combines teamwork, driving skill, good communication between the driver and navigator, and most importantly, a sense of humor. Each team will work their way through a pre-determined 'course' following rules set forth by the Rally Master and other officials. Normally each 'heat' takes under 10 minutes to run.\nThe Ohio T Series chapter will be hosting our Funkhana 'HONEY DO'. It's a preview of the fun to be had at GOF Central 2017 and will feature outlandish household challenges for couples and MGs."
+	}, {
+		"id": "260",
+		"startDate": "2016/06/14",
+		"startTime": "09:30",
+		"endTime": "10:30",
+		"title": "Kern's Kitchen Derby Pie",
+		"location": "Kern's Kitchen",
+		"mapLocation": "38.2053314,-85.5530807",
+		"content": "Come and learn about the history of one of Kentucky's most cherished desserts, the Derby Pie, a chocolate nut pie. Plus taste the goodness as a piece of the pie is included in this session. Life is short, eat dessert first!"
+	}, {
+		"id": "261",
+		"startDate": "2016/06/14",
+		"startTime": "11:00",
+		"endTime": "12:00",
+		"title": "Kern's Kitchen Derby Pie",
+		"location": "Kern's Kitchen",
+		"mapLocation": "38.2053314,-85.5530807",
+		"content": "Come and learn about the history of one of Kentucky's most cherished desserts, the Derby Pie, a chocolate nut pie.Plus taste the goodness as a piece of the pie is included in this session. Life is short, eat dessert first!"
+	}, {
+		"id": "262",
+		"startDate": "2016/06/14",
+		"startTime": "14:00",
+		"endTime": "16:00",
+		"title": "Fascinator Session",
+		"content": "Get in the Kentucky Derby spirit! Embellish your own fascinator headpiece; these have been popularized by Princess Kate. Basically a smaller version of hats worn to the Derby. A perfect addition to wear to both Register night and the Awards Banquet.\nThe session is being coordinated by Nancy Bowman and all material will be provided for your session."
+	}, {
+		"id": "270",
+		"startDate": "2016/06/14",
+		"startTime": "18:00",
+		"title": "Register Dinners",
+		"location": "default",
+		"content": "The MMM, MGT and MGA Registers will enjoy the delicious Italian Feast Buffet including salad, Salmon, Chicken, Pasta, potatoes, bread and dessert.\nThe MGB Register will enjoy the Southern Living Buffet including several salads, melons, Cod, Fried Chicken, Pork Ribs, Macaroni & Cheese, Corn Muffins, and dessert.\nEnjoy dinner, fun and camaraderie with others from our MG Community. Choose the party you'd like to join."
+	}, {
+		"id": "290",
+		"startDate": "2016/06/14",
+		"startTime": "20:00",
+		"title": "Free Concert",
+		"location": "default",
+		"content": "Captain Rat and the Blind Rivets\n<i>Starting time and venue to be confirmed.</i>"
+	}, {
+		"id": "320",
+		"startDate": "2016/06/15",
+		"startTime": "09:00",
+		"endTime": "16:00",
+		"title": "Registration Open",
+		"location": "default"
+	}, {
+		"id": "330",
+		"startDate": "2016/06/15",
+		"startTime": "09:00",
+		"endTime": "12:00",
+		"title": "Talking Tours of the MG",
+		"location": "default",
+		"content": "Don't miss our talking tours of the MG in the Crowne A Ballroom. Each of the Registers will have one or two examples of 'Models of the Marque' on display while experts walk and talk you through the car. You will be able to visualize how MG engineering progressed through the years, beginning with the Triple M models. We guarantee that this will be a learning experience for you!"
+	}, {
+		"id": "331",
+		"startDate": "2016/06/15",
+		"startTime": "09:00",
+		"endTime": "10:00",
+		"title": "Tech Session - Why did they do that?",
+		"location": "default",
+		"content": "Presented by Kelvin Dodd"
+	}, {
+		"id": "332",
+		"startDate": "2016/06/15",
+		"startTime": "09:00",
+		"endTime": "10:00",
+		"title": "Tech Session - Circumnavigating the World in Classic MGs",
+		"location": "default",
+		"content": "Presented by Dave Godwin"
+	}, {
+		"id": "333",
+		"startDate": "2016/06/15",
+		"startTime": "09:00",
+		"endTime": "10:30",
+		"title": "Tech Session - 5 Speed for Post-War MGs",
+		"location": "default",
+		"content": "Presented by Bruce Woodson"
+	}, {
+		"id": "334",
+		"startDate": "2016/06/15",
+		"startTime": "09:00",
+		"endTime": "11:30",
+		"title": "Tech Session - Rolling",
+		"location": "default",
+		"content": "Presented by <b>John Twist</b>"
+	}, {
+		"id": "335",
+		"startDate": "2016/06/15",
+		"startTime": "10:30",
+		"endTime": "11:30",
+		"title": "Tech Session - Originality and the MGB",
+		"location": "default",
+		"content": "Presented by Lloyd Faust"
+	}, {
+		"id": "336",
+		"startDate": "2016/06/15",
+		"startTime": "10:30",
+		"endTime": "11:30",
+		"title": "Tech Session - Insurance: Hagerty Valuation",
+		"location": "default",
+		"content": "Presented by Hagerty"
+	}, {
+		"id": "337",
+		"startDate": "2016/06/15",
+		"startTime": "14:30",
+		"title": "Tech Session - Tuning by the Numbers",
+		"location": "default",
+		"content": "Presented by Dave Braun"
+	}, {
+		"id": "338",
+		"startDate": "2016/06/15",
+		"startTime": "13:00",
+		"endTime": "14:00",
+		"title": "Tech Session - Restoration Tips to Save Time/Money",
+		"location": "default",
+		"content": "Presented by Doug Pelton"
+	}, {
+		"id": "339",
+		"startDate": "2016/06/15",
+		"startTime": "13:00",
+		"endTime": "15:30",
+		"title": "Tech Session - Rolling",
+		"location": "default",
+		"content": "Presented by <b>John Twist</b>"
+	}, {
+		"id": "340",
+		"startDate": "2016/06/15",
+		"startTime": "13:00",
+		"endTime": "14:00",
+		"title": "Tech Session - MG/T Series Coachwork",
+		"location": "default",
+		"content": "Presented by Horst Schach"
+	}, {
+		"id": "341",
+		"startDate": "2016/06/15",
+		"startTime": "14:30",
+		"endTime": "15:30",
+		"title": "Tech Session - MG V8 Conversions",
+		"location": "default",
+		"content": "Presented by Pete Mantell"
+	}, {
+		"id": "350",
+		"startDate": "2016/06/15",
+		"startTime": "08:30",
+		"endTime": "16:00",
+		"title": "Bourbon Trail/Bardstown Tour",
+		"location": "Leaves from Crowne Plaza",
+		"mapLocation": "38.1900409,-85.7529637",
+		"content": "Hop on the bus and leave the driving to us.\nEnjoy a tour of Stephen Foster's 'My Old Kentucky Home', explore the Heritage Bourbon Center along with a tasting, downtown Bardstown where you can select one of the many eating options for lunch, and last but not least a stop at Jim Beam for complimentary tastings and for any who wish to purchase a barn tour."
+	}, {
+		"id": "351",
+		"startDate": "2016/06/15",
+		"startTime": "11:00",
+		"endTime": "15:30",
+		"title": "MGB Drive in Southern Indiana",
+		"content": "This follow the leader drive of about 90 miles round trip, travels some of the most scenic roads in southern IN and will be offered Tuesday and Wednesday (limited to 15 MGB's each day). We leave from New Albany IN and travel back roads to Corydon IN, our first capital, stop for a break on the 'Square'. From there, we travel to the Overlook restaurant for lunch and a panoramic view of the Ohio river from their dining room. After Lunch we will travel back to Corydon a different way, and on to The Turtle Winery. After the tasting, the trip back to New Albany will take about 30 minutes for a total trip time of about 5 hours. Cost involved is anything you buy in shops on the Square, food ordered off the menu at the Overlook, and your wine at the Turtle."
+	}, {
+		"id": "352",
+		"startDate": "2016/06/15",
+		"startTime": "09:00",
+		"title": "Bus trip to Bernheim Forest, Winery and Zappos",
+		"location": "Leaves from Crowne Plaza",
+		"mapLocation": "38.1900409,-85.7529637",
+		"content": "Variety is the spice of life! Enjoy a visit to beautiful 14,378 acre Bernheim Forest (bernheim.org) where we will be entertained and enlightened with a program on edible weeds and other wild plants. Included in the program will be a short walk to observe and identify plants and then recipes and a small sampling of the edibles.\nClose to Bernheim we will visit Forest Edge Winery and have a sample tasting of award winning wines. Leaving the forest area we will travel a few miles to Slow Poke Farm and enjoy a private lunch. Comfortably satiated with food, a few more miles down the road will bring us to Zappo's (6pm.com) Shoe Outlet which also has some clothing and purses. Shop for an hour and then a pleasant ride back to the Crowne Plaza will end our varied tour.\n<i>Starting time to be confirmed.</i>"
+	}, {
+		"id": "353",
+		"startDate": "2016/06/15",
+		"startTime": "18:00",
+		"endTime": "22:00",
+		"title": "Churchill Downs",
+		"location": "Derby Museum",
+		"mapLocation": "38.2028492,-85.771889",
+		"content": "Due to the overwhelming popularity of the Churchill Downs event, we have added a second opportunity on Wednesday evening - exactly the same as Monday's event.\nOur gala cocktail reception will run from 6pm to 10pm at the Derby Museum. You will be free to explore the exhibits and take pictures; there will be guided tours of the grounds available which is included in your ticket price. You may even have a surprise or two waiting for you!\n<b>Please plan on eating a meal before or after your visit to the museum as there will only be lite snacks available during the event, with a Cash Bar.</b>\n"
+	}, {
+		"id": "360",
+		"startDate": "2016/06/15",
+		"startTime": "19:00",
+		"title": "Wednesday Fun Auction",
+		"location": "default",
+		"content": "Join us Wednesday evening in the Crowne Plaza Ballroom where you can pick up your 'Silent Auction' items that you've won and where we will conduct a 'Live Auction' of items donated by our vendors and registrants. There will be bargains to be had, you can be sure! Cash, check, and credit card accepted! Don't miss out...that one thing you've been needing for your MG just might be yours at a bargain price!\n<i>Starting time to be confirmed.</i>"
+	}, {
+		"id": "410",
+		"startDate": "2016/06/16",
+		"startTime": "09:00",
+		"endTime": "14:00",
+		"title": "MG 2016 Car Show",
+		"location": "Downtown Louisville's Waterfront Park",
+		"mapLocation": "38.2591286,-85.7507301",
+		"content": "Rocker cover races will be held at the car show.\nMr. Dennis Gage of television's 'My Classic Car' will be our guest on Thursday. He will be on the showfield during the day where he will be 'swapping lies and kicking tyres' with you"
+	}, {
+		"id": "460",
+		"startDate": "2016/06/16",
+		"startTime": "09:30",
+		"endTime": "15:30",
+		"title": "Outlet Mall Shuttle Bus",
+		"location": "default",
+		"content": "Not interested in spending the day at the car show on Thursday? How about taking our dedicated coach from the Crowne Plaza to the Outlet Shoppes of the Blugerass! There you'll find over 80 'Big Name' shops to keep you busy for a good part of the day while others are kicking tyres at the car show. But don't worry, you'll be back in time for Thursday night festivities at the Crowne Plaza."
+	}, {
+		"id": "470",
+		"startDate": "2016/06/16",
+		"startTime": "17:00",
+		"endTime": "19:00",
+		"title": "Pre-Banquet Awards",
+		"location": "default",
+		"content": "Join other members of your national Register at an informal gathering for cocktails (cash bar), fun, and camaraderie for an hour or so as awards are presented to class winners of Second Place on.\n<i>First Place winners and other 'special awards' will be presented at the Awards Banquet which immediately follows this event in Crowne Ballroom at the Crowne Plaza.</i>"
+	}, {
+		"id": "471",
+		"startDate": "2016/06/16",
+		"startTime": "19:00",
+		"title": "Award's Banquet",
+		"location": "default",
+		"content": "Don't miss our gala Awards Banquet on Thursday night at the Crowne Plaza. Held in the Crowne Ballrooms A-B-C, we will have a fantastic buffet meal and cash bar waiting for you. The 'BLUEGRASS BUFFET' will consist of Pork Chops with a Bourbon Reduction, BBQ Pork Ribs, Cornmeal Encrusted Catfish, Fried Chicken Thighs, Wings & Legs, Breast of Chicken with Sorghum & Smoked Bacon, Mom's Meatloaf with a Brown Sugar Tomato Crust The buffet also includes Country Style Green Beans, Traditional Southern Greens, Hand Mashed Potatoes, and Cinnamon Apples. After the meal, we will enjoy 'words of wisdom' from our keynote speaker, Dennis Gage, which will be followed by the presentation of First Class awards by Register along with some special awards. We promise to keep things 'moving along' for you!"
+	}]
+}
