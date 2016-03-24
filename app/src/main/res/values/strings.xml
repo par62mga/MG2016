@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MG 2016</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- navigation drawer strings -->
+    <string name="drawer_title">MG 2016</string>
+    <string name="drawer_subtitle">Louisville, KY</string>
+    <string name="drawer_news">News</string>
+    <string name="drawer_events">Event diary</string>
+    <string name="drawer_lodging">Lodging information</string>
+    <string name="drawer_contact_us">Contact us</string>
+
+</resources>

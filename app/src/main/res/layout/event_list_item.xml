@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/event_time"
+        android:layout_marginTop="8dp"
+        android:paddingTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:paddingLeft="8dp"
+        android:paddingStart="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:paddingRight="8dp"
+        android:paddingEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:paddingBottom="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="80dp"
+        android:orientation="vertical"
+        android:background="@color/colorPrimary">
+        <TextView
+            android:id="@+id/event_start"
+            style="@style/Text.LightTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="9:00am"/>
+        <TextView
+            style="@style/Text.LightTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="-" />
+        <TextView
+            android:id="@+id/event_end"
+            style="@style/Text.LightSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|end"
+            android:text="2:00pm"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/event_title"
+        style="@style/Text.ListTitle"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/event_time"
+        android:layout_toEndOf="@id/event_time"
+        android:text="MG2016 Car Show"/>
+    <TextView
+        android:id="@+id/event_subtitle"
+        style="@style/Text.ListSubtitle"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/event_time"
+        android:layout_toEndOf="@id/event_time"
+        android:layout_below="@id/event_title"
+        android:text="Waterfront Park\nRocker Cover Races at Show"/>
+
+</RelativeLayout>

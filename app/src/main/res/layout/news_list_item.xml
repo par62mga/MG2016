@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="72dp">
+    <ImageView
+        android:id="@+id/news_thumbnail"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/news_placeholder"/>
+    <TextView
+        android:id="@+id/news_title"
+		style="@style/Text.ListTitle"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/news_thumbnail"
+        android:layout_toEndOf="@id/news_thumbnail" />
+    <TextView
+        android:id="@+id/news_date"
+		style="@style/Text.ListSubtitle"
+		android:layout_marginTop="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_toRightOf="@id/news_thumbnail"
+        android:layout_toEndOf="@id/news_thumbnail"
+        android:layout_below="@id/news_title"/>
+</RelativeLayout>

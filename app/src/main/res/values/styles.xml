@@ -1,0 +1,65 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="AppTheme.SplashScreen">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Text.ListTitle" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textColor">@color/colorTextLabel</item>
+        <item name="android:textSize">@dimen/list_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.ListSubtitle" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">@color/colorTextValue</item>
+        <item name="android:textSize">@dimen/list_subtitle_text_size</item>
+    </style>
+
+    <style name="Text.ListDetail" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/colorTextValue</item>
+        <item name="android:textSize">@dimen/list_detail_text_size</item>
+    </style>
+
+    <style name="Text.LightTitle" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textColor">@color/colorTextLight</item>
+        <item name="android:textSize">@dimen/list_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.LightSubtitle" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">@color/colorTextLight</item>
+        <item name="android:textSize">@dimen/list_subtitle_text_size</item>
+    </style>
+
+    <style name="Text.DetailTitle" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textColor">@color/colorTextLabel</item>
+        <item name="android:textSize">@dimen/detail_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.DetailSubtitle" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">@color/colorTextLabel</item>
+        <item name="android:textSize">@dimen/detail_subtitle_text_size</item>
+    </style>
+
+    <style name="Text.DetailBody" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/colorTextValue</item>
+        <item name="android:textSize">@dimen/detail_body_text_size</item>
+    </style>
+
+</resources>

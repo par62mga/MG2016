@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#005891</color>
+    <color name="colorPrimaryDark">#003d65</color>
+    <color name="colorAccent">#F44336</color>
+
+    <!-- old nav bar colors
+    <color name="colorNavBarStart">#B0BEC5</color>
+    <color name="colorNavBarCenter">#78909C</color>
+    <color name="colorNavBarEnd">#1565C0</color>
+    -->
+    <color name="colorNavBarStart">#FFECB3</color>
+    <color name="colorNavBarCenter">#FFC107</color>
+    <color name="colorNavBarEnd">#FF6F00</color>
+
+    <color name="colorBackgroundDark">#FFECB3</color>
+    <color name="colorBackgroundLight">#FFFFFF</color>
+    <color name="colorBorder">#999999</color>
+
+    <color name="colorTextLabel">#000000</color>
+    <color name="colorTextValue">#003d65</color>
+    <color name="colorTextLight">#FFFFFF</color>
+
+</resources>
