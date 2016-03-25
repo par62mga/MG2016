@@ -2,8 +2,10 @@
 	"appConfig": {
 		"tzOffset": "-4",
 		"syncInterval": "1",
-		"baseImageURL": "http://serverxyz.com/images",
-		"contactImage": "contactUs.jpg",
+		"productionURL": "http://ec2-52-9-163-231.us-west-1.compute.amazonaws.com:8080/production",
+		"testURL": "http://ec2-52-9-163-231.us-west-1.compute.amazonaws.com:8080/test",
+		"imageFolder": "/images",
+		"contactImage": "contact.bmp",
 		"contactEmail": "appsupport@serverxyz.com",
 		"defaultLocation": "Crowne Plaza",
 		"defaultMap": "38.1900409,-85.7529637",
@@ -14,7 +16,7 @@
 	"lodgingInfo": [{
 		"id": "1",
 		"image": "comfort.png",
-		"name": "Comfort Suites",
+		"name": "Comfort Inn & Suites",
 		"addr1": "653 Phillips Ln",
 		"addr2": "Louisville, KY 40209",
 		"phone": "502-375-2233",

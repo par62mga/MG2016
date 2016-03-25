@@ -2,7 +2,8 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    // NOTE: using old build tools version as using 23.0.2 results in Samsung S3 crash
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "com.pkrobertson.demo.mg2016"
