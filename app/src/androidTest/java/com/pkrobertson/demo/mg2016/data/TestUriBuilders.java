@@ -1,22 +1,14 @@
-package com.pkrobertson.demo.mg2016;
+package com.pkrobertson.demo.mg2016.data;
 
-import android.app.Application;
 import android.net.Uri;
-import android.test.ApplicationTestCase;
+import android.test.AndroidTestCase;
 import android.util.Log;
 
-import com.pkrobertson.demo.mg2016.data.DatabaseContract;
-
 /**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
+ * Created by Phil Robertson on 3/29/2016.
  */
-public class ApplicationTest extends ApplicationTestCase<Application> {
-    private static final String LOG_TAG = ApplicationTest.class.getSimpleName();
-
-    public ApplicationTest() {
-        super(Application.class);
-        Log.d(LOG_TAG, "Tests Finished");
-    }
+public class TestUriBuilders extends AndroidTestCase {
+    private static final String LOG_TAG = TestUriBuilders.class.getSimpleName();
 
     public void testConfigUri () {
         Uri testUri = DatabaseContract.ConfigEntry.buildConfigUri(0);

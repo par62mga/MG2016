@@ -2,7 +2,7 @@
 
 ## Background
 
-Udacity Android Developer Nanodegree final project (presently under construction: task 1 complete).
+Udacity Android Developer Nanodegree final project (presently under construction: task 5 complete).
 
 **Project Requirements**
 

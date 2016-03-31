@@ -73,7 +73,7 @@ public class DatabaseContract {
         public static final String SQL_CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
                 _ID + " INTEGER PRIMARY KEY," +
                 COLUMN_TZ_OFFSET + " TEXT NOT NULL, " +
-                COLUMN_SYNC_INTERVAL + " INTEGER NOT NULL " +
+                COLUMN_SYNC_INTERVAL + " INTEGER NOT NULL, " +
                 COLUMN_PROD_URL + " TEXT NOT NULL, " +
                 COLUMN_TEST_URL + " TEXT NOT NULL, " +
                 COLUMN_IMAGE_FOLDER + " TEXT NOT NULL, " +
@@ -209,9 +209,6 @@ public class DatabaseContract {
         // long: start time
         public static final String COLUMN_START_TIME = "start_time";
 
-        // long: end date
-        public static final String COLUMN_END_DATE = "end_date";
-
         // long: end time
         public static final String COLUMN_END_TIME = "end_time";
 
@@ -232,7 +229,6 @@ public class DatabaseContract {
                 _ID + " INTEGER PRIMARY KEY," +
                 COLUMN_START_DATE + " INTEGER NOT NULL, " +
                 COLUMN_START_TIME + " INTEGER NOT NULL, " +
-                COLUMN_END_DATE + " INTEGER, " +
                 COLUMN_END_TIME + " INTEGER, " +
                 COLUMN_TITLE + " TEXT NOT NULL, " +
                 COLUMN_LOCATION + " TEXT, " +
