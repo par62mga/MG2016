@@ -1,7 +1,8 @@
 {
 	"appConfig": {
 		"tzOffset": "-4",
-		"syncInterval": "1",
+		"syncMinutes": "60",
+		"flexMinutes": "20",
 		"productionURL": "http://ec2-52-9-163-231.us-west-1.compute.amazonaws.com:8080/production",
 		"testURL": "http://ec2-52-9-163-231.us-west-1.compute.amazonaws.com:8080/test",
 		"imageFolder": "/images",

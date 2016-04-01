@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">MG 2016</string>
-    <string name="content_authority">com.pkrobertson.demo.mg2016</string>
+
+    <!-- Content Provider and Sync Adapter settings -->
+    <string name="content_authority" translatable="false">com.pkrobertson.demo.mg2016</string>
+    <string name="sync_account_type" translatable="false">mg2016.demo.pkrobertson.com</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -14,5 +17,8 @@
     <string name="drawer_events">Event diary</string>
     <string name="drawer_lodging">Lodging information</string>
     <string name="drawer_contact_us">Contact us</string>
+
+    <!-- Key name for storing location status in SharedPreferences -->
+    <string name="pref_server_status_key" translatable="false">server-status</string>
 
 </resources>

@@ -15,7 +15,7 @@ import com.pkrobertson.demo.mg2016.data.DatabaseContract.EventsEntry;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Update the version number when the schema changes
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     static final String DATABASE_NAME = "mg2016.db";
 

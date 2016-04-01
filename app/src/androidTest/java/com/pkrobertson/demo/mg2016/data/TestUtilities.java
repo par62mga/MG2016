@@ -46,7 +46,8 @@ public class TestUtilities extends AndroidTestCase {
         ContentValues configValues = new ContentValues();
         configValues.put(DatabaseContract.ConfigEntry._ID, 1);
         configValues.put(DatabaseContract.ConfigEntry.COLUMN_TZ_OFFSET, -5);
-        configValues.put(DatabaseContract.ConfigEntry.COLUMN_SYNC_INTERVAL, 1);
+        configValues.put(DatabaseContract.ConfigEntry.COLUMN_SYNC_MINUTES, 1);
+        configValues.put(DatabaseContract.ConfigEntry.COLUMN_FLEX_MINUTES, 1);
         configValues.put(DatabaseContract.ConfigEntry.COLUMN_PROD_URL, "prod");
         configValues.put(DatabaseContract.ConfigEntry.COLUMN_TEST_URL, "test");
         configValues.put(DatabaseContract.ConfigEntry.COLUMN_IMAGE_FOLDER, "/images");

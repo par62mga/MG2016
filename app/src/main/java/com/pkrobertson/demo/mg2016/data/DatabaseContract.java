@@ -23,6 +23,28 @@ public class DatabaseContract {
     public static final String PATH_EVENTS  = "events";
 
     // TODO: normalize dates and times as longs
+    public static long toDate (String dateFromServer) {
+        if (dateFromServer.length()  == 10  &&
+            dateFromServer.charAt(4) == '/' &&
+            dateFromServer.charAt(7) == '/'    ) {
+            long year  = Long.parseLong(dateFromServer.substring(0, 4));
+            long month = Long.parseLong(dateFromServer.substring(5, 7));
+            long day   = Long.parseLong(dateFromServer.substring(8));
+            return year * 10000 + month * 100 + day;
+        } else {
+            return -1;
+        }
+    }
+
+    public static long toTime (String timeFromServer) {
+        if (timeFromServer.length() == 5 && timeFromServer.charAt(2) == ':') {
+            long hour   = Long.parseLong(timeFromServer.substring(0, 2));
+            long minute = Long.parseLong(timeFromServer.substring(3));
+            return hour * 100 + minute;
+        } else {
+            return -1;
+        }
+    }
 
     /**
      * ConfigEntry -- Inner class that defines content of the app config table
@@ -42,8 +64,11 @@ public class DatabaseContract {
         // long: time zone offset
         public static final String COLUMN_TZ_OFFSET = "tz_offset";
 
-        // long: app sync interval (in hours)
-        public static final String COLUMN_SYNC_INTERVAL = "sync_interval";
+        // long: app sync interval
+        public static final String COLUMN_SYNC_MINUTES = "sync_minutes";
+
+        // long: app sync flex
+        public static final String COLUMN_FLEX_MINUTES = "flex_minutes";
 
         // string: production URL of web server
         public static final String COLUMN_PROD_URL = "prod_url";
@@ -73,7 +98,8 @@ public class DatabaseContract {
         public static final String SQL_CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
                 _ID + " INTEGER PRIMARY KEY," +
                 COLUMN_TZ_OFFSET + " TEXT NOT NULL, " +
-                COLUMN_SYNC_INTERVAL + " INTEGER NOT NULL, " +
+                COLUMN_SYNC_MINUTES + " INTEGER NOT NULL, " +
+                COLUMN_FLEX_MINUTES + " INTEGER NOT NULL, " +
                 COLUMN_PROD_URL + " TEXT NOT NULL, " +
                 COLUMN_TEST_URL + " TEXT NOT NULL, " +
                 COLUMN_IMAGE_FOLDER + " TEXT NOT NULL, " +
@@ -179,8 +205,8 @@ public class DatabaseContract {
                 COLUMN_TIME + " INTEGER NOT NULL, " +
                 COLUMN_IMAGE + " TEXT NOT NULL, " +
                 COLUMN_TITLE + " TEXT NOT NULL, " +
-                COLUMN_BYLINE1 + " TEXT NOT NULL, " +
-                COLUMN_BYLINE2 + " TEXT NOT NULL, " +
+                COLUMN_BYLINE1 + " TEXT, " +
+                COLUMN_BYLINE2 + " TEXT, " +
                 COLUMN_CONTENT + " TEXT NOT NULL );";
 
         public static Uri buildNewsUri(long id) {

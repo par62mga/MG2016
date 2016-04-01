@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
+import com.pkrobertson.demo.mg2016.sync.AppSyncAdapter;
+
 /**
  * SplashScreen -- simple activity to show splash screen while initializing/updating
  *     the local database.
@@ -20,7 +22,10 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash);
+
         // initialize database and sync adapter here
+        AppSyncAdapter.initializeSyncAdapter(this);
+
         String randomContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae mollis ipsum. Aenean id odio nisi. Proin suscipit efficitur vehicula. Proin laoreet ipsum non tincidunt dapibus. Nam ultricies justo in libero aliquet tempor. Phasellus congue eget arcu eget tempus. Praesent sodales turpis ac velit ultricies venenatis. Fusce vehicula in sapien eget mattis. Quisque pulvinar sem at nisl varius, sit amet tempor tellus molestie. Quisque eget nisi nulla. Nullam ullamcorper dui a justo pharetra imperdiet. Curabitur elementum erat ipsum, molestie tempus ex euismod quis.\n" +
                 "\n" +
                 "Nullam sodales mi eu dui pulvinar luctus. Aenean ut nulla venenatis, semper diam eu, gravida nisi. Aenean vehicula enim in elit pulvinar suscipit. Donec massa ipsum, fringilla a commodo ut, venenatis vitae tellus. Vivamus lacinia est dui. Ut eros augue, suscipit sit amet suscipit et, gravida sed elit. Nulla ut lobortis urna. Pellentesque lobortis ac nisl eget gravida. Aenean tristique risus purus. Nunc ullamcorper ante ut mi pharetra, vel dapibus augue consectetur. Ut placerat purus sed purus rhoncus vestibulum. Sed sed dolor ligula.";
