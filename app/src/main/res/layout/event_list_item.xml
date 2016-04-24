@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/selectable">
+
     <LinearLayout
         android:id="@+id/event_time"
-        android:layout_marginTop="8dp"
-        android:paddingTop="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:paddingLeft="8dp"
-        android:paddingStart="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
-        android:paddingRight="8dp"
-        android:paddingEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:paddingBottom="8dp"
+        android:layout_marginTop="4dp"
+        android:paddingTop="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginEnd="4dp"
+        android:paddingRight="4dp"
+        android:paddingEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:paddingBottom="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="80dp"
         android:orientation="vertical"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorEventDefault">
         <TextView
             android:id="@+id/event_start"
             style="@style/Text.LightTitle"
@@ -45,7 +47,7 @@
     <TextView
         android:id="@+id/event_title"
         style="@style/Text.ListTitle"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginRight="8dp"
@@ -59,15 +61,21 @@
         android:id="@+id/event_subtitle"
         style="@style/Text.ListSubtitle"
         android:layout_marginTop="4dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginRight="8dp"
         android:layout_marginEnd="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/event_time"
-        android:layout_toEndOf="@id/event_time"
-        android:layout_below="@id/event_title"
-        android:text="Waterfront Park\nRocker Cover Races at Show"/>
+        android:layout_below="@id/event_time"
+        android:text="Waterfront Park\nRocker Cover Races at Show"
+        android:maxLines="2"
+        android:ellipsize="end"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:layout_below="@id/event_subtitle"
+        android:background="@color/colorPrimaryDark"/>
 
 </RelativeLayout>

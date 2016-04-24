@@ -1,6 +1,7 @@
 package com.pkrobertson.demo.mg2016;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.pkrobertson.demo.mg2016.data.AppConfig;
+import com.pkrobertson.demo.mg2016.data.DatabaseContract;
+import com.pkrobertson.demo.mg2016.data.DateTimeHelper;
 
 import java.util.List;
 
@@ -28,8 +33,11 @@ public class EventPagerFragment extends Fragment {
 
     private static final String ARG_ACTION = "action";
 
+    private static Context mContext;
+
     private ViewPager mEventViewPager;
     private EventPagerAdapter mEventPagerAdapter;
+
 
     private String mAction = null;
 
@@ -64,7 +72,8 @@ public class EventPagerFragment extends Fragment {
 
         View fragmentView = inflater.inflate(R.layout.fragment_event_pager, container, false);
 
-        mEventViewPager = (ViewPager) fragmentView.findViewById(R.id.event_pager);
+        mContext = getActivity();
+        mEventViewPager = (ViewPager)fragmentView.findViewById(R.id.event_pager);
         mEventPagerAdapter = new EventPagerAdapter(getActivity().getSupportFragmentManager());
         mEventViewPager.setAdapter(mEventPagerAdapter);
 
@@ -75,34 +84,59 @@ public class EventPagerFragment extends Fragment {
     public void onResume () {
         super.onResume();
 
-        Utility.updateActionBarTitle(getActivity(), getString(R.string.drawer_events));
+        Utility.updateActionBarTitle(getActivity(), getString(R.string.title_events));
     }
 
     public static class EventPagerAdapter extends FragmentPagerAdapter {
-        private static int NUM_ITEMS = 4;
+        private static final int MAX_ITEMS = 7;
+
+        private long mStartDate;
+        private long mNumberPages;
+
+        //TODO: change starting page based on today's date
+        //TODO: change day name to "TODAY" or "TOMORROW"
 
         public EventPagerAdapter (FragmentManager fragmentManager) {
             super(fragmentManager);
+
+            AppConfig appConfig = AppConfig.getInstance(mContext);
+            mStartDate = appConfig.getStartDate();
+            mNumberPages = DateTimeHelper.getNumberDays(appConfig.getEndDate(), mStartDate) + 1;
+            Log.d (LOG_TAG, "EventPagerAdapter() == numPages " + mNumberPages);
+            if (mNumberPages > MAX_ITEMS) {
+                mNumberPages = MAX_ITEMS;
+            }
         }
 
         @Override
         public int getCount () {
-            return NUM_ITEMS;
+            return (int)mNumberPages;
         }
 
         @Override
         public Fragment getItem (int position) {
-            return EventListFragment.newInstance (EventListFragment.DEFAULT);
+            long thisDate = DateTimeHelper.addNumberDays(mStartDate, position);
+            Log.d (LOG_TAG, "getItem position, startDate, thisDate ==> " +
+                    position + "; " +
+                    mStartDate + "; " +
+                    thisDate + "; ");
+            return EventListFragment.newInstance (
+                    DatabaseContract.EventsEntry.buildEventsUriWithStartDate(
+                            thisDate).toString());
         }
 
         @Override
         public CharSequence getPageTitle (int position) {
-            switch (position) {
+            return DateTimeHelper.formatDate (
+                    "EEE - dd MMMM",
+                    DateTimeHelper.addNumberDays(mStartDate, position));
+            /*switch (position) {
                 case 0:  return "MON - 13th June";
                 case 1:  return "TUE - 14th June";
                 case 2:  return "WED - 15th June";
                 default: return "THU - 16th June";
             }
+            */
         }
 
     }

@@ -13,12 +13,23 @@
     <color name="colorNavBarCenter">#FFC107</color>
     <color name="colorNavBarEnd">#FF6F00</color>
 
-    <color name="colorBackgroundDark">#FFECB3</color>
+    <color name="colorBackgroundSelected">#FFECB3</color>
     <color name="colorBackgroundLight">#FFFFFF</color>
     <color name="colorBorder">#999999</color>
 
     <color name="colorTextLabel">#000000</color>
     <color name="colorTextValue">#003d65</color>
     <color name="colorTextLight">#FFFFFF</color>
+
+    <!-- define colors for event categories that line up mostly with the web site
+    -->
+    <color name="colorEventDefault">#616161</color>
+    <color name="colorEvent10">#388E3C</color>
+    <color name="colorEvent20">#689F38</color>
+    <color name="colorEvent30">#F57C00</color>
+    <color name="colorEvent40">#F57C00</color>
+    <color name="colorEvent50">#0288D1</color>
+    <color name="colorEvent60">#F44336</color>
+    <color name="colorEvent70">#616161</color>
 
 </resources>

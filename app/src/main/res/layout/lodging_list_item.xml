@@ -1,74 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="72dp">
+    android:minHeight="72dp"
+    android:background="@drawable/selectable">
+
     <ImageView
         android:id="@+id/lodging_thumbnail"
-        android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="80dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:src="@drawable/lodging_placeholder"/>
+    <LinearLayout
+        android:id="@+id/lodging_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_toRightOf="@id/lodging_thumbnail"
+        android:layout_toEndOf="@id/lodging_thumbnail"
+        android:orientation="vertical">
     <TextView
         android:id="@+id/lodging_title"
         style="@style/Text.ListTitle"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/lodging_thumbnail"
-        android:layout_toEndOf="@id/lodging_thumbnail"/>
+        android:layout_marginBottom="4dp"
+        android:text="Hampton Inn"/>
     <TextView
         android:id="@+id/lodging_address"
         style="@style/Text.ListSubtitle"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/lodging_thumbnail"
-        android:layout_toEndOf="@id/lodging_thumbnail"
-        android:layout_below="@id/lodging_title"/>
+        android:layout_marginBottom="4dp"
+        android:text="123 Daisy Way\nAustin, TX 12374"
+        android:autoLink="map"/>
     <TextView
         android:id="@+id/lodging_phone"
         style="@style/Text.ListSubtitle"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/lodging_thumbnail"
-        android:layout_toEndOf="@id/lodging_thumbnail"
-        android:layout_below="@id/lodging_address"/>
-    <ImageButton
-        android:id="@+id/lodging_more"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
-        android:padding="8dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorAccent"
-        android:src="@drawable/ic_show_more"/>
+        android:layout_marginBottom="4dp"
+        android:text="972-727-2727"
+        android:autoLink="phone"/>
+    </LinearLayout>
     <TextView
         android:id="@+id/lodging_detail"
         style="@style/Text.ListDetail"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginEnd="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lodging_phone"
-        android:visibility="invisible"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_below="@id/lodging_info"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae mollis ipsum. Aenean id odio nisi. Proin suscipit efficitur vehicula. Proin laoreet ipsum non tincidunt dapibus. Nam ultricies justo in libero aliquet tempor. Phasellus congue eget arcu eget tempus. Praesent sodales turpis ac velit ultricies venenatis. Fusce vehicula in sapien eget mattis. Quisque pulvinar sem at nisl varius, sit amet tempor tellus molestie. Quisque eget nisi nulla. Nullam ullamcorper dui a justo pharetra imperdiet. Curabitur elementum erat ipsum, molestie tempus ex euismod quis."
+        android:maxLines="1"
+        android:ellipsize="end"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:layout_below="@id/lodging_detail"
+        android:background="@color/colorPrimaryDark"/>
+
 </RelativeLayout>

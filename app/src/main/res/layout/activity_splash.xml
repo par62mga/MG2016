@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/splash_logo"
-        android:layout_width="120dp"
-        android:layout_height="240dp"
+        android:layout_width="240dp"
+        android:layout_height="480dp"
         android:paddingBottom="96dp"
         android:src="@drawable/ic_mg2016_logo"
         android:layout_gravity="center"/>

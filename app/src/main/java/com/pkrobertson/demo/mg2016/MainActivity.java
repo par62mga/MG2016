@@ -24,8 +24,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements  NavigationView.OnNavigationItemSelectedListener,
-                    NewsListFragment.OnFragmentInteractionListener,
-                    EventListFragment.OnFragmentInteractionListener {
+                    NewsListAdapter.OnNewsListInteraction {
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private Toolbar      mToolbar;
@@ -59,9 +58,11 @@ public class MainActivity extends AppCompatActivity
         }
 
         // show news list
-        NewsListFragment fragment = NewsListFragment.newInstance(NewsListFragment.DEFAULT);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(R.id.container, fragment).commit();
+        if (savedInstanceState == null) {
+            NewsListFragment fragment = NewsListFragment.newInstance(NewsListFragment.DEFAULT);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().add(R.id.container, fragment).commit();
+        }
     }
 
     @Override
@@ -131,9 +132,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction(NewsItem selectedItem) {
-        NewsDetailFragment fragment = NewsDetailFragment.newInstance(NewsDetailFragment.DEFAULT);
-        fragment.setNewsItem(selectedItem);
+    public void onNewsListInteraction(String newsUri) {
+        NewsDetailFragment fragment = NewsDetailFragment.newInstance(newsUri);
         FragmentManager fm = getSupportFragmentManager();
         if (mDrawer == null) {
             fragment.show (fm, NewsDetailFragment.FRAGMENT_TAG);
@@ -145,11 +145,4 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public void onFragmentInteraction(EventItem selectedItem) {
-        // TBD -- need to turn on/off highlight and show options
-        // turn on/off notification setting for this event
-        // export to calendar
-        // view location on map
-    }
 }

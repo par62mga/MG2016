@@ -3,11 +3,17 @@ package com.pkrobertson.demo.mg2016;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.pkrobertson.demo.mg2016.data.AppConfig;
+import com.pkrobertson.demo.mg2016.data.DatabaseContract;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by Phil Robertson on 3/17/2016.
@@ -21,8 +27,6 @@ public class ContactUsFragment extends Fragment  {
 
     private static final String ARG_ACTION = "action";
 
-    private ImageView mImageViewPhoto;
-    private TextView  mTextViewContent;
     private FloatingActionButton mActionButtonEmail;
 
     private String mAction = null;
@@ -78,26 +82,20 @@ public class ContactUsFragment extends Fragment  {
 
     @Override
     public void onResume () {
-        Utility.updateActionBarTitle(getActivity(), getString(R.string.drawer_contact_us));
+        Utility.updateActionBarTitle(getActivity(), getString(R.string.title_contact));
         super.onResume();
     }
 
-    private void setTextViewText (TextView view, String text) {
-        if (text != null) {
-            view.setText (text);
-        } else {
-            view.setText ("");
-        }
-    }
-
     private void initUi(View view) {
-        mImageViewPhoto   = (ImageView)view.findViewById(R.id.news_photo);
+        AppConfig configInfo = AppConfig.getInstance(getActivity());
 
-        mTextViewContent  = (TextView)view.findViewById(R.id.contact_details);
-        setTextViewText(mTextViewContent, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae mollis ipsum. Aenean id odio nisi. Proin suscipit efficitur vehicula. Proin laoreet ipsum non tincidunt dapibus. Nam ultricies justo in libero aliquet tempor. Phasellus congue eget arcu eget tempus. Praesent sodales turpis ac velit ultricies venenatis. Fusce vehicula in sapien eget mattis. Quisque pulvinar sem at nisl varius, sit amet tempor tellus molestie. Quisque eget nisi nulla. Nullam ullamcorper dui a justo pharetra imperdiet. Curabitur elementum erat ipsum, molestie tempus ex euismod quis.\n" +
-                "\n" +
-                "Nullam sodales mi eu dui pulvinar luctus. Aenean ut nulla venenatis, semper diam eu, gravida nisi. Aenean vehicula enim in elit pulvinar suscipit. Donec massa ipsum, fringilla a commodo ut, venenatis vitae tellus. Vivamus lacinia est dui. Ut eros augue, suscipit sit amet suscipit et, gravida sed elit. Nulla ut lobortis urna. Pellentesque lobortis ac nisl eget gravida. Aenean tristique risus purus. Nunc ullamcorper ante ut mi pharetra, vel dapibus augue consectetur. Ut placerat purus sed purus rhoncus vestibulum. Sed sed dolor ligula.");
+        Utility.setImageView ((ImageView)view.findViewById(R.id.contact_photo),
+                getActivity(),
+                configInfo.getContactImageFile(),
+                R.drawable.contact_placeholder);
 
+        Utility.setTextViewFromHTML((TextView) view.findViewById(R.id.contact_details),
+                configInfo.getAboutInfo());
     }
 }
 

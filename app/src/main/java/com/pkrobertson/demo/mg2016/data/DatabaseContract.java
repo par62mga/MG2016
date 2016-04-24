@@ -5,6 +5,9 @@ import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 /**
  * DatabaseContract -- Defines URIs, table and column names for the MG 2016 database. *
  */
@@ -22,29 +25,7 @@ public class DatabaseContract {
     public static final String PATH_NEWS    = "news";
     public static final String PATH_EVENTS  = "events";
 
-    // TODO: normalize dates and times as longs
-    public static long toDate (String dateFromServer) {
-        if (dateFromServer.length()  == 10  &&
-            dateFromServer.charAt(4) == '/' &&
-            dateFromServer.charAt(7) == '/'    ) {
-            long year  = Long.parseLong(dateFromServer.substring(0, 4));
-            long month = Long.parseLong(dateFromServer.substring(5, 7));
-            long day   = Long.parseLong(dateFromServer.substring(8));
-            return year * 10000 + month * 100 + day;
-        } else {
-            return -1;
-        }
-    }
-
-    public static long toTime (String timeFromServer) {
-        if (timeFromServer.length() == 5 && timeFromServer.charAt(2) == ':') {
-            long hour   = Long.parseLong(timeFromServer.substring(0, 2));
-            long minute = Long.parseLong(timeFromServer.substring(3));
-            return hour * 100 + minute;
-        } else {
-            return -1;
-        }
-    }
+    public static final String PATH_ID      = "/#";
 
     /**
      * ConfigEntry -- Inner class that defines content of the app config table
@@ -91,6 +72,12 @@ public class DatabaseContract {
         // string: default location map coordinates for events
         public static final String COLUMN_DEFAULT_MAP = "default_map";
 
+        // string: default location map coordinates for events
+        public static final String COLUMN_START_DATE = "start_date";
+
+        // string: default location map coordinates for events
+        public static final String COLUMN_END_DATE = "end_date";
+
         // string: amount information shown on the contact us page
         public static final String COLUMN_ABOUT_INFO = "about_info";
 
@@ -107,6 +94,8 @@ public class DatabaseContract {
                 COLUMN_CONTACT_EMAIL + " TEXT NOT NULL, " +
                 COLUMN_DEFAULT_LOCATION + " TEXT NOT NULL, " +
                 COLUMN_DEFAULT_MAP + " TEXT NOT NULL, " +
+                COLUMN_START_DATE + " INTEGER NOT NULL, " +
+                COLUMN_END_DATE + " INTEGER NOT NULL, " +
                 COLUMN_ABOUT_INFO + " TEXT NOT NULL );";
 
         public static Uri buildConfigUri(long id) {
@@ -144,6 +133,9 @@ public class DatabaseContract {
         // string: hotel phone number
         public static final String COLUMN_PHONE = "phone";
 
+        // string: hotel phone number
+        public static final String COLUMN_WEBSITE = "website";
+
         // string: hotel details
         public static final String COLUMN_DETAILS = "details";
 
@@ -155,6 +147,7 @@ public class DatabaseContract {
                 COLUMN_ADDRESS1 + " TEXT NOT NULL, " +
                 COLUMN_ADDRESS2 + " TEXT NOT NULL, " +
                 COLUMN_PHONE + " TEXT NOT NULL, " +
+                COLUMN_WEBSITE + " TEXT NOT NULL, " +
                 COLUMN_DETAILS + " TEXT NOT NULL );";
 
         public static Uri buildLodgingUri(long id) {
@@ -184,6 +177,9 @@ public class DatabaseContract {
         public static final String COLUMN_TIME = "time";
 
         // string: news image
+        public static final String COLUMN_THUMBNAIL = "thumbnail";
+
+        // string: news image
         public static final String COLUMN_IMAGE = "image";
 
         // string: news title
@@ -195,6 +191,9 @@ public class DatabaseContract {
         // string: news byline 2
         public static final String COLUMN_BYLINE2 = "byline2";
 
+        // string: news share text
+        public static final String COLUMN_SHARE = "share";
+
         // string: news content
         public static final String COLUMN_CONTENT = "content";
 
@@ -203,10 +202,12 @@ public class DatabaseContract {
                 _ID + " INTEGER PRIMARY KEY," +
                 COLUMN_DATE + " INTEGER NOT NULL, " +
                 COLUMN_TIME + " INTEGER NOT NULL, " +
+                COLUMN_THUMBNAIL + " TEXT NOT NULL, " +
                 COLUMN_IMAGE + " TEXT NOT NULL, " +
                 COLUMN_TITLE + " TEXT NOT NULL, " +
                 COLUMN_BYLINE1 + " TEXT, " +
                 COLUMN_BYLINE2 + " TEXT, " +
+                COLUMN_SHARE + " TEXT NOT NULL, " +
                 COLUMN_CONTENT + " TEXT NOT NULL );";
 
         public static Uri buildNewsUri(long id) {
@@ -228,6 +229,9 @@ public class DatabaseContract {
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_EVENTS;
 
         public static final String TABLE_NAME = PATH_EVENTS;
+
+        // when location is default, use location from config table
+        public static final String DEFAULT_LOCATION = "default";
 
         // long: start date
         public static final String COLUMN_START_DATE = "start_date";

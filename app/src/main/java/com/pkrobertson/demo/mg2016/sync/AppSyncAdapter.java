@@ -19,7 +19,9 @@ import android.support.annotation.IntDef;
 import android.util.Log;
 
 import com.pkrobertson.demo.mg2016.R;
+import com.pkrobertson.demo.mg2016.data.AppConfig;
 import com.pkrobertson.demo.mg2016.data.DatabaseContract;
+import com.pkrobertson.demo.mg2016.data.DateTimeHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -158,9 +160,12 @@ public class AppSyncAdapter extends AbstractThreadedSyncAdapter {
             configValues.put(DatabaseContract.ConfigEntry.COLUMN_CONTACT_EMAIL, configInfo.getString("contactEmail"));
             configValues.put(DatabaseContract.ConfigEntry.COLUMN_DEFAULT_LOCATION, configInfo.getString("defaultLocation"));
             configValues.put(DatabaseContract.ConfigEntry.COLUMN_DEFAULT_MAP, configInfo.getString("defaultMap"));
+            configValues.put(DatabaseContract.ConfigEntry.COLUMN_START_DATE, DateTimeHelper.toDate(configInfo.getString("eventStart")));
+            configValues.put(DatabaseContract.ConfigEntry.COLUMN_END_DATE, DateTimeHelper.toDate(configInfo.getString("eventEnd")));
             configValues.put(DatabaseContract.ConfigEntry.COLUMN_ABOUT_INFO, configInfo.getString("aboutInfo"));
             mContext.getContentResolver().delete(DatabaseContract.ConfigEntry.CONTENT_URI, null, null);
             mContext.getContentResolver().insert(DatabaseContract.ConfigEntry.CONTENT_URI, configValues);
+            AppConfig.forceRefresh();
         }
 
         {// parse lodging info
@@ -174,6 +179,7 @@ public class AppSyncAdapter extends AbstractThreadedSyncAdapter {
                 lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_ADDRESS1, object.getString("addr1"));
                 lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_ADDRESS2, object.getString("addr2"));
                 lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_PHONE, object.getString("phone"));
+                lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_WEBSITE, object.getString("website"));
                 lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_DETAILS, object.getString("details"));
                 contentArray[i] = lodgingValues;
             }
@@ -188,16 +194,18 @@ public class AppSyncAdapter extends AbstractThreadedSyncAdapter {
                 JSONObject    object = newsFeed.getJSONObject(i);
                 ContentValues newsValues = new ContentValues();
                 newsValues.put(DatabaseContract.NewsEntry._ID, object.getLong("id"));
-                newsValues.put(DatabaseContract.NewsEntry.COLUMN_DATE, DatabaseContract.toDate(object.getString("publishDate")));
-                newsValues.put(DatabaseContract.NewsEntry.COLUMN_TIME, DatabaseContract.toTime(object.getString("publishTime")));
+                newsValues.put(DatabaseContract.NewsEntry.COLUMN_DATE, DateTimeHelper.toDate(object.getString("publishDate")));
+                newsValues.put(DatabaseContract.NewsEntry.COLUMN_TIME, DateTimeHelper.toTime(object.getString("publishTime")));
+                newsValues.put(DatabaseContract.NewsEntry.COLUMN_THUMBNAIL, object.getString("thumbnail"));
                 newsValues.put(DatabaseContract.NewsEntry.COLUMN_IMAGE, object.getString("image"));
                 newsValues.put(DatabaseContract.NewsEntry.COLUMN_TITLE, object.getString("title"));
-                if (newsValues.containsKey("byline1")) {
+                if (object.has("byline1")) {
                     newsValues.put(DatabaseContract.NewsEntry.COLUMN_BYLINE1, object.getString("byline1"));
-                    if (newsValues.containsKey("byline2")) {
+                    if (object.has("byline2")) {
                         newsValues.put(DatabaseContract.NewsEntry.COLUMN_BYLINE2, object.getString("byline2"));
                     }
                 }
+                newsValues.put(DatabaseContract.NewsEntry.COLUMN_SHARE, object.getString("share"));
                 newsValues.put(DatabaseContract.NewsEntry.COLUMN_CONTENT, object.getString("content"));
                 contentArray[i] = newsValues;
             }
@@ -212,19 +220,21 @@ public class AppSyncAdapter extends AbstractThreadedSyncAdapter {
                 JSONObject    object = eventDiary.getJSONObject(i);
                 ContentValues eventsValues = new ContentValues();
                 eventsValues.put(DatabaseContract.EventsEntry._ID, object.getLong("id"));
-                eventsValues.put(DatabaseContract.EventsEntry.COLUMN_START_DATE, DatabaseContract.toDate(object.getString("startDate")));
-                eventsValues.put(DatabaseContract.EventsEntry.COLUMN_START_TIME, DatabaseContract.toTime(object.getString("startTime")));
-                if (eventsValues.containsKey("location")) {
-                    eventsValues.put(DatabaseContract.EventsEntry.COLUMN_END_TIME, DatabaseContract.toTime(object.getString("endTime")));
+                eventsValues.put(DatabaseContract.EventsEntry.COLUMN_START_DATE, DateTimeHelper.toDate(object.getString("startDate")));
+                eventsValues.put(DatabaseContract.EventsEntry.COLUMN_START_TIME, DateTimeHelper.toTime(object.getString("startTime")));
+                long endTime = -1;
+                if (object.has("endTime")) {
+                    endTime = DateTimeHelper.toTime(object.getString("endTime"));
                 }
+                eventsValues.put(DatabaseContract.EventsEntry.COLUMN_END_TIME, endTime);
                 eventsValues.put(DatabaseContract.EventsEntry.COLUMN_TITLE, object.getString("title"));
-                if (eventsValues.containsKey("location")) {
+                if (object.has("location")) {
                     eventsValues.put(DatabaseContract.EventsEntry.COLUMN_LOCATION, object.getString("location"));
                 }
-                if (eventsValues.containsKey("mapLocation")) {
+                if (object.has("mapLocation")) {
                     eventsValues.put(DatabaseContract.EventsEntry.COLUMN_MAP_LOCATION, object.getString("mapLocation"));
                 }
-                if (eventsValues.containsKey("content")) {
+                if (object.has("content")) {
                     eventsValues.put(DatabaseContract.EventsEntry.COLUMN_CONTENT, object.getString("content"));
                 }
                 contentArray[i] = eventsValues;

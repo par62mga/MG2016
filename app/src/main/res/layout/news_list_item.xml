@@ -2,12 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="72dp">
+    android:minHeight="72dp"
+    android:background="@drawable/selectable">
+
     <ImageView
         android:id="@+id/news_thumbnail"
-        android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="96dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:src="@drawable/news_placeholder"/>
     <TextView
         android:id="@+id/news_title"
@@ -20,9 +27,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/news_thumbnail"
-        android:layout_toEndOf="@id/news_thumbnail" />
+        android:layout_toEndOf="@id/news_thumbnail"
+        android:text="Welcome to MG 2016"/>
     <TextView
-        android:id="@+id/news_date"
+        android:id="@+id/news_byline"
 		style="@style/Text.ListSubtitle"
 		android:layout_marginTop="4dp"
         android:layout_marginLeft="8dp"
@@ -33,5 +41,13 @@
         android:layout_height="wrap_content"
 		android:layout_toRightOf="@id/news_thumbnail"
         android:layout_toEndOf="@id/news_thumbnail"
-        android:layout_below="@id/news_title"/>
+        android:layout_below="@id/news_title"
+        android:text="June 13-16, 2016"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:layout_below="@id/news_byline"
+        android:background="@color/colorPrimaryDark"/>
+
 </RelativeLayout>

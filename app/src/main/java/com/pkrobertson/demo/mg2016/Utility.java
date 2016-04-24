@@ -3,15 +3,23 @@ package com.pkrobertson.demo.mg2016;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
+import android.text.Html;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.pkrobertson.demo.mg2016.data.AppConfig;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -85,6 +93,47 @@ public class Utility {
         if (intent.resolveActivity(activity.getPackageManager()) != null) {
             activity.startActivity(intent);
         }
+    }
+
+    public static void setImageView (ImageView view, Context context, String imageFile, int imageDefault) {
+        String imageURL = AppConfig.getInstance(context).getImageURL(imageFile);
+        Log.d(LOG_TAG, "setImageView () imageURL ==> " + imageURL);
+
+        // load contact us image using "Picasso" or with a default image if the URL is not valid
+        if ((imageURL != null) && Patterns.WEB_URL.matcher(imageURL).matches()) {
+            try {
+                Picasso.with(context).load(imageURL).into(view);
+            } catch (Exception e) {
+                Log.d(LOG_TAG, "Picasso call failed" + e.toString());
+                view.setImageResource(imageDefault);
+            }
+        } else {
+            view.setImageResource(imageDefault);
+        }
+    }
+
+    public static void setTextView (TextView view, String text) {
+        if (text == null) {
+            view.setText ("");
+        } else {
+            view.setText(text);
+        }
+    }
+
+    public static void setTextView (TextView view, Cursor data, String columnName) {
+        setTextView(view, data.getString(data.getColumnIndex(columnName)));
+    }
+
+    public static void setTextViewFromHTML (TextView view, String html) {
+        if (html == null) {
+            view.setText ("");
+        } else {
+            view.setText(Html.fromHtml(html));
+        }
+    }
+
+    public static void setTextViewFromHTML(TextView view, Cursor data, String columnName) {
+        setTextViewFromHTML(view, data.getString(data.getColumnIndex(columnName)));
     }
 
     public static void updateActionBarTitle (Activity activity, String title) {

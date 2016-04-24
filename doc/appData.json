@@ -3,16 +3,18 @@
 		"tzOffset": "-4",
 		"syncMinutes": "60",
 		"flexMinutes": "20",
-		"productionURL": "http://ec2-52-9-163-231.us-west-1.compute.amazonaws.com:8080/production",
+		"productionURL": "http://ec2-52-9-163-231.us-west-1.compute.amazonaws.com:8080",
 		"testURL": "http://ec2-52-9-163-231.us-west-1.compute.amazonaws.com:8080/test",
 		"imageFolder": "/images",
 		"contactImage": "contact.bmp",
 		"contactEmail": "appsupport@serverxyz.com",
 		"defaultLocation": "Crowne Plaza",
 		"defaultMap": "38.1900409,-85.7529637",
+		"eventStart": "2016/06/13",
+		"eventEnd": "2016/06/16",
 		"eventLegendDay": "100, 200, 300, 400",
 		"eventLegendCategory": "10=car show,20=registration,30-40=tech session,50=tour,60=shops,70=banquet,90=other",
-		"aboutInfo": "This is the unofficial MG 2016 application.\n Information presented by this application is intended exclusively for the use of MG 2016 participants and sponsoring Registers.\n Times shown in the event diary are correct to the best of our knowledge, but subject to change. Please check the app for important updates and also refer to the registration area at the Crowne Plaza hotel."
+		"aboutInfo": "This is the unofficial MG 2016 application.<p>Information presented by this application is intended exclusively for the use of MG 2016 participants and sponsoring Registers.<p>Times shown in the event diary are correct to the best of our knowledge, but subject to change. Please check the app for important updates and also refer to the registration area at the Crowne Plaza hotel."
 	},
 	"lodgingInfo": [{
 		"id": "1",
@@ -21,14 +23,16 @@
 		"addr1": "653 Phillips Ln",
 		"addr2": "Louisville, KY 40209",
 		"phone": "502-375-2233",
+	    "website": "https://www.choicehotels.com/kentucky/louisville/comfort-inn-hotels/ky212",
 		"details": "No trailer parking allowed; Children 18 and under - free w/existing bedding; Complimentary breakfast; Complimentary guestroom internet; Complimentary car washing station; Free toll-free/local calls from guestroom; On-site guest laundry (coin operated); Complimentary airport shuttle; Complimentary fitness center; Indoor pool; Pets: Not allowed; Check in: 3:00pm; Check out: 12:00pm"
 	}, {
 		"id": "2",
 		"image": "courtyard.png",
-		"name": "Courtyard by Marriot",
+		"name": "Courtyard by Marriott",
 		"addr1": "819 Phillips Ln",
 		"addr2": "Louisville, KY 40209",
 		"phone": "502-368-5678",
+	    "website": "http://www.marriott.com/hotels/travel/sdfap-courtyard-louisville-airport/",
 		"details": "No trailer parking allowed; Children 18 and under - free w/existing bedding; Breakfast NOT included in rate; Complimentary guestroom internet; Complimentary car washing station ; free toll-free/local calls from guestroom; Complimentary airport shuttle; Complimentary fitness center; Indoor pool and whirlpool; Pets: Not allowed; Check in: 3:00pm ; Check out: 12:00pm"
 	}, {
 		"id": "3",
@@ -37,14 +41,16 @@
 		"addr1": "830 Phillips Ln",
 		"addr2": "Louisville, KY 40209",
 		"phone": "502-367-2251",
+	    "website": "http://www.ihg.com/crowneplaza/hotels/us/en/louisville/sdfpl/hoteldetail",
 		"details": "No trailer parking allowed; Children 18 and under - free w/existing bedding; Complimentary continental breakfast; Complimentary guestroom internet; Complimentary car washing station; Free toll-free/local calls from guestroom; Complimentary airport shuttle; Complimentary fitness center; Indoor/outdoor pool; Pet friendly: $50 (max 125 lbs); Check in: 3:00pm; Check out: 11:00am"
 	}, {
 		"id": "4",
-		"image": "hampton.png",
+		"image": "hampton.gif",
 		"name": "Hampton Inn",
 		"addr1": "800 Phillips Ln",
 		"addr2": "Louisville, KY 40209",
 		"phone": "502-366-8100",
+	    "website": "http://hamptoninn3.hilton.com/en/hotels/kentucky/hampton-inn-louisville-airport-SDFAPHX/index.html",
 		"details": "No trailer parking allowed; Children 18 and under - free w/existing bedding; Complimentary breakfast; Complimentary guestroom internet; Complimentary car washing station; Free local calls from guestroom; Complimentary airport shuttle; Complimentary fitness center; Outdoor pool; Pets: Not Allowed; Check in: 3:00pm; Check out: 12:00pm"
 	}, {
 		"id": "5",
@@ -53,6 +59,7 @@
 		"addr1": "709 Phillips Ln",
 		"addr2": "Louisville, KY 40209",
 		"phone": "502-363-9952",
+	    "website": "http://www.hojo.com/hotels/kentucky/louisville/howard-johnson-express-inn-airport/hotel-overview",
 		"details": "No trailer parking allowed; Children 17 and under - free w/existing bedding; Complimentary breakfast; Complimentary guestroom internet; Complimentary car washing station; Free local calls from guestroom; Complimentary airport shuttle; On-site laundry (coin-operated); NO fitness center; Pet friendly ($25); Check in: 2:00pm; Check out: 11:00am"
 	}, {
 		"id": "6",
@@ -61,6 +68,7 @@
 		"addr1": "700 Phillips Ln",
 		"addr2": "Louisville, KY 40209",
 		"phone": "502-363-8800",
+	    "website": "http://www.marriott.com/hotels/travel/sdfra-residence-inn-louisville-airport/",
 		"details": "No trailer parking allowed; Children 18 and under - free w/existing bedding; Complimentary full breakfast buffet; Complimentary light meal with free beer, wine and sodas Tuesday-Thursday, 6:00pm-7:30pm; Complimentary guestroom internet; Complimentary car washing station; Free toll-free/local calls from guestroom; On-site guest laundry (coin operated); Outdoor pool; Complimentary airport shuttle; Complimentary fitness center; Pet friendly ($100 fee); Check in: 3:00pm; Check out: 12:00pm"
 	}, {
 		"id": "7",
@@ -69,32 +77,39 @@
 		"addr1": "820 Phillips Ln",
 		"addr2": "Louisville, KY 40209",
 		"phone": "502-361-9009",
+        "website": "http://www.marriott.com/hotels/travel/sdfla-springhill-suites-louisville-airport/",
 		"details": "No trailer parking allowed; Children 18 and under - free w/existing bedding; Complimentary breakfast; Complimentary guestroom internet; Complimentary car washing station; Free local calls from guestroom; Complimentary airport shuttle; Complimentary fitness center; On-site laundry (coin-operated); Indoor pool; Pets: Not Allowed; Check in: 3:00pm; Check out: 12:00pm"
 	}],
 	"newsFeed": [{
 		"id": "1",
 		"publishDate": "2016/03/22",
 		"publishTime": "00:00",
+	    "thumbnail": "maintaining_thumbnail.jpg",
 		"image": "maintaining.jpg",
 		"title": "Welcome to MG 2016",
 		"byline1": "June 13-16, 2016",
-		"content": "MG2016 is the fifth gathering of MG enthusiasts hosted by the North American Council of MG Registers. There are a lot of good genes in its pool -that of MG96, MG2001, MG2006, and MG2011. Each of these events developed their own personality and you can expect nothing less from MG2016!\nYou will want to arrive on Monday in order to attend our cocktail reception at Churchill Downs Derby Museum and Racing Facility. Running from 6pm-10pm, the reception will have a cash bar (we advise eating dinner before or after your visit as there will be no food available during the event). You will have time to peruse the exhibits in the museum as well as take a guided tour of the grounds. This is a not-to-miss event. Spaces are limited, so register early!\nOur daily activities begin on Tuesday with driving tours, motorcoach tours, tech sessions, and Register Night. We'll cap off the evening with a performance by the band Captain Rat and the Blind Rivets at the Crowne Plaza.\nWednesday will offer more opportunities for you to learn about your MG during our tech sessions; you can travel the fantastic roads of Indiana and Kentucky by taking one of the self-guided tours; hit downtown Louisville and visit the Louisville Slugger Museum and Factory; visit the Muhammed Ali Center; take in an early afternoon baseball game at the home of the Louisville Bats, a farm league team for the Cincinnati Reds. Plan on attending our auction at the Crowne Plaza on Wednesday evening!\nThursday is show day! We will have our MGs on display at Waterfront Park on the banks of the Ohio River in downtown Louisville. Each Register will have their respective models displayed by class for popular voting by attendees. (NAMGBR will also hold Concours.) Our awards ceremonies and banquet will be held at the Crowne Plaza on Thursday evening. Awards other than First Place (and other special awards) will be given out by Register prior to the banquet as we did at MG2011. We are pleased to announce that DENNIS GAGE of 'My Classic Car' will be our guest on Thursday at Waterfront Park. He will be wandering the showfield and will be available for 'photo ops' and autographs. Dennis will also be our keynote speaker at the Awards Banquet that evening at the Crowne Plaza. After the awards banquet, head out to the parking lot(s)to kick a few more tires and swap a few more lies before you head for home on Friday!\nMG2016 - Be there to help us 'Maintain the Breed'!\nBe sure to register early as some activities have limited spaces available."
+	    "share": "MG 2016: Welcome June 13-16, 2016. Click here for the full article: https://www.signup4.net/public/ap.aspx?EID=MG2014E&OID=80",
+		"content": "MG2016 is the fifth gathering of MG enthusiasts hosted by the North American Council of MG Registers. There are a lot of good genes in its pool -that of MG96, MG2001, MG2006, and MG2011. Each of these events developed their own personality and you can expect nothing less from MG2016!<p>You will want to arrive on Monday in order to attend our cocktail reception at Churchill Downs Derby Museum and Racing Facility. Running from 6pm-10pm, the reception will have a cash bar (we advise eating dinner before or after your visit as there will be no food available during the event). You will have time to peruse the exhibits in the museum as well as take a guided tour of the grounds. This is a not-to-miss event. Spaces are limited, so register early!<p>Our daily activities begin on Tuesday with driving tours, motorcoach tours, tech sessions, and Register Night. We'll cap off the evening with a performance by the band Captain Rat and the Blind Rivets at the Crowne Plaza.<p>Wednesday will offer more opportunities for you to learn about your MG during our tech sessions; you can travel the fantastic roads of Indiana and Kentucky by taking one of the self-guided tours; hit downtown Louisville and visit the Louisville Slugger Museum and Factory; visit the Muhammed Ali Center; take in an early afternoon baseball game at the home of the Louisville Bats, a farm league team for the Cincinnati Reds. Plan on attending our auction at the Crowne Plaza on Wednesday evening!<p>Thursday is show day! We will have our MGs on display at Waterfront Park on the banks of the Ohio River in downtown Louisville. Each Register will have their respective models displayed by class for popular voting by attendees. (NAMGBR will also hold Concours.) Our awards ceremonies and banquet will be held at the Crowne Plaza on Thursday evening. Awards other than First Place (and other special awards) will be given out by Register prior to the banquet as we did at MG2011.<p>We are pleased to announce that DENNIS GAGE of &quot;My Classic Car&quot; will be our guest on Thursday at Waterfront Park. He will be wandering the showfield and will be available for &quot;photo&quot and autographs. Dennis will also be our keynote speaker at the Awards Banquet that evening at the Crowne Plaza. After the awards banquet, head out to the parking lot(s)to kick a few more tires and swap a few more lies before you head for home on Friday!<p>MG2016 - Be there to help us &quot;Maintain the Breed&quot;!<p>Be sure to register early as some activities have limited spaces available."
 	}, {
 		"id": "2",
 		"publishDate": "2016/03/22",
 		"publishTime": "00:02",
+	    "thumbnail": "concours_thumbnail.jpg",
 		"image": "concours.jpg",
 		"title": "NAMGBR Concours Judging Guidelines",
-		"content": "To be eligible to participate in Concours judging:\n\t\u2022 <b>The exhibitor must be a current member in good standing of the North American MGB Register.</b>\n\t\u2022 <b>Only MGs 'recognized' by NAMGBR - MGB, Modern MG Midget/AH Sprite (1961 Mk II - 1979), MGC, MG 1100/1300 (and variants thereof), and all 'Post-Abingdon' MGs - will be allowed to compete in Concours.</b>\n\n\t\u2022 Concours Judging will be held in a distinct and separate area of the show field.\n\t\u2022 Cars entered into the Concours competition are not eligible for participation in standard car show display, voting and awards.\n\t\u2022 Judging teams will be made up of both NAMGBR 'officials' and members selected from the general NAMGBR membership. Under NO circumstances may a Concours exhibitor be considered to judge in the Concours event.\n\t\u2022 A minimum of three (3) teams of judges will score each vehicle. The only scoring sheets used in Concours judging will be those provided by NAMGBR.\n\t\u2022 All vehicles competing in Concours judging must be driven to their respective area under their own power.\n\t\u2022 Once official judging begins all exhibitors must cease all efforts to prepare their vehicles. Vehicles will be judged on 'originality', 'condition', and 'technical inspection'. Official reference books of NAMGBR Concours judging are 'Original MGB' and 'Original Sprite and Midget'.\n\t\u2022 Judges will not manipulate any part of the vehicle to facilitate judging; judges do have the option of asking the exhibitor to reveal parts that are not readily accessible.\n\t\u2022 Under NO circumstances should the exhibitor converse with the judge(s) unless asked a specific question by the judge(s). There will be NO lounging in the scoring area.\n\t\u2022 No judging sheet will be changed or revised by anyone other than the original signing judge. Judges will turn completed judging sheets into the Concours Coordinator (or delegated member) for final tally and examination. Decisions of the judges and Concours Coordinator are final.\n\t\u2022 No signage of any type (Previous Awards, BMHT Certificate, Advertising Brochuers, Vehicle History or Pictures Restoration Photos and Documentation etc.) is permitted. In addition any event grill badges (Amelia Island, Hilton Head, Pebble Beach, ACCA Awards etc.) Must be removed PRIOR to positioning on the show field. The car is being judged as it sits on that day, not any of its previous history.. Use of 'FOR SALE' signs on vehicles in Concours judging is strictly prohibited.\n\t\u2022 Vehicles on display in Concours cannot be dismantled or moved prior to the completion of the show without prior consent of the Concours Coordinator.\n\t\u2022 Judging sheets will be mailed to the exhibitors after the event."
+	    "share": "MG 2016: Official Rocker Cover Racer Rules. Click here for details: https://www.signup4.net/public/ap.aspx?EID=MG2014E&OID=161",
+		"content": "To be eligible to participate in Concours judging:<p>&#8226; <b>The exhibitor must be a current member in good standing of the North American MGB Register.</b><br>&#8226; <b>Only MGs &quot;recognized&quot; by NAMGBR - MGB, Modern MG Midget/AH Sprite (1961 Mk II - 1979), MGC, MG 1100/1300 (and variants thereof), and all &quot;Post-Abingdon&quot; MGs - will be allowed to compete in Concours.</b><br>&#8226; Concours Judging will be held in a distinct and separate area of the show field.<br>&#8226; Cars entered into the Concours competition are not eligible for participation in standard car show display, voting and awards.<br>&#8226; Judging teams will be made up of both NAMGBR &quot;officials&quot; and members selected from the general NAMGBR membership. Under NO circumstances may a Concours exhibitor be considered to judge in the Concours event.<br>&#8226; A minimum of three (3) teams of judges will score each vehicle. The only scoring sheets used in Concours judging will be those provided by NAMGBR.<br>&#8226; All vehicles competing in Concours judging must be driven to their respective area under their own power.&#8226; Once official judging begins all exhibitors must cease all efforts to prepare their vehicles. Vehicles will be judged on &quot;originality&quot;, &quot;condition&quot;, and &quot;technical inspection&quot;. Official reference books of NAMGBR Concours judging are &quot;Original MGB&quot; and &quot;Original Sprite and Midget&quot;.<br>&#8226; Judges will not manipulate any part of the vehicle to facilitate judging; judges do have the option of asking the exhibitor to reveal parts that are not readily accessible.<br>&#8226; Under NO circumstances should the exhibitor converse with the judge(s) unless asked a specific question by the judge(s). There will be NO lounging in the scoring area.<br>&#8226; No judging sheet will be changed or revised by anyone other than the original signing judge. Judges will turn completed judging sheets into the Concours Coordinator (or delegated member) for final tally and examination. Decisions of the judges and Concours Coordinator are final.<br>&#8226; No signage of any type (Previous Awards, BMHT Certificate, Advertising Brochuers, Vehicle History or Pictures Restoration Photos and Documentation etc.) is permitted. In addition any event grill badges (Amelia Island, Hilton Head, Pebble Beach, ACCA Awards etc.) Must be removed PRIOR to positioning on the show field. The car is being judged as it sits on that day, not any of its previous history. Use of &quot;FOR SALE&quot; signs on vehicles in Concours judging is strictly prohibited.<br>&#8226; Vehicles on display in Concours cannot be dismantled or moved prior to the completion of the show without prior consent of the Concours Coordinator.<br><p>Judging sheets will be mailed to the exhibitors after the event."
 	}, {
 		"id": "3",
 		"publishDate": "2016/03/22",
 		"publishTime": "00:03",
+	    "thumbnail": "rocker_thumbnail.jpg",
 		"image": "rocker.jpg",
 		"title": "Official MG2016 Rocker Cover Racer Rules",
-		"byline1": "These are the OFFICIAL RULES for MG2016 - Local, Regional or Club rules will not be accepted",
-		"byline2": "Last Updated July 2013 - Posted December 1, 2015",
-		"content": "<b>The Course</b>\t\u2022 The course shall consist of a launch incline eight feet long, followed by a level run of twenty feet.\n\t\u2022 The launch incline shall be divided into two lanes, each 18-24 inches wide. The incline shall be two feet high at the rearmost part and level with the course at the front edge.\n\t\u2022 The front edge shall be mitered so as to provide a smooth transition from the incline to the run out area.\n\t\u2022 The official 'Starting Line' shall be two feet from the rear edge of the incline. A mechanized starting gate may be provided.\n\t\u2022 The run out section of the course shall consist of two lanes, each three feet wide. The lanes shall be clearly marked.\n\t\u2022 The finish line shall be marked twenty feet from the front edge of the launch incline.\n\n<b>The Cars</b>\t\u2022 The cars shall have no power source. All motive force is provided by gravity.\n\t\u2022 Cars shall be based on an actual rocker cover from a British automobile engine.\n\t\u2022 Wheelbase shall be no more that twenty-four inches.\n\t\u2022 The car's wheelbase must fit within the starting gate and the ramp's rear-edge (24 inches TOTAL)\n\t\u2022 The cars body may 'hang-over' the front starting gate or rear-edge of the ramp, but the wheels must fit within the starting area of the track.\n\t\u2022 Wheel track shall be no more that fourteen inches.\n\t\u2022 Cars must have four wheels, each no more than six inches in diameter <u>and all wheels must be in contact with the ground.</u>\n\t\u2022 A car may not 'jettison' any type of object </u>onto the ramp</u> on its descent.\n\n<b>The Races</b>\t\u2022 As practical, Awards will presented in a 'Kids' Class (16 and under) and an Adult 'For Fun' Class and an Adult 'Serious Racer' Class.\n\t\u2022 Cars will be run in heats of two cars each.\n\t\u2022 One alignment run down the course will be allowed prior to each heat.\n\t\u2022 The cars are to be launched with their front wheels on the starting gate. The first car to have its front wheels cross the finish line is the winner of that race.  If neither car makes it to the finish line, the car going the furthest in its lane wins.\n\t\u2022 If the wheels of a car should touch the lane markers, or cross over the lane marker, the car shall be disqualified. The competing car immediately becomes the winner for that race.\n\t\u2022 The car that wins two out of three races in that heat will be declared the winner and will advance to the next round until all are eliminated except one car."
+	    "byline1": "Last Updated July 2013 - Posted December 1, 2015",
+	    "byline2": "These are the OFFICIAL RULES for MG2016 - Local, Regional or Club rules will not be accepted",
+	    "share": "MG 2016: NAMGBR Concours Judging Guidelines. Click here for details: https://www.signup4.net/public/ap.aspx?EID=MG2014E&OID=160",
+		"content": "<b>The Course</b><br>&#8226; The course shall consist of a launch incline eight feet long, followed by a level run of twenty feet.<br>&#8226; The launch incline shall be divided into two lanes, each 18-24 inches wide. The incline shall be two feet high at the rearmost part and level with the course at the front edge.<br>&#8226; The front edge shall be mitered so as to provide a smooth transition from the incline to the run out area.<br>&#8226; The official &quot;Starting Line&quot; shall be two feet from the rear edge of the incline. A mechanized starting gate may be provided.<br>&#8226; The run out section of the course shall consist of two lanes, each three feet wide. The lanes shall be clearly marked.<br>&#8226; The finish line shall be marked twenty feet from the front edge of the launch incline.<br><p><b>The Cars</b><br>&#8226; The cars shall have no power source. All motive force is provided by gravity.<br>&#8226; Cars shall be based on an actual rocker cover from a British automobile engine.<br>&#8226; Wheelbase shall be no more that twenty-four inches.<br>&#8226; The car's wheelbase must fit within the starting gate and the ramp's rear-edge (24 inches TOTAL)<br>&#8226; The car's body may 'hang-over' the front starting gate or rear-edge of the ramp, but the wheels must fit within the starting area of the track.<br>&#8226; Wheel track shall be no more that fourteen inches.<br>&#8226; Cars must have four wheels, each no more than six inches in diameter <u>and all wheels must be in contact with the ground.</u><br>&#8226; A car may not &quot;jettison&quot; any type of object </u>onto the ramp</u> on its descent.<br><p><b>The Races</b><br>&#8226; As practical, Awards will presented in a &quot;Kids&quot; Class (16 and under) and an Adult &quot;For Fun&quot; Class and an Adult &quot;Serious Racer&quot; Class.<br>&#8226; Cars will be run in heats of two cars each.<br>&#8226; One alignment run down the course will be allowed prior to each heat.<br>&#8226; The cars are to be launched with their front wheels on the starting gate. The first car to have its front wheels cross the finish line is the winner of that race.  If neither car makes it to the finish line, the car going the furthest in its lane wins.<br>&#8226; If the wheels of a car should touch the lane markers, or cross over the lane marker, the car shall be disqualified. The competing car immediately becomes the winner for that race.<br>&#8226; The car that wins two out of three races in that heat will be declared the winner and will advance to the next round until all are eliminated except one car."
 	}],
 	"eventDiary": [{
 		"id": "120",
