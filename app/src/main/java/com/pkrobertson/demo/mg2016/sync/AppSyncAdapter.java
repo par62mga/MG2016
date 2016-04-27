@@ -178,6 +178,7 @@ public class AppSyncAdapter extends AbstractThreadedSyncAdapter {
                 lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_NAME, object.getString("name"));
                 lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_ADDRESS1, object.getString("addr1"));
                 lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_ADDRESS2, object.getString("addr2"));
+                lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_MAP_LOCATION, object.getString("mapLocation"));
                 lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_PHONE, object.getString("phone"));
                 lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_WEBSITE, object.getString("website"));
                 lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_DETAILS, object.getString("details"));

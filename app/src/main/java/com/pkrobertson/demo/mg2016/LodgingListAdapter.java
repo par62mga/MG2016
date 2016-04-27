@@ -32,6 +32,9 @@ import java.util.List;
 /**
  * Created by Phil Robertson on 3/15/2016.
  */
+
+//TODO: check on tablet without phone service, do not show call option
+
 public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.LodgingViewHolder> {
     private static final String LOG_TAG       = LodgingListAdapter.class.getSimpleName();
 
@@ -57,6 +60,7 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
     private int     mIndexName;
     private int     mIndexAddr1;
     private int     mIndexAddr2;
+    private int     mIndexMap;
     private int     mIndexPhone;
     private int     mIndexWebsite;
     private int     mIndexDetails;
@@ -67,6 +71,8 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
         TextView    mTextViewLodgingAddress;
         TextView    mTextViewLodgingPhone;
         TextView    mTextViewLodgingDetail;
+
+        String      mMapLocation;
         String      mLodgingWebsite;
 
         public LodgingViewHolder(View view) {
@@ -170,6 +176,7 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
         Utility.setTextView(viewHolder.mTextViewLodgingPhone, mCursor.getString(mIndexPhone));
         Utility.setTextView(viewHolder.mTextViewLodgingDetail, mCursor.getString(mIndexDetails));
 
+        viewHolder.mMapLocation = mCursor.getString(mIndexMap);
         viewHolder.mLodgingWebsite = mCursor.getString(mIndexWebsite);
         if (position == mRestoreSelectedItem) {
             mRestoreSelectedItem = NO_SELECTION;
@@ -211,15 +218,10 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
             }
             return true;
         } else if (id == R.id.action_locate) {
+            String hotelName = String.valueOf(mSelectedRow.mTextViewLodgingTitle.getText());
             String streetAddress = String.valueOf(mSelectedRow.mTextViewLodgingAddress.getText());
-            Uri geoLocation = Uri.parse(
-                    "geo:0,0?q=" + streetAddress.replace (' ', '+'));
-            Log.d(LOG_TAG, "onOptionsItemSelected Uri ==> " + geoLocation.toString());
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData (geoLocation);
-            if (intent.resolveActivity(mContext.getPackageManager()) != null) {
-                mContext.startActivity(intent);
-            }
+            MapActivity.lauchMapActivity(
+                    mContext, hotelName, streetAddress, mSelectedRow.mMapLocation);
             return true;
         } else if (id == R.id.action_website) {
             Uri websiteUri = Uri.parse(mSelectedRow.mLodgingWebsite);
@@ -247,6 +249,7 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
             mIndexName = mCursor.getColumnIndex(DatabaseContract.LodgingEntry.COLUMN_NAME);
             mIndexAddr1 = mCursor.getColumnIndex(DatabaseContract.LodgingEntry.COLUMN_ADDRESS1);
             mIndexAddr2 = mCursor.getColumnIndex(DatabaseContract.LodgingEntry.COLUMN_ADDRESS2);
+            mIndexMap = mCursor.getColumnIndex(DatabaseContract.LodgingEntry.COLUMN_MAP_LOCATION);
             mIndexPhone = mCursor.getColumnIndex(DatabaseContract.LodgingEntry.COLUMN_PHONE);
             mIndexWebsite = mCursor.getColumnIndex(DatabaseContract.LodgingEntry.COLUMN_WEBSITE);
             mIndexDetails = mCursor.getColumnIndex(DatabaseContract.LodgingEntry.COLUMN_DETAILS);

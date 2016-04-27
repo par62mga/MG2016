@@ -9,7 +9,7 @@
 		"contactImage": "contact.bmp",
 		"contactEmail": "appsupport@serverxyz.com",
 		"defaultLocation": "Crowne Plaza",
-		"defaultMap": "38.1900409,-85.7529637",
+		"defaultMap": "38.1918749,-85.7426178",
 		"eventStart": "2016/06/13",
 		"eventEnd": "2016/06/16",
 		"eventLegendDay": "100, 200, 300, 400",
@@ -22,6 +22,7 @@
 		"name": "Comfort Inn & Suites",
 		"addr1": "653 Phillips Ln",
 		"addr2": "Louisville, KY 40209",
+        "mapLocation": "38.1918885,-85.7476205",
 		"phone": "502-375-2233",
 	    "website": "https://www.choicehotels.com/kentucky/louisville/comfort-inn-hotels/ky212",
 		"details": "No trailer parking allowed; Children 18 and under - free w/existing bedding; Complimentary breakfast; Complimentary guestroom internet; Complimentary car washing station; Free toll-free/local calls from guestroom; On-site guest laundry (coin operated); Complimentary airport shuttle; Complimentary fitness center; Indoor pool; Pets: Not allowed; Check in: 3:00pm; Check out: 12:00pm"
@@ -31,6 +32,7 @@
 		"name": "Courtyard by Marriott",
 		"addr1": "819 Phillips Ln",
 		"addr2": "Louisville, KY 40209",
+        "mapLocation": "38.1924052,-85.7451244",
 		"phone": "502-368-5678",
 	    "website": "http://www.marriott.com/hotels/travel/sdfap-courtyard-louisville-airport/",
 		"details": "No trailer parking allowed; Children 18 and under - free w/existing bedding; Breakfast NOT included in rate; Complimentary guestroom internet; Complimentary car washing station ; free toll-free/local calls from guestroom; Complimentary airport shuttle; Complimentary fitness center; Indoor pool and whirlpool; Pets: Not allowed; Check in: 3:00pm ; Check out: 12:00pm"
@@ -40,6 +42,7 @@
 		"name": "Crowne Plaza",
 		"addr1": "830 Phillips Ln",
 		"addr2": "Louisville, KY 40209",
+        "mapLocation": "38.1918943,-85.7426419",
 		"phone": "502-367-2251",
 	    "website": "http://www.ihg.com/crowneplaza/hotels/us/en/louisville/sdfpl/hoteldetail",
 		"details": "No trailer parking allowed; Children 18 and under - free w/existing bedding; Complimentary continental breakfast; Complimentary guestroom internet; Complimentary car washing station; Free toll-free/local calls from guestroom; Complimentary airport shuttle; Complimentary fitness center; Indoor/outdoor pool; Pet friendly: $50 (max 125 lbs); Check in: 3:00pm; Check out: 11:00am"
@@ -49,6 +52,7 @@
 		"name": "Hampton Inn",
 		"addr1": "800 Phillips Ln",
 		"addr2": "Louisville, KY 40209",
+        "mapLocation": "38.190859,-85.7453898",
 		"phone": "502-366-8100",
 	    "website": "http://hamptoninn3.hilton.com/en/hotels/kentucky/hampton-inn-louisville-airport-SDFAPHX/index.html",
 		"details": "No trailer parking allowed; Children 18 and under - free w/existing bedding; Complimentary breakfast; Complimentary guestroom internet; Complimentary car washing station; Free local calls from guestroom; Complimentary airport shuttle; Complimentary fitness center; Outdoor pool; Pets: Not Allowed; Check in: 3:00pm; Check out: 12:00pm"
@@ -58,6 +62,7 @@
 		"name": "Howard Johnson",
 		"addr1": "709 Phillips Ln",
 		"addr2": "Louisville, KY 40209",
+        "mapLocation": "38.1919275,-85.7452883",
 		"phone": "502-363-9952",
 	    "website": "http://www.hojo.com/hotels/kentucky/louisville/howard-johnson-express-inn-airport/hotel-overview",
 		"details": "No trailer parking allowed; Children 17 and under - free w/existing bedding; Complimentary breakfast; Complimentary guestroom internet; Complimentary car washing station; Free local calls from guestroom; Complimentary airport shuttle; On-site laundry (coin-operated); NO fitness center; Pet friendly ($25); Check in: 2:00pm; Check out: 11:00am"
@@ -67,6 +72,7 @@
 		"name": "Residence Inn",
 		"addr1": "700 Phillips Ln",
 		"addr2": "Louisville, KY 40209",
+        "mapLocation": "38.190264,-85.7461049",
 		"phone": "502-363-8800",
 	    "website": "http://www.marriott.com/hotels/travel/sdfra-residence-inn-louisville-airport/",
 		"details": "No trailer parking allowed; Children 18 and under - free w/existing bedding; Complimentary full breakfast buffet; Complimentary light meal with free beer, wine and sodas Tuesday-Thursday, 6:00pm-7:30pm; Complimentary guestroom internet; Complimentary car washing station; Free toll-free/local calls from guestroom; On-site guest laundry (coin operated); Outdoor pool; Complimentary airport shuttle; Complimentary fitness center; Pet friendly ($100 fee); Check in: 3:00pm; Check out: 12:00pm"
@@ -76,6 +82,7 @@
 		"name": "Spring Hill Suites",
 		"addr1": "820 Phillips Ln",
 		"addr2": "Louisville, KY 40209",
+        "mapLocation": "38.190712,-85.7437544",
 		"phone": "502-361-9009",
         "website": "http://www.marriott.com/hotels/travel/sdfla-springhill-suites-louisville-airport/",
 		"details": "No trailer parking allowed; Children 18 and under - free w/existing bedding; Complimentary breakfast; Complimentary guestroom internet; Complimentary car washing station; Free local calls from guestroom; Complimentary airport shuttle; Complimentary fitness center; On-site laundry (coin-operated); Indoor pool; Pets: Not Allowed; Check in: 3:00pm; Check out: 12:00pm"
@@ -226,7 +233,7 @@
 		"endTime": "16:00",
 		"title": "Bourbon Trail/Bardstown Tour",
 		"location": "Leaves from Crowne Plaza",
-		"mapLocation": "38.1900409,-85.7529637",
+		"mapLocation": "38.1918749,-85.7426178",
 		"content": "Hop on the bus and leave the driving to us.\nEnjoy a tour of Stephen Foster's 'My Old Kentucky Home', explore the Heritage Bourbon Center along with a tasting, downtown Bardstown where you can select one of the many eating options for lunch, and last but not least a stop at Jim Beam for complimentary tastings and for any who wish to purchase a barn tour."
 	}, {
 		"id": "251",
@@ -248,7 +255,7 @@
 		"startTime": "13:00",
 		"title": "Funkhana",
 		"location": "Rear Parking Lot of Crowne Plaza",
-		"mapLocation": "38.1900409,-85.7529637",
+		"mapLocation": "38.1918749,-85.7426178",
 		"content": "A Funkana is a slow-speed driving event that combines teamwork, driving skill, good communication between the driver and navigator, and most importantly, a sense of humor. Each team will work their way through a pre-determined 'course' following rules set forth by the Rally Master and other officials. Normally each 'heat' takes under 10 minutes to run.\nThe Ohio T Series chapter will be hosting our Funkhana 'HONEY DO'. It's a preview of the fun to be had at GOF Central 2017 and will feature outlandish household challenges for couples and MGs."
 	}, {
 		"id": "260",
@@ -398,7 +405,7 @@
 		"endTime": "16:00",
 		"title": "Bourbon Trail/Bardstown Tour",
 		"location": "Leaves from Crowne Plaza",
-		"mapLocation": "38.1900409,-85.7529637",
+		"mapLocation": "38.1918749,-85.7426178",
 		"content": "Hop on the bus and leave the driving to us.\nEnjoy a tour of Stephen Foster's 'My Old Kentucky Home', explore the Heritage Bourbon Center along with a tasting, downtown Bardstown where you can select one of the many eating options for lunch, and last but not least a stop at Jim Beam for complimentary tastings and for any who wish to purchase a barn tour."
 	}, {
 		"id": "351",
@@ -406,6 +413,8 @@
 		"startTime": "11:00",
 		"endTime": "15:30",
 		"title": "MGB Drive in Southern Indiana",
+	    "location": "Exact location TBC: New Albany, IN",
+	    "mapLocation": "38.3145901,-85.8938775",
 		"content": "This follow the leader drive of about 90 miles round trip, travels some of the most scenic roads in southern IN and will be offered Tuesday and Wednesday (limited to 15 MGB's each day). We leave from New Albany IN and travel back roads to Corydon IN, our first capital, stop for a break on the 'Square'. From there, we travel to the Overlook restaurant for lunch and a panoramic view of the Ohio river from their dining room. After Lunch we will travel back to Corydon a different way, and on to The Turtle Winery. After the tasting, the trip back to New Albany will take about 30 minutes for a total trip time of about 5 hours. Cost involved is anything you buy in shops on the Square, food ordered off the menu at the Overlook, and your wine at the Turtle."
 	}, {
 		"id": "352",
@@ -413,7 +422,7 @@
 		"startTime": "09:00",
 		"title": "Bus trip to Bernheim Forest, Winery and Zappos",
 		"location": "Leaves from Crowne Plaza",
-		"mapLocation": "38.1900409,-85.7529637",
+		"mapLocation": "38.1918749,-85.7426178",
 		"content": "Variety is the spice of life! Enjoy a visit to beautiful 14,378 acre Bernheim Forest (bernheim.org) where we will be entertained and enlightened with a program on edible weeds and other wild plants. Included in the program will be a short walk to observe and identify plants and then recipes and a small sampling of the edibles.\nClose to Bernheim we will visit Forest Edge Winery and have a sample tasting of award winning wines. Leaving the forest area we will travel a few miles to Slow Poke Farm and enjoy a private lunch. Comfortably satiated with food, a few more miles down the road will bring us to Zappo's (6pm.com) Shoe Outlet which also has some clothing and purses. Shop for an hour and then a pleasant ride back to the Crowne Plaza will end our varied tour.\n<i>Starting time to be confirmed.</i>"
 	}, {
 		"id": "353",

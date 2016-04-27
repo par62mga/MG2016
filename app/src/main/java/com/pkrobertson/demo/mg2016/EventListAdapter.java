@@ -200,7 +200,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
                 mCursor.getString(mIndexContent));
 
         String location = mCursor.getString(mIndexLocation);
-        if (location == DatabaseContract.EventsEntry.DEFAULT_LOCATION) {
+        if (location.contentEquals(DatabaseContract.EventsEntry.DEFAULT_LOCATION)) {
             AppConfig appConfig = AppConfig.getInstance(mContext);
             viewHolder.mEventLocation = appConfig.getDefaultLocation();
             viewHolder.mEventMap      = appConfig.getDefaultMap();
@@ -237,6 +237,12 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
 
         int id = item.getItemId();
         if (id == R.id.action_locate) {
+            MapActivity.lauchMapActivity(
+                    mContext,
+                    String.valueOf(mSelectedRow.mTextViewEventTitle.getText()),
+                    mSelectedRow.mEventLocation,
+                    mSelectedRow.mEventMap);
+            /*
             Uri geoLocation = Uri.parse(
                     "geo:0,0?q=" + mSelectedRow.mEventMap);
             Log.d(LOG_TAG, "onOptionsItemSelected Uri ==> " + geoLocation.toString());
@@ -245,6 +251,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
             if (intent.resolveActivity(mContext.getPackageManager()) != null) {
                 mContext.startActivity(intent);
             }
+            */
             return true;
         } else if (id == R.id.action_calendar) {
             return true;

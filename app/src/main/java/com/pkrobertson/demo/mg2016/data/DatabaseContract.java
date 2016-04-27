@@ -130,6 +130,9 @@ public class DatabaseContract {
         // string: hotel address line 2
         public static final String COLUMN_ADDRESS2 = "address2";
 
+        // string: hotel map location
+        public static final String COLUMN_MAP_LOCATION = "map_location";
+
         // string: hotel phone number
         public static final String COLUMN_PHONE = "phone";
 
@@ -146,6 +149,7 @@ public class DatabaseContract {
                 COLUMN_NAME + " TEXT NOT NULL, " +
                 COLUMN_ADDRESS1 + " TEXT NOT NULL, " +
                 COLUMN_ADDRESS2 + " TEXT NOT NULL, " +
+                COLUMN_MAP_LOCATION + " TEXT NOT NULL, " +
                 COLUMN_PHONE + " TEXT NOT NULL, " +
                 COLUMN_WEBSITE + " TEXT NOT NULL, " +
                 COLUMN_DETAILS + " TEXT NOT NULL );";
