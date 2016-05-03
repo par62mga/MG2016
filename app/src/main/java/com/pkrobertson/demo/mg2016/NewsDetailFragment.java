@@ -144,7 +144,7 @@ public class NewsDetailFragment extends DialogFragment implements LoaderManager.
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(Intent.createChooser(mShareIntent, getString(R.string.share_news)));
+                        startActivity(Intent.createChooser(mShareIntent, getString(R.string.news_share)));
                     }
                 });
     }

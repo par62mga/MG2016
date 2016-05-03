@@ -1,6 +1,6 @@
 {
 	"appConfig": {
-		"tzOffset": "-4",
+		"tzOffset": "-18000000",
 		"syncMinutes": "60",
 		"flexMinutes": "20",
 		"productionURL": "http://ec2-52-9-163-231.us-west-1.compute.amazonaws.com:8080",
@@ -14,6 +14,7 @@
 		"eventEnd": "2016/06/16",
 		"eventLegendDay": "100, 200, 300, 400",
 		"eventLegendCategory": "10=car show,20=registration,30-40=tech session,50=tour,60=shops,70=banquet,90=other",
+	    "eventAdjustText": "Adjusted for Eastern Daylight Savings Time",
 		"aboutInfo": "This is the unofficial MG 2016 application.<p>Information presented by this application is intended exclusively for the use of MG 2016 participants and sponsoring Registers.<p>Times shown in the event diary are correct to the best of our knowledge, but subject to change. Please check the app for important updates and also refer to the registration area at the Crowne Plaza hotel."
 	},
 	"lodgingInfo": [{

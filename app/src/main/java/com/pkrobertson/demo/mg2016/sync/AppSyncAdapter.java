@@ -162,6 +162,7 @@ public class AppSyncAdapter extends AbstractThreadedSyncAdapter {
             configValues.put(DatabaseContract.ConfigEntry.COLUMN_DEFAULT_MAP, configInfo.getString("defaultMap"));
             configValues.put(DatabaseContract.ConfigEntry.COLUMN_START_DATE, DateTimeHelper.toDate(configInfo.getString("eventStart")));
             configValues.put(DatabaseContract.ConfigEntry.COLUMN_END_DATE, DateTimeHelper.toDate(configInfo.getString("eventEnd")));
+            configValues.put(DatabaseContract.ConfigEntry.COLUMN_EVENT_ADJUSTMENT, configInfo.getString("eventAdjustText"));
             configValues.put(DatabaseContract.ConfigEntry.COLUMN_ABOUT_INFO, configInfo.getString("aboutInfo"));
             mContext.getContentResolver().delete(DatabaseContract.ConfigEntry.CONTENT_URI, null, null);
             mContext.getContentResolver().insert(DatabaseContract.ConfigEntry.CONTENT_URI, configValues);

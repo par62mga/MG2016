@@ -6,12 +6,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 /**
  * Created by Phil Robertson on 4/21/2016.
  */
 public class DateTimeHelper {
-    private static final int MILLIS_IN_DAY = 1000 * 60 * 60 * 24;
+    private static final int MILLIS_IN_DAY  = 1000 * 60 * 60 * 24;
+    private static final int MILLIS_IN_HOUR = 1000 * 60 * 60;
 
     public static Calendar getCalendar (long date) {
         return new GregorianCalendar(
@@ -96,5 +98,21 @@ public class DateTimeHelper {
         } else {
             return -1;
         }
+    }
+
+    public static long getTimeZoneAdjustment (long tzOffset) {
+        Calendar calendar = Calendar.getInstance ();
+        return tzOffset - calendar.getTimeZone().getRawOffset();
+    }
+
+    public static long getDateTimeInMillis (long date, long time) {
+        Calendar dateTime = Calendar.getInstance();
+        dateTime.set(
+                (int) (date / 10000),
+                (int)(((date / 100) % 100) - 1),
+                (int)(date % 100),
+                (int)(time / 100),
+                (int)(time % 100));
+        return dateTime.getTimeInMillis();
     }
 }

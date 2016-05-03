@@ -72,11 +72,14 @@ public class DatabaseContract {
         // string: default location map coordinates for events
         public static final String COLUMN_DEFAULT_MAP = "default_map";
 
-        // string: default location map coordinates for events
+        // string: starting date for events that appear in the diary
         public static final String COLUMN_START_DATE = "start_date";
 
-        // string: default location map coordinates for events
+        // string: ending date for events that appear in the diary
         public static final String COLUMN_END_DATE = "end_date";
+
+        // string: ending date for events that appear in the diary
+        public static final String COLUMN_EVENT_ADJUSTMENT = "event_adjustment";
 
         // string: amount information shown on the contact us page
         public static final String COLUMN_ABOUT_INFO = "about_info";
@@ -96,6 +99,7 @@ public class DatabaseContract {
                 COLUMN_DEFAULT_MAP + " TEXT NOT NULL, " +
                 COLUMN_START_DATE + " INTEGER NOT NULL, " +
                 COLUMN_END_DATE + " INTEGER NOT NULL, " +
+                COLUMN_EVENT_ADJUSTMENT + " TEXT NOT NULL, " +
                 COLUMN_ABOUT_INFO + " TEXT NOT NULL );";
 
         public static Uri buildConfigUri(long id) {

@@ -27,7 +27,8 @@
     <string name="title_lodging">Lodging</string>
     <string name="title_contact">Contact us</string>
 
-    <string name="share_news">Share news via</string>
+    <string name="news_share">Share news via</string>
+    <string name="event_calendar">MG 2016:</string>
 
     <string name="error_empty_list">No items found, please try again later</string>
 

@@ -21,6 +21,7 @@ public class AppConfig {
     private final String mDefaultMap;
     private final long   mStartDate;
     private final long   mEndDate;
+    private final String mEventAdjustText;
     private final String mAboutInfo;
 
     /**
@@ -42,6 +43,7 @@ public class AppConfig {
         mDefaultMap = cursor.getString(DatabaseContract.ConfigEntry.COLUMN_DEFAULT_MAP);
         mStartDate = cursor.getLong(DatabaseContract.ConfigEntry.COLUMN_START_DATE);
         mEndDate = cursor.getLong (DatabaseContract.ConfigEntry.COLUMN_END_DATE);
+        mEventAdjustText = cursor.getString(DatabaseContract.ConfigEntry.COLUMN_EVENT_ADJUSTMENT);
         mAboutInfo = cursor.getString(DatabaseContract.ConfigEntry.COLUMN_ABOUT_INFO);
     }
 
@@ -108,6 +110,10 @@ public class AppConfig {
 
     public long getEndDate () {
         return mEndDate;
+    }
+
+    public String getEventAdjustText () {
+        return mEventAdjustText;
     }
 
     public String getAboutInfo () {

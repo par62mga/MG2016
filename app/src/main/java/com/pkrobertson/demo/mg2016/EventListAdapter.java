@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,11 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pkrobertson.demo.mg2016.data.AppConfig;
 import com.pkrobertson.demo.mg2016.data.DatabaseContract;
 import com.pkrobertson.demo.mg2016.data.DateTimeHelper;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -45,6 +48,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
     private int     mRestoreSelectedItem = NO_SELECTION;
 
     private int     mIndexID;
+    private int     mIndexDate;
     private int     mIndexStartTime;
     private int     mIndexEndTime;
     private int     mIndexTitle;
@@ -59,6 +63,9 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
         TextView    mTextViewEventTitle;
         TextView    mTextViewEventSubtitle;
 
+        long        mEventDate;
+        long        mEventStartTime;
+        long        mEventEndTime;
         String      mEventLocation;
         String      mEventMap;
 
@@ -184,14 +191,17 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
         }
         mCursor.moveToPosition(position);
 
+        viewHolder.mEventDate      = mCursor.getLong(mIndexDate);
+        viewHolder.mEventStartTime = mCursor.getLong(mIndexStartTime);
+        viewHolder.mEventEndTime   = mCursor.getLong(mIndexEndTime);
+
         int eventColor = getEventColor(mCursor.getInt(mIndexID));
         viewHolder.mViewEventTime.setBackgroundColor(mContext.getResources().getColor(eventColor));
         Utility.setTextView(viewHolder.mTextViewEventStart,
-                DateTimeHelper.formatTime(mCursor.getLong(mIndexStartTime), false));
-        long   endTime = mCursor.getLong(mIndexEndTime);
+                DateTimeHelper.formatTime(viewHolder.mEventStartTime, false));
         String endText = " ";
-        if (endTime >= 0) {
-            endText = DateTimeHelper.formatTime(endTime, false);
+        if (viewHolder.mEventEndTime >= 0) {
+            endText = DateTimeHelper.formatTime(viewHolder.mEventEndTime, false);
         }
         Utility.setTextView(viewHolder.mTextViewEventEnd, endText);
 
@@ -254,6 +264,34 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
             */
             return true;
         } else if (id == R.id.action_calendar) {
+            //TODO: Android Calendar does not seem to accept lat/long for location, add field just
+            //      for calendar or rework map location to be location string that works both for
+            //      google maps and calendar
+            AppConfig appConfig = AppConfig.getInstance(mContext);
+            long tzAdjustment = DateTimeHelper.getTimeZoneAdjustment(appConfig.getTzOffset());
+            long startTime = DateTimeHelper.getDateTimeInMillis(
+                    mSelectedRow.mEventDate, mSelectedRow.mEventStartTime);
+            long endTime = startTime;
+            if (mSelectedRow.mEventEndTime >= 0) {
+                endTime = DateTimeHelper.getDateTimeInMillis(
+                        mSelectedRow.mEventDate, mSelectedRow.mEventEndTime);
+            }
+            if (tzAdjustment != 0) {
+                Toast.makeText(mContext, appConfig.getEventAdjustText(), Toast.LENGTH_SHORT).show();
+            }
+            Intent intent = new Intent(Intent.ACTION_INSERT)
+                    .setData(CalendarContract.Events.CONTENT_URI)
+                    .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime - tzAdjustment)
+                    .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime - tzAdjustment)
+                    .putExtra(CalendarContract.Events.TITLE,
+                            mContext.getString(R.string.event_calendar) +
+                                    String.valueOf(mSelectedRow.mTextViewEventTitle.getText()))
+                    .putExtra(CalendarContract.Events.DESCRIPTION, String.valueOf(
+                            mSelectedRow.mTextViewEventSubtitle.getText()))
+                    .putExtra(CalendarContract.Events.EVENT_LOCATION,
+                            /* mSelectedRow.mEventLocation + " geo:" +*/ mSelectedRow.mEventMap)
+                    .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
+            mContext.startActivity(intent);
             return true;
         }
 
@@ -269,6 +307,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
         mCursor = newCursor;
         if (mCursor != null) {
             mIndexID          = mCursor.getColumnIndex(DatabaseContract.EventsEntry._ID);
+            mIndexDate        = mCursor.getColumnIndex(DatabaseContract.EventsEntry.COLUMN_START_DATE);
             mIndexStartTime   = mCursor.getColumnIndex(DatabaseContract.EventsEntry.COLUMN_START_TIME);
             mIndexEndTime     = mCursor.getColumnIndex(DatabaseContract.EventsEntry.COLUMN_END_TIME);
             mIndexTitle       = mCursor.getColumnIndex(DatabaseContract.EventsEntry.COLUMN_TITLE);
