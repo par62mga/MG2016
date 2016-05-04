@@ -32,6 +32,11 @@
 
     <string name="error_empty_list">No items found, please try again later</string>
 
+    <string name="widget_label">MG 2016 at a Glance</string>
+    <string name="widget_description">MG 2016 at a Glance</string>
+    <string name="widget_updated">Updated MG 2016 at a Glance</string>
+    <string name="widget_empty_text">No upcoming events</string>
+
     <!--    Permissions    -->
     <string name="permission_rationale_location">Access to the location service is required to show your current location on the map.</string>
     <string name="location_permission_denied">This sample requires location permission to view maps. Please try again and grant access to use the location.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt; \'MG 2016\'.</string>

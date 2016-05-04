@@ -65,7 +65,7 @@
         <provider
             android:name=".data.AppContentProvider"
             android:authorities="@string/content_authority"
-            android:exported="false"
+            android:exported="true"
             android:syncable="true" />
 
         <!-- SyncAdapter's dummy authentication service -->
@@ -91,6 +91,26 @@
                 android:name="android.content.SyncAdapter"
                 android:resource="@xml/syncadapter" />
         </service>
+
+        <service
+            android:name=".widget.GlanceWidgetService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" >
+        </service>
+
+
+        <receiver
+            android:name=".widget.GlanceWidgetProvider"
+            android:label="@string/widget_label">
+
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/glance_widget" />
+        </receiver>
     </application>
 
 </manifest>

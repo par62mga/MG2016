@@ -90,11 +90,14 @@ public class DateTimeHelper {
 
     }
 
+    public static long toTime (long hour, long minute) {
+        return hour * 100 + minute;
+    }
     public static long toTime (String timeFromServer) {
         if (timeFromServer.length() == 5 && timeFromServer.charAt(2) == ':') {
             long hour   = Long.parseLong(timeFromServer.substring(0, 2));
             long minute = Long.parseLong(timeFromServer.substring(3));
-            return hour * 100 + minute;
+            return toTime (hour, minute);
         } else {
             return -1;
         }
@@ -114,5 +117,22 @@ public class DateTimeHelper {
                 (int)(time / 100),
                 (int)(time % 100));
         return dateTime.getTimeInMillis();
+    }
+
+    public static long getCurrentDate () {
+        Calendar thisDate = new GregorianCalendar ();
+        //TODO: need to reflect tz adjustment
+        return toDate(
+                thisDate.get(Calendar.YEAR),
+                thisDate.get(Calendar.MONTH) + 1,
+                thisDate.get(Calendar.DAY_OF_MONTH));
+    }
+
+    public static long getCurrentTime () {
+        Calendar thisDate = new GregorianCalendar ();
+        //TODO: need to reflect tz adjustment
+        return toTime(
+                thisDate.get(Calendar.HOUR_OF_DAY),
+                thisDate.get(Calendar.MINUTE));
     }
 }

@@ -59,7 +59,15 @@ public class MainActivity extends AppCompatActivity
 
         // show news list
         if (savedInstanceState == null) {
-            NewsListFragment fragment = NewsListFragment.newInstance(NewsListFragment.DEFAULT);
+            Fragment fragment;
+            if (getIntent() != null && getIntent().getData() != null) {
+                Uri launchUri = getIntent().getData();
+                Log.d(LOG_TAG, "onCreate() launchUri ==> " + launchUri.toString());
+                fragment = EventPagerFragment.newInstance (launchUri.toString());
+            } else {
+                fragment = NewsListFragment.newInstance(NewsListFragment.DEFAULT);
+            }
+
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().add(R.id.container, fragment).commit();
         }

@@ -34,6 +34,7 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
     public static final String FRAGMENT_TAG = "event_list";
 
     private static final String ARG_URISTRING = "uri";
+    private static final String ARG_ITEM = "item";
 
     private static final int EVENTS_LOADER = 300;
 
@@ -43,6 +44,7 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
 
     private View mFragmentView;
     private Uri  mEventsUri = null;
+    private long mEventItem = -1;
 
     private boolean mLoaderInitialized = false;
 
@@ -53,10 +55,11 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
      * @param eventsUri provides news item to view.
      * @return A new instance of fragment EventListFragment.
      */
-    public static EventListFragment newInstance(String eventsUri) {
+    public static EventListFragment newInstance(String eventsUri, long selectedItem) {
         EventListFragment fragment = new EventListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_URISTRING, eventsUri);
+        args.putLong (ARG_ITEM, selectedItem);
         fragment.setArguments(args);
         return fragment;
     }
@@ -74,6 +77,7 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
 
         if (getArguments() != null) {
             mEventsUri = Uri.parse(getArguments().getString(ARG_URISTRING));
+            mEventItem = getArguments().getLong(ARG_ITEM);
         }
         setHasOptionsMenu(true);
     }
@@ -92,7 +96,7 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
         // set up the recycler view
         mEventRecyclerView = (RecyclerView) mFragmentView.findViewById(R.id.events_recycler_view);
         mEventRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mEventListAdapter = new EventListAdapter(getActivity(), mEmptyTextView);
+        mEventListAdapter = new EventListAdapter(getActivity(), mEmptyTextView, mEventItem);
         mEventRecyclerView.setAdapter(mEventListAdapter);
         if (savedInstanceState != null) {
             mEventListAdapter.onRestoreInstanceState(savedInstanceState);

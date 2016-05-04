@@ -45,6 +45,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
     private Context mContext;
     private Cursor  mCursor;
     private View    mEmptyView;
+    private long    mWidgetItem = NO_SELECTION;
     private int     mRestoreSelectedItem = NO_SELECTION;
 
     private int     mIndexID;
@@ -118,11 +119,13 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
     };
 
 
-    public EventListAdapter (Context context, View emptyView) {
+    public EventListAdapter (Context context, View emptyView, long selectedItem) {
         // save reference to context
         mContext = context;
         // mOnClickListener = listener;
         mEmptyView = emptyView;
+        // item selected by the widget
+        mWidgetItem = selectedItem;
     }
 
     public void onSaveInstanceState(Bundle outState) {
@@ -153,49 +156,19 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
         }
     }
 
-    private int getEventColor (int eventID) {
-        int eventCategory = 10 * ((eventID % 100) / 10);
-        int eventColor = R.color.colorEventDefault;
-        switch (eventCategory) {
-            case 10:
-                eventColor = R.color.colorEvent10;
-                break;
-            case 20:
-                eventColor = R.color.colorEvent20;
-                break;
-            case 30:
-                eventColor = R.color.colorEvent30;
-                break;
-            case 40:
-                eventColor = R.color.colorEvent40;
-                break;
-            case 50:
-                eventColor = R.color.colorEvent50;
-                break;
-            case 60:
-                eventColor = R.color.colorEvent60;
-                break;
-            case 70:
-                eventColor = R.color.colorEvent70;
-                break;
-            default:
-                break;
-        }
-        return eventColor;
-    }
-
-    @Override
+        @Override
     public void onBindViewHolder(EventViewHolder viewHolder, int position) {
         if (mCursor == null) {
             return;
         }
         mCursor.moveToPosition(position);
+        int eventId = mCursor.getInt(mIndexID);
 
         viewHolder.mEventDate      = mCursor.getLong(mIndexDate);
         viewHolder.mEventStartTime = mCursor.getLong(mIndexStartTime);
         viewHolder.mEventEndTime   = mCursor.getLong(mIndexEndTime);
 
-        int eventColor = getEventColor(mCursor.getInt(mIndexID));
+        int eventColor = Utility.getEventColor(eventId);
         viewHolder.mViewEventTime.setBackgroundColor(mContext.getResources().getColor(eventColor));
         Utility.setTextView(viewHolder.mTextViewEventStart,
                 DateTimeHelper.formatTime(viewHolder.mEventStartTime, false));
@@ -219,8 +192,18 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
             viewHolder.mEventMap      = mCursor.getString(mIndexMapLocation);
         }
 
+        boolean selectItem = false;
         if (position == mRestoreSelectedItem) {
             mRestoreSelectedItem = NO_SELECTION;
+            selectItem = true;
+        }
+
+        if (mRestoreSelectedItem == NO_SELECTION && mWidgetItem == eventId) {
+            mWidgetItem = NO_SELECTION;
+            selectItem = true;
+        }
+
+        if (selectItem) {
             viewHolder.selectItem(position);
             viewHolder.mTextViewEventSubtitle.setMaxLines(MAX_TEXT_LINES);
         }

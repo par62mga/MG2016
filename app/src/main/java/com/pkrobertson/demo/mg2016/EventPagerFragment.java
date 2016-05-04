@@ -2,6 +2,7 @@ package com.pkrobertson.demo.mg2016;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -29,23 +30,26 @@ public class EventPagerFragment extends Fragment {
 
     public static final String FRAGMENT_TAG = "event_pager";
 
-    public static final String DEFAULT = "default";
+    public static final String DEFAULT = null;
 
-    private static final String ARG_ACTION = "action";
+    private static final String ARG_EVENT_URI = "event_uri";
 
     private static Context mContext;
+    private static long    mSelectedItem = -1;
 
     private ViewPager mEventViewPager;
     private EventPagerAdapter mEventPagerAdapter;
 
 
-    private String mAction = null;
+    private Uri  mEventUri = null;
 
     // TODO: Rename and change types of parameters
-    public static EventPagerFragment newInstance(String action) {
+    public static EventPagerFragment newInstance(String eventUri) {
         EventPagerFragment fragment = new EventPagerFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_ACTION, action);
+        if (eventUri != null) {
+            args.putString(ARG_EVENT_URI, eventUri);
+        }
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,7 +66,10 @@ public class EventPagerFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mAction = getArguments().getString(ARG_ACTION);
+            String uriString = getArguments().getString(ARG_EVENT_URI);
+            if (uriString != null) {
+                mEventUri = Uri.parse(uriString);
+            }
         }
     }
 
@@ -76,7 +83,16 @@ public class EventPagerFragment extends Fragment {
         mEventViewPager = (ViewPager)fragmentView.findViewById(R.id.event_pager);
         mEventPagerAdapter = new EventPagerAdapter(getActivity().getSupportFragmentManager());
         mEventViewPager.setAdapter(mEventPagerAdapter);
-
+        if (mEventUri != null &&
+                getActivity().getContentResolver().getType(mEventUri) ==
+                        DatabaseContract.EventsEntry.CONTENT_ITEM_TYPE) {
+            mSelectedItem = Long.parseLong (mEventUri.getLastPathSegment());
+            int selectedPage = (int)(mSelectedItem / 100) - 1;
+            Log.d (LOG_TAG, "onCreateView() URI Item ==> " + mSelectedItem + " Page ==> " + selectedPage);
+            mEventViewPager.setCurrentItem(selectedPage, true);
+        } else {
+            mSelectedItem = -1;
+        }
         return fragmentView;
     }
 
@@ -122,7 +138,7 @@ public class EventPagerFragment extends Fragment {
                     thisDate + "; ");
             return EventListFragment.newInstance (
                     DatabaseContract.EventsEntry.buildEventsUriWithStartDate(
-                            thisDate).toString());
+                            thisDate).toString(), mSelectedItem);
         }
 
         @Override

@@ -144,4 +144,35 @@ public class Utility {
         }
     }
 
+    public static int getEventColor (int eventID) {
+        int eventCategory = 10 * ((eventID % 100) / 10);
+        int eventColor = R.color.colorEventDefault;
+        switch (eventCategory) {
+            case 10:
+                eventColor = R.color.colorEvent10;
+                break;
+            case 20:
+                eventColor = R.color.colorEvent20;
+                break;
+            case 30:
+                eventColor = R.color.colorEvent30;
+                break;
+            case 40:
+                eventColor = R.color.colorEvent40;
+                break;
+            case 50:
+                eventColor = R.color.colorEvent50;
+                break;
+            case 60:
+                eventColor = R.color.colorEvent60;
+                break;
+            case 70:
+                eventColor = R.color.colorEvent70;
+                break;
+            default:
+                break;
+        }
+        return eventColor;
+    }
+
 }
