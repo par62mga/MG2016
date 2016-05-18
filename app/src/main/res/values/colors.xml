@@ -16,6 +16,7 @@
     <color name="colorBackgroundSelected">#FFECB3</color>
     <color name="colorBackgroundLight">#FFFFFF</color>
     <color name="colorBorder">#999999</color>
+    <color name="colorIconLight">#FFFFFF</color>
 
     <color name="colorTextLabel">#000000</color>
     <color name="colorTextValue">#003d65</color>

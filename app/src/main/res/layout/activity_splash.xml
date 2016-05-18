@@ -2,19 +2,16 @@
 <FrameLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/background_splash"/>
+    android:layout_height="match_parent"
+    android:background="@drawable/background_splash">
 
     <ImageView
         android:id="@+id/splash_logo"
-        android:layout_width="240dp"
-        android:layout_height="480dp"
-        android:paddingBottom="96dp"
+        android:layout_width="@dimen/splash_image_width"
+        android:layout_height="@dimen/splash_image_height"
+        android:layout_gravity="center"
+        android:paddingBottom="@dimen/splash_image_padding"
         android:src="@drawable/ic_mg2016_logo"
-        android:layout_gravity="center"/>
+        android:contentDescription="@string/app_name"/>
 
 </FrameLayout>

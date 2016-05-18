@@ -20,6 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
+                android:elevation="@dimen/elevation_toolbar"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
@@ -33,13 +34,12 @@
 
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/nav_bar_fixed_width"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
             android:background="@drawable/background_nav_view"
-            app:itemTextColor="#FFFFFF"
-            app:itemIconTint="#FFFFFF"
+            app:insetForeground="@color/colorPrimaryDark"
+            app:itemTextColor="@color/colorTextLight"
+            app:itemIconTint="@color/colorIconLight"
             app:menu="@menu/activity_main_drawer" />
 
         <LinearLayout

@@ -1,18 +1,58 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
-    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="nav_header_horizontal_spacing">16dp</dimen>
+    <dimen name="nav_header_text_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="nav_header_image_width">124dp</dimen>
+    <dimen name="nav_header_image_height">56dp</dimen>
+    <dimen name="nav_bar_fixed_width">192dp</dimen>
+
+    <dimen name="nav_title_text_size">14sp</dimen>
+    <dimen name="nav_subtitle_text_size">12sp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">0dp</dimen>
+    <dimen name="activity_vertical_margin">0dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="elevation_toolbar">4dp</dimen>
+
+    <dimen name="splash_image_width">240dp</dimen>
+    <dimen name="splash_image_height">480dp</dimen>
+    <dimen name="splash_image_padding">96dp</dimen>
 
     <dimen name="list_title_text_size">16sp</dimen>
     <dimen name="list_subtitle_text_size">14sp</dimen>
     <dimen name="list_detail_text_size">12sp</dimen>
+    <dimen name="list_image_width">96dp</dimen>
+    <dimen name="list_image_height">72dp</dimen>
+    <dimen name="list_time_width">80dp</dimen>
+    <dimen name="list_min_padding">4dp</dimen>
+    <dimen name="list_default_padding">8dp</dimen>
+    <dimen name="list_double_padding">16dp</dimen>
+    <dimen name="list_bottom_padding">24dp</dimen>
+    <dimen name="list_line_height">1dp</dimen>
 
     <dimen name="detail_title_text_size">24sp</dimen>
     <dimen name="detail_subtitle_text_size">16sp</dimen>
     <dimen name="detail_body_text_size">14sp</dimen>
+    <dimen name="detail_min_padding">4dp</dimen>
+    <dimen name="detail_default_padding">8dp</dimen>
+    <dimen name="detail_double_padding">16dp</dimen>
+    <dimen name="detail_scroll_padding">96dp</dimen>
+    <dimen name="detail_pager_padding">0dp</dimen>
+    <dimen name="detail_dialog_padding">0dp</dimen>
+
+    <dimen name="widget_title_text_size">20sp</dimen>
+    <dimen name="widget_list_title_text_size">14sp</dimen>
+    <dimen name="widget_list_subtitle_text_size">12sp</dimen>
+    <dimen name="widget_empty_text_size">16sp</dimen>
+    <dimen name="widget_frame_height">64dp</dimen>
+    <dimen name="widget_list_height">80dp</dimen>
+    <dimen name="widget_time_width">80dp</dimen>
+    <dimen name="widget_divider_height">4dp</dimen>
+    <dimen name="widget_default_padding">8dp</dimen>
+    <dimen name="widget_min_padding">4dp</dimen>
+
 </resources>

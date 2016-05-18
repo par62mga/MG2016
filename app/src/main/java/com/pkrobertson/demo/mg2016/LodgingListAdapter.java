@@ -2,60 +2,47 @@ package com.pkrobertson.demo.mg2016;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.support.v4.view.GravityCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.pkrobertson.demo.mg2016.data.AppConfig;
 import com.pkrobertson.demo.mg2016.data.DatabaseContract;
-import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 /**
- * Created by Phil Robertson on 3/15/2016.
+ * LodgingListAdapter -- handles the lodging list recycler view that is held under the
+ *     LodgingListFragment
  */
-
-//TODO: check on tablet without phone service, do not show call option
-
 public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.LodgingViewHolder> {
     private static final String LOG_TAG       = LodgingListAdapter.class.getSimpleName();
 
     private static final String SELECTION_KEY = "lodging_selection_key";
     private static final int    NO_SELECTION  = -1;
 
-    private static final int    MIN_TEXT_LINES = 1;
-    private static final int    MAX_TEXT_LINES = 32;
+    private static final int    MIN_TEXT_LINES  = 1;
+    private static final int    MAX_TEXT_LINES  = 32;
 
-    private int mSelectedItem = NO_SELECTION;
+    private static final int    FAST_ANIMATION = 200; // 200 msec animation when hiding lines
+    private static final int    SLOW_ANIMATION = 400; // 400 msec animation when expanding lines
+
+    // this is a reference to the "selected" row actually in view or nearly in view
     private LodgingViewHolder mSelectedRow = null;
 
-    private MenuItem mMenuItemCall = null;
-    private MenuItem mMenuItemLocate = null;
-    private MenuItem mMenuItemWebsite = null;
+    private Context      mContext;
+    private Cursor       mCursor;
+    private RecyclerView mRecyclerView;
+    private View         mEmptyView;
 
-    private Context mContext;
-    private Cursor  mCursor;
-    private View    mEmptyView;
+    // used to restore selected item after screen rotation
     private int     mRestoreSelectedItem = NO_SELECTION;
 
+    // database column IDs used to access cursor data
     private int     mIndexImage;
     private int     mIndexName;
     private int     mIndexAddr1;
@@ -72,8 +59,12 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
         TextView    mTextViewLodgingPhone;
         TextView    mTextViewLodgingDetail;
 
+        // save data used to launch map or website actions
         String      mMapLocation;
         String      mLodgingWebsite;
+
+        // used to fix issue where onDetachedFromView is called spuriously...
+        boolean     mRowWasVisible;
 
         public LodgingViewHolder(View view) {
             super(view);
@@ -82,62 +73,56 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
             mTextViewLodgingAddress = (TextView)   view.findViewById(R.id.lodging_address);
             mTextViewLodgingPhone   = (TextView)   view.findViewById(R.id.lodging_phone);
             mTextViewLodgingDetail  = (TextView)   view.findViewById(R.id.lodging_detail);
+            mRowWasVisible = false;
             view.setClickable(true);
             view.setOnClickListener(this);
         }
 
-        public void selectItem (int position) {
-            mSelectedItem = position;
-            mSelectedRow  = this;
-            mSelectedRow.itemView.setSelected(true);
-            if (mMenuItemCall != null) {
-                mMenuItemCall.setVisible(true);
-                mMenuItemLocate.setVisible(true);
-                mMenuItemWebsite.setVisible(true);
-            }
-        }
-
         @Override
         public void onClick(View v) {
+            boolean selectThisRow = this != mSelectedRow;
+            mRowWasVisible = true;
             if (mSelectedRow != null) {
-                mSelectedRow.itemView.setSelected(false);
-                ObjectAnimator animator = ObjectAnimator.ofInt (mSelectedRow.mTextViewLodgingDetail, "maxLines", MIN_TEXT_LINES);
-                animator.setDuration(200).start();
-                if (mSelectedRow == this) {
-                    mSelectedRow  = null;
-                    mSelectedItem = NO_SELECTION;
-                    if (mMenuItemCall != null) {
-                        mMenuItemCall.setVisible(false);
-                        mMenuItemLocate.setVisible(false);
-                        mMenuItemWebsite.setVisible(false);
-                    }
-                    return;
-                }
+                deselectItem (mSelectedRow, true);
             }
-
-            selectItem(getAdapterPosition());
-            ObjectAnimator animator = ObjectAnimator.ofInt (mTextViewLodgingDetail, "maxLines", MAX_TEXT_LINES);
-            animator.setDuration(300).start();
-            //TODO: scroll recycler view up to make sure text is visible
+            if (selectThisRow) {
+                selectItem (this, true);
+            }
         }
 
     };
 
 
-    public LodgingListAdapter (Context context, View emptyView) {
+    /**
+     * LodgingListAdapter -- constructor
+     * @param context
+     * @param emptyView
+     */
+    public LodgingListAdapter (Context context, RecyclerView recyclerView, View emptyView) {
         // save reference to context
         mContext = context;
-        // mOnClickListener = listener;
+        // save reference to recycler view for scrolling
+        mRecyclerView = recyclerView;
+        // save reference to text view
         mEmptyView = emptyView;
-
     }
 
+    /**
+     * onSaveInstanceState -- called by the fragment to save currently selected hotel
+     * @param outState
+     */
     public void onSaveInstanceState(Bundle outState) {
-        if (mSelectedItem != NO_SELECTION) {
-            outState.putInt (SELECTION_KEY, mSelectedItem);
+        if (mSelectedRow != null) {
+            outState.putInt(SELECTION_KEY, mSelectedRow.getAdapterPosition());
+        } else if (mRestoreSelectedItem != NO_SELECTION) {
+            outState.putInt (SELECTION_KEY, mRestoreSelectedItem);
         }
     }
 
+    /**
+     * onRestoreInstanceState -- called by the fragment to restore the selection
+     * @param savedInstanceState
+     */
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         if ( savedInstanceState.containsKey(SELECTION_KEY)) {
             // selected item to show on restore
@@ -145,12 +130,17 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
         } else {
             mRestoreSelectedItem = NO_SELECTION;
         }
+        if (mRestoreSelectedItem != NO_SELECTION) {
+            mRecyclerView.smoothScrollToPosition(mRestoreSelectedItem);
+        }
+        Log.d (LOG_TAG, "onRestoreInstanceState() mRestoreSelectedItem ==> " + mRestoreSelectedItem);
     }
 
     @Override
     public LodgingViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         if ( viewGroup instanceof RecyclerView ) {
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.lodging_list_item, viewGroup, false);
+            View view = LayoutInflater.from(
+                    viewGroup.getContext()).inflate(R.layout.lodging_list_item, viewGroup, false);
             view.setFocusable(true);
             return new LodgingViewHolder(view);
         } else {
@@ -160,29 +150,65 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
 
     @Override
     public void onBindViewHolder(LodgingViewHolder viewHolder, int position) {
+        Log.d (LOG_TAG, "onBindViewHolder () position ==> " + position);
         if (mCursor == null) {
             return;
         }
         mCursor.moveToPosition(position);
+        viewHolder.mRowWasVisible = false;
+        String lodgingTitle = mCursor.getString(mIndexName);
+        String contentDescription = String.format(
+                mContext.getString(R.string.content_image_for), lodgingTitle);
 
         Utility.setImageView(viewHolder.mImageViewLodgingImage,
                 mContext,
                 mCursor.getString(mIndexImage),
-                R.drawable.lodging_placeholder);
+                null,
+                R.drawable.lodging_placeholder,
+                contentDescription);
 
-        Utility.setTextView(viewHolder.mTextViewLodgingTitle, mCursor.getString(mIndexName));
+        Utility.setTextView(viewHolder.mTextViewLodgingTitle, lodgingTitle);
         Utility.setTextView(viewHolder.mTextViewLodgingAddress,
-                mCursor.getString(mIndexAddr1) + "\n" + mCursor.getString(mIndexAddr2));
+                String.format(mContext.getString(R.string.format_lodging_address),
+                        mCursor.getString(mIndexAddr1),
+                        mCursor.getString(mIndexAddr2)));
         Utility.setTextView(viewHolder.mTextViewLodgingPhone, mCursor.getString(mIndexPhone));
         Utility.setTextView(viewHolder.mTextViewLodgingDetail, mCursor.getString(mIndexDetails));
+        viewHolder.mTextViewLodgingDetail.setMaxLines(MIN_TEXT_LINES);
 
         viewHolder.mMapLocation = mCursor.getString(mIndexMap);
         viewHolder.mLodgingWebsite = mCursor.getString(mIndexWebsite);
-        if (position == mRestoreSelectedItem) {
-            mRestoreSelectedItem = NO_SELECTION;
-            viewHolder.selectItem(position);
-            viewHolder.mTextViewLodgingDetail.setMaxLines(MAX_TEXT_LINES);
+
+        // view is about to be displayed, time to restore the selected item after rotation/change
+        if (viewHolder.getAdapterPosition() == mRestoreSelectedItem) {
+            Log.d(LOG_TAG, "onBindViewHolder () mRestoreSelectedItem ==> " + mRestoreSelectedItem);
+            selectItem (viewHolder, false);
         }
+    }
+
+    @Override
+    public void onViewAttachedToWindow (LodgingViewHolder viewHolder) {
+        // view is about to be displayed, time to restore the selected item after rotation/change
+        viewHolder.mRowWasVisible = true;
+        if (viewHolder.getAdapterPosition() == mRestoreSelectedItem) {
+            Log.d(LOG_TAG, "onViewAttachedToWindow () mRestoreSelectedItem ==> " + mRestoreSelectedItem);
+            selectItem(viewHolder, false);
+        }
+        super.onViewAttachedToWindow(viewHolder);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow (LodgingViewHolder viewHolder) {
+        // fix issue where this is spuriously called for last item in recycler view
+        if (!viewHolder.mRowWasVisible) {
+            return;
+        }
+        // view is about to go off screen, deselect the row if selected
+        if (viewHolder == mSelectedRow) {
+            Log.d(LOG_TAG, "onViewDetatchedFromWindow () item ==> " + viewHolder.getAdapterPosition());
+            deselectItem (viewHolder, false);
+        }
+        super.onViewDetachedFromWindow(viewHolder);
     }
 
     @Override
@@ -190,53 +216,12 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
         return mCursor == null ? 0 : mCursor.getCount();
     }
 
-    public void onCreateOptionsMenu (Menu menu) {
-        mMenuItemCall    = menu.findItem(R.id.action_call);
-        mMenuItemLocate  = menu.findItem(R.id.action_locate);
-        mMenuItemWebsite = menu.findItem(R.id.action_website);
-        if (mSelectedRow == null) {
-            mMenuItemCall.setVisible(false);
-            mMenuItemLocate.setVisible(false);
-            mMenuItemWebsite.setVisible(false);
-        }
-    }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (mSelectedRow == null) {
-            return false;
-        }
 
-        int id = item.getItemId();
-        if (id == R.id.action_call) {
-            String phoneNumber = String.valueOf(mSelectedRow.mTextViewLodgingPhone.getText());
-            Uri dialUri = Uri.parse("tel:" + phoneNumber);
-            Log.d(LOG_TAG, "onOptionsItemSelected Uri ==> " + dialUri.toString());
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData (dialUri);
-            if (intent.resolveActivity(mContext.getPackageManager()) != null) {
-                mContext.startActivity(intent);
-            }
-            return true;
-        } else if (id == R.id.action_locate) {
-            String hotelName = String.valueOf(mSelectedRow.mTextViewLodgingTitle.getText());
-            String streetAddress = String.valueOf(mSelectedRow.mTextViewLodgingAddress.getText());
-            MapActivity.lauchMapActivity(
-                    mContext, hotelName, streetAddress, mSelectedRow.mMapLocation);
-            return true;
-        } else if (id == R.id.action_website) {
-            Uri websiteUri = Uri.parse(mSelectedRow.mLodgingWebsite);
-            Log.d(LOG_TAG, "onOptionsItemSelected Uri ==> " + websiteUri.toString());
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData (websiteUri);
-            if (intent.resolveActivity(mContext.getPackageManager()) != null) {
-                mContext.startActivity(intent);
-            }
-            return true;
-        }
-
-        return false;
-    }
-
+    /**
+     * swapCursor -- new data set is ready or old data set is no longer available
+     * @param newCursor
+     */
     public void swapCursor(Cursor newCursor) {
         if (mCursor != null) {
             mCursor.close();
@@ -260,6 +245,83 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
 
     public Cursor getCursor() {
         return mCursor;
+    }
+
+    /**
+     * getHandler -- casts activity to the OnFragmentInteraction handler to get access to turn
+     *     on/off Call, Locate and Website menu options
+     * @return handler
+     */
+    private OnFragmentInteraction getHandler () {
+        OnFragmentInteraction handler = null;
+
+        try {
+            handler = (OnFragmentInteraction) mContext;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(mContext.toString()
+                    + " must implement OnFragmentInteraction");
+        }
+        return handler;
+    }
+
+    /**
+     * deselectItem -- used to deselect a currently selected row and hide detail text
+     * @param viewHolder
+     * @param withAnimation
+     */
+    private void deselectItem (LodgingViewHolder viewHolder, boolean withAnimation) {
+        mSelectedRow = null;
+        viewHolder.itemView.setSelected(false);
+
+        // turn off menu options for call, locate, website
+        getHandler().disableMenuItems();
+
+        // hide extra text
+        if (withAnimation) {
+            ObjectAnimator animator = ObjectAnimator.ofInt (viewHolder.mTextViewLodgingDetail, "maxLines", MIN_TEXT_LINES);
+            animator.setDuration(FAST_ANIMATION).start();
+        } else {
+            viewHolder.mTextViewLodgingDetail.setMaxLines(MIN_TEXT_LINES);
+        }
+
+    }
+
+    /**
+     * selectItem -- used to select a row and expand detail text
+     * @param viewHolder
+     * @param withAnimation
+     */
+    private void selectItem (LodgingViewHolder viewHolder, boolean withAnimation) {
+        mRestoreSelectedItem = NO_SELECTION;
+        mSelectedRow = viewHolder;
+        viewHolder.itemView.setSelected(true);
+
+        // turn on menu options for call, locate, website
+        OnFragmentInteraction handler = getHandler();
+        if (Utility.hasPhoneAvailability(mContext)) {
+            handler.enableMenuItemCall(String.valueOf(viewHolder.mTextViewLodgingPhone.getText()));
+        }
+        handler.enableMenuItemLocate(String.valueOf(viewHolder.mTextViewLodgingTitle.getText()),
+                String.valueOf(viewHolder.mTextViewLodgingAddress.getText()),
+                viewHolder.mMapLocation);
+        handler.enableMenuItemWebsite(viewHolder.mLodgingWebsite);
+
+        // show extra text
+        if (withAnimation) {
+            ObjectAnimator animator = ObjectAnimator.ofInt (
+                    viewHolder.mTextViewLodgingDetail, "maxLines", MAX_TEXT_LINES);
+            animator.setDuration(SLOW_ANIMATION).start();
+
+            // make sure expanded information is on the screen
+            int position = viewHolder.getAdapterPosition();
+            if (position + 1 < LodgingListAdapter.this.getItemCount()) {
+                position += 1;
+            }
+            mRecyclerView.smoothScrollToPosition(position);
+            Log.d(LOG_TAG, "selectItem() scrolling to ==> " + position);
+        } else {
+            viewHolder.mTextViewLodgingDetail.setMaxLines(MAX_TEXT_LINES);
+        }
     }
 
 }

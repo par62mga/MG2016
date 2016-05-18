@@ -1,71 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:padding="@dimen/detail_dialog_padding"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="24dp">
+    android:layout_height="match_parent">
 
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="@dimen/detail_scroll_padding"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/news_photo"
-				android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 				android:scaleType="fitXY"
 				android:adjustViewBounds="true"
-				android:src="@drawable/maintaining_the_breed"/>
+				android:src="@drawable/news_placeholder"
+                android:contentDescription="@string/content_news"/>
             <TextView
                 android:id="@+id/news_title"
 				style="@style/Text.DetailTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginStart="0dp"
-				android:layout_gravity="center"
-                android:text="Welcome to MG 2016"/>
+                android:layout_margin="@dimen/detail_default_padding"
+				android:layout_gravity="center"/>
 			<TextView
                 android:id="@+id/news_subtitle"
 				style="@style/Text.DetailSubtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginStart="0dp"
-				android:layout_gravity="center"
-                android:text="- Maintaining the Breed"/>
+                android:layout_marginTop="@dimen/detail_min_padding"
+                android:layout_marginBottom="@dimen/detail_min_padding"
+                android:layout_marginLeft="@dimen/detail_double_padding"
+                android:layout_marginStart="@dimen/detail_double_padding"
+                android:layout_marginRight="@dimen/detail_min_padding"
+                android:layout_marginEnd="@dimen/detail_min_padding"
+				android:layout_gravity="center"/>
 			<TextView
                 android:id="@+id/news_date"
 				style="@style/Text.DetailSubtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginStart="0dp"
-				android:layout_gravity="center"
-                android:text="June 13-16, 2016"/>
+                android:layout_marginTop="@dimen/detail_min_padding"
+                android:layout_marginBottom="@dimen/detail_min_padding"
+                android:layout_marginLeft="@dimen/detail_double_padding"
+                android:layout_marginStart="@dimen/detail_double_padding"
+                android:layout_marginRight="@dimen/detail_min_padding"
+                android:layout_marginEnd="@dimen/detail_min_padding"
+				android:layout_gravity="center"/>
 			<TextView
                 android:id="@+id/news_content"
 				style="@style/Text.DetailBody"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginStart="0dp"
-				android:layout_gravity="center"
-                android:text="Welcome..."/>
+                android:layout_margin="@dimen/detail_default_padding"
+				android:layout_gravity="center"/>
         </LinearLayout>
 
     </ScrollView>
@@ -76,12 +73,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:src="@drawable/ic_share"
-        android:layout_marginRight="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:contentDescription="@string/news_share"/>
 	
 </RelativeLayout>
 

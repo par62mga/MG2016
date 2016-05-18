@@ -5,11 +5,8 @@ import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 /**
- * DatabaseContract -- Defines URIs, table and column names for the MG 2016 database. *
+ * DatabaseContract -- Defines URIs, table and column names for the MG 2016 database.
  */
 public class DatabaseContract {
 

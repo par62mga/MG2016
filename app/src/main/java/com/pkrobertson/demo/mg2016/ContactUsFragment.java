@@ -1,10 +1,10 @@
 package com.pkrobertson.demo.mg2016;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,22 +12,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pkrobertson.demo.mg2016.data.AppConfig;
-import com.pkrobertson.demo.mg2016.data.DatabaseContract;
-import com.squareup.picasso.Picasso;
 
 /**
- * Created by Phil Robertson on 3/17/2016.
+ * ContactUsFragment -- handles the MG 2016 contact us page
  */
 public class ContactUsFragment extends Fragment  {
     private static final String LOG_TAG = ContactUsFragment.class.getSimpleName();
 
-    public static final String FRAGMENT_TAG = "contact_us";
-
     public static final String DEFAULT = "default";
 
     private static final String ARG_ACTION = "action";
-
-    private FloatingActionButton mActionButtonEmail;
 
     private String mAction = null;
 
@@ -63,19 +57,10 @@ public class ContactUsFragment extends Fragment  {
                              ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+
         View fragmentView = inflater.inflate(R.layout.fragment_contact_us, container, false);
 
         initUi(fragmentView);
-
-		/*
-        mActionButtonShare.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                }
-            });
-        }
-		*/
-
         Utility.hideSoftInput(getActivity());
         return fragmentView;
     }
@@ -87,15 +72,39 @@ public class ContactUsFragment extends Fragment  {
     }
 
     private void initUi(View view) {
-        AppConfig configInfo = AppConfig.getInstance(getActivity());
+        AppConfig configInfo   = AppConfig.getInstance(getActivity());
+        String[]  emailAddress = new String[1];
+        if (configInfo != null) {
+            Utility.setImageView((ImageView) view.findViewById(R.id.contact_photo),
+                    getActivity(),
+                    configInfo.getContactImageFile(),
+                    null,
+                    R.drawable.contact_us,
+                    getString(R.string.content_contact_us));
+            Utility.setTextViewFromHTML((TextView) view.findViewById(R.id.contact_details),
+                    configInfo.getAboutInfo());
+            emailAddress[0] = configInfo.getContactEmail();
+        } else {
+            Utility.setTextView((TextView) view.findViewById(R.id.contact_details),
+                    getString(R.string.contact_default_text));
+            emailAddress[0] = getString (R.string.contact_default_email);
+        }
 
-        Utility.setImageView ((ImageView)view.findViewById(R.id.contact_photo),
-                getActivity(),
-                configInfo.getContactImageFile(),
-                R.drawable.contact_placeholder);
+        // set up intent for send email action
+        final Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, emailAddress);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_subject));
+        emailIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.email_text));
 
-        Utility.setTextViewFromHTML((TextView) view.findViewById(R.id.contact_details),
-                configInfo.getAboutInfo());
+        ((FloatingActionButton)view.findViewById(R.id.contact_fab)).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(Intent.createChooser(emailIntent, getString(R.string.send_email)));
+                    }
+                });
     }
 }
 

@@ -3,29 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:padding="0dp">
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/widget_frame"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="@dimen/widget_frame_height"
         android:background="@color/colorPrimary">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/widget_description"
+            android:contentDescription="@string/content_mg_logo"
             android:layout_gravity="start"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/widget_default_padding"
             android:src="@mipmap/ic_launcher"/>
         <TextView
             android:id="@+id/widget_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/widget_default_padding"
             android:text="@string/widget_label"
-            style="@style/Text.LightTitle"/>
+            style="@style/Text.WidgetTitle"/>
     </FrameLayout>
 
     <FrameLayout
@@ -38,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@color/colorBorder"
-            android:dividerHeight="4dp"
+            android:dividerHeight="@dimen/widget_divider_height"
             tools:listitem="@layout/widget_list_item"/>
         <TextView
             android:id="@+id/widget_textview"

@@ -3,66 +3,91 @@ package com.pkrobertson.demo.mg2016;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Environment;
+
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
+import android.telephony.TelephonyManager;
 import android.text.Html;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
+
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pkrobertson.demo.mg2016.data.AppConfig;
+import com.pkrobertson.demo.mg2016.sync.AppSyncAdapter;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 /**
- * Created by Phil Robertson on 11/19/2015.
+ * Utility -- shared helper methods
  */
 public class Utility {
     private static String LOG_TAG = Utility.class.getSimpleName();
 
-    private static long MILLIS_IN_MINUTE = 1000 * 60;
-    private static long MILLIS_IN_HOUR = MILLIS_IN_MINUTE * 60;
-    private static long MILLIS_IN_DAY = MILLIS_IN_HOUR * 24;
 
-    private static long mSequenceCounter = 1000;
-
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("M/dd/yy h:mm a");
-    // private static final SimpleDateFormat sdfToday = new SimpleDateFormat("h:mm a");
-    private static final SimpleDateFormat wof = new SimpleDateFormat("yyMMdd");
-
-    public static long getCurrentTime() {
-        return Calendar.getInstance().getTimeInMillis();
+    /**
+     *
+     * @param c Context used to get the SharedPreferences
+     * @return the location status integer type
+     */
+    @SuppressWarnings("ResourceType")
+    static public @AppSyncAdapter.AppServerStatus
+    int getLocationStatus(Context c){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(c);
+        return sp.getInt(c.getString(R.string.pref_server_status_key), AppSyncAdapter.SERVER_STATUS_UNKNOWN);
     }
 
-    public static String formatTime(long timeInMillis) {
-        Date date = new Date(timeInMillis);
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        Calendar today = Calendar.getInstance();
-        /*
-        if (today.get(Calendar.DAY_OF_MONTH) == cal.get(Calendar.DAY_OF_MONTH) &&
-            today.get(Calendar.MONTH) == cal.get(Calendar.MONTH) &&
-            today.get(Calendar.YEAR) == cal.get(Calendar.YEAR)) {
-            return sdfToday.format(date);
+    /**
+     * getServerStatusMessage -- translate server status into a message user can understand
+     * @param c
+     * @return message
+     */
+    public static int getServerStatusMessage (Context c) {
+        ConnectivityManager cm =
+                (ConnectivityManager)c.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        int serverMessage = R.string.error_empty_list;
+        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
+            int serverStatus = getLocationStatus(c);
+            switch (serverStatus) {
+                case AppSyncAdapter.SERVER_STATUS_DOWN:
+                    serverMessage = R.string.error_server_down;
+                    break;
+                case AppSyncAdapter.SERVER_STATUS_INVALID:
+                    serverMessage = R.string.error_server_error;
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            serverMessage = R.string.error_no_network;
         }
-        */
-        return sdf.format(date);
+        return serverMessage;
+    }
+
+    /**
+     * hasPhoneAvailability -- return true if phone service is available
+     * @param c -- context
+     * @return true when phone is available
+     */
+    public static boolean hasPhoneAvailability (Context c) {
+        TelephonyManager tm = (TelephonyManager)c.getSystemService(Context.TELEPHONY_SERVICE);
+        if (tm == null || (tm.getPhoneType() == TelephonyManager.PHONE_TYPE_NONE)) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -84,25 +109,71 @@ public class Utility {
         }
     }
 
+    /**
+     * showAddressOnMap -- original way map was launched before Google Maps API was implemented
+     * @param activity
+     * @param streetAddress
+     */
     public void showAddressOnMap (Activity activity, String streetAddress) {
                 Uri geoLocation = Uri.parse(
-                "geo:0,0?q=" + streetAddress.replace (' ', '+'));
+                        "geo:0,0?q=" + streetAddress.replace(' ', '+'));
         Log.d(LOG_TAG, "navigateWorkOrder ==> " + geoLocation.toString());
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData (geoLocation);
+        intent.setData(geoLocation);
         if (intent.resolveActivity(activity.getPackageManager()) != null) {
             activity.startActivity(intent);
         }
     }
 
-    public static void setImageView (ImageView view, Context context, String imageFile, int imageDefault) {
-        String imageURL = AppConfig.getInstance(context).getImageURL(imageFile);
+    /**
+     * setImageView -- method used to load image
+     * @param view
+     * @param context
+     * @param imageFile
+     * @param imageThumbnail - when non-null, thumbnail is loaded first for faster response
+     * @param imageDefault
+     * @param contentDescription
+     */
+    public static void setImageView (final ImageView view, final Context context,
+                                     String imageFile, String imageThumbnail,
+                                     int imageDefault, CharSequence contentDescription) {
+        final String imageURL = AppConfig.getInstance(context).getImageURL(imageFile);
         Log.d(LOG_TAG, "setImageView () imageURL ==> " + imageURL);
 
         // load contact us image using "Picasso" or with a default image if the URL is not valid
         if ((imageURL != null) && Patterns.WEB_URL.matcher(imageURL).matches()) {
             try {
-                Picasso.with(context).load(imageURL).into(view);
+                String thumbnailURL = AppConfig.getInstance(context).getImageURL(imageThumbnail);
+                Log.d(LOG_TAG, "setImageView () thumbnailURL ==> " + thumbnailURL);
+                if ((thumbnailURL != null) && Patterns.WEB_URL.matcher(thumbnailURL).matches()) {
+
+                    Picasso.with(context)
+                            .load(thumbnailURL)
+                            .placeholder(imageDefault)
+                            .fit()
+                             //.transform(blurTransformation)
+                            .into(view, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            Picasso.with(context)
+                                    .load(imageURL) // image url goes here
+                                    .fit()
+                                    .placeholder(view.getDrawable())
+                                    .into(view);
+                        }
+
+                        @Override
+                        public void onError() {
+                        }
+                    });
+
+                } else {
+                    Picasso.with(context)
+                            .load(imageURL)
+                            .placeholder(imageDefault)
+                            .fit()
+                            .into(view);
+                }
             } catch (Exception e) {
                 Log.d(LOG_TAG, "Picasso call failed" + e.toString());
                 view.setImageResource(imageDefault);
@@ -110,8 +181,14 @@ public class Utility {
         } else {
             view.setImageResource(imageDefault);
         }
+        view.setContentDescription (contentDescription);
     }
 
+    /**
+     * setTextView -- helper method to update text view, handling null text gracefully
+     * @param view
+     * @param text
+     */
     public static void setTextView (TextView view, String text) {
         if (text == null) {
             view.setText ("");
@@ -120,10 +197,39 @@ public class Utility {
         }
     }
 
+
+    /**
+     * setTextView -- helper method to update text view from cursor column name and allows
+     *     null string from database
+     * @param view
+     * @param data
+     * @param columnName
+     */
     public static void setTextView (TextView view, Cursor data, String columnName) {
         setTextView(view, data.getString(data.getColumnIndex(columnName)));
     }
 
+    /**
+     * setTextViewOrHide -- helper method to update text view from cursor column name. If database
+     *     field is null, the view is hidden/GONE
+     * @param view
+     * @param data
+     * @param columnName
+     */
+    public static void setTextViewOrHide (TextView view, Cursor data, String columnName) {
+        String textViewData = data.getString(data.getColumnIndex(columnName));
+        if (textViewData == null) {
+            view.setVisibility(View.GONE);
+        } else {
+            view.setText(textViewData);
+        }
+    }
+
+    /**
+     * setTextViewFromHTML -- sets text view from HTML source, allows for relatively nice formatting
+     * @param view
+     * @param html
+     */
     public static void setTextViewFromHTML (TextView view, String html) {
         if (html == null) {
             view.setText ("");
@@ -132,10 +238,21 @@ public class Utility {
         }
     }
 
+    /**
+     *  setTextViewFromHTML -- sets text view from HTML source in a cursor column
+     * @param view
+     * @param data
+     * @param columnName
+     */
     public static void setTextViewFromHTML(TextView view, Cursor data, String columnName) {
         setTextViewFromHTML(view, data.getString(data.getColumnIndex(columnName)));
     }
 
+    /**
+     * updateActionBarTitle -- as the name implies...
+     * @param activity
+     * @param title
+     */
     public static void updateActionBarTitle (Activity activity, String title) {
         if (activity != null) {
             ActionBar actionBar = ((AppCompatActivity)activity).getSupportActionBar();
@@ -144,6 +261,11 @@ public class Utility {
         }
     }
 
+    /**
+     * getEventColor -- assigns color resource ID based on MG 2016 event category (see appData.json)
+     * @param eventID
+     * @return color resource ID
+     */
     public static int getEventColor (int eventID) {
         int eventCategory = 10 * ((eventID % 100) / 10);
         int eventColor = R.color.colorEventDefault;
@@ -175,4 +297,12 @@ public class Utility {
         return eventColor;
     }
 
+    /**
+     * is24HourFormat -- checks device/locale settings to see if time should be 24-hour format
+     * @param context
+     * @return
+     */
+    public static boolean is24HourFormat (Context context) {
+        return DateFormat.is24HourFormat(context);
+    }
 }

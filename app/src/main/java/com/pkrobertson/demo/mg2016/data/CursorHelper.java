@@ -5,7 +5,9 @@ import android.database.Cursor;
 import android.net.Uri;
 
 /**
- * Created by Phil Robertson on 4/1/2016.
+ * CursorHelper -- simple helper class used to access cursor content by column name. For
+ *     efficiency sake, this should only be used for single-record access like the AppConfig
+ *     record or the NewsDetailFragment
  */
 public class CursorHelper {
 
@@ -13,15 +15,34 @@ public class CursorHelper {
 
     public CursorHelper (Context context, Uri contentUri) {
         mCursor = context.getContentResolver().query(contentUri, null, null, null, null);
-        mCursor.moveToFirst();
+        if (mCursor != null) {
+            if (! mCursor.moveToFirst())
+                mCursor = null;
+        }
+    }
+
+    public boolean hasContent () {
+        return mCursor != null;
     }
 
     public long getLong (String columnName) {
-        return mCursor.getLong(mCursor.getColumnIndex(columnName));
+        if (mCursor != null) {
+            int index = mCursor.getColumnIndex(columnName);
+            if (index >= 0) {
+                return mCursor.getLong(mCursor.getColumnIndex(columnName));
+            }
+        }
+        return Long.MIN_VALUE;
     }
 
     public String getString (String columnName) {
-        return mCursor.getString(mCursor.getColumnIndex(columnName));
+        if (mCursor != null) {
+            int index = mCursor.getColumnIndex(columnName);
+            if (index >= 0) {
+                return mCursor.getString(mCursor.getColumnIndex(columnName));
+            }
+        }
+        return null;
     }
 
 }

@@ -1,7 +1,6 @@
 package com.pkrobertson.demo.mg2016.data;
 
 import android.content.Context;
-import android.database.Cursor;
 
 /**
  * AppConfig -- singleton used to manage and return config record from the database
@@ -28,9 +27,7 @@ public class AppConfig {
      * AppConfig -- read database and populate config object
      * @param context
      */
-    private AppConfig (Context context) {
-        CursorHelper cursor = new CursorHelper(context, DatabaseContract.ConfigEntry.CONTENT_URI);
-
+    private AppConfig (Context context, CursorHelper cursor) {
         mTzOffset = cursor.getLong(DatabaseContract.ConfigEntry.COLUMN_TZ_OFFSET);
         mSyncMinutes = cursor.getLong(DatabaseContract.ConfigEntry.COLUMN_SYNC_MINUTES);
         mFlexMinutes = cursor.getLong(DatabaseContract.ConfigEntry.COLUMN_FLEX_MINUTES);
@@ -50,11 +47,15 @@ public class AppConfig {
     /**
      * getInstance () -- return current config object or get a new one
      * @param context
-     * @return shared config object (contents may change so do not keep outside of method scpoe)
+     * @return shared null if no data is available or config object.
+     *     NOTES:(config contents may change so do not keep outside of method scope)
      */
     public static AppConfig getInstance (Context context) {
         if (sAppConfig == null) {
-            sAppConfig = new AppConfig (context);
+            CursorHelper cursor = new CursorHelper(context, DatabaseContract.ConfigEntry.CONTENT_URI);
+            if (cursor.hasContent()) {
+                sAppConfig = new AppConfig(context, cursor);
+            }
         }
         return sAppConfig;
     }
@@ -85,7 +86,11 @@ public class AppConfig {
 
     public String getImageURL (String imageFile) {
         //TODO: need to return production or test URL based on settings
-        return mProductionURL + mImageFolder + "/" + imageFile;
+        if (imageFile == null) {
+            return null;
+        } else {
+            return mProductionURL + mImageFolder + "/" + imageFile;
+        }
     }
 
     public String getContactImageFile () {

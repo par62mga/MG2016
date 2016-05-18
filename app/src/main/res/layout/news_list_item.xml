@@ -1,52 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="72dp"
-    android:background="@drawable/selectable">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/news_thumbnail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="96dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="@dimen/list_image_width"
+        android:layout_height="@dimen/list_image_height"
+        android:layout_margin="@dimen/list_default_padding"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:src="@drawable/news_placeholder"/>
     <TextView
         android:id="@+id/news_title"
 		style="@style/Text.ListTitle"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_margin="@dimen/list_default_padding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/news_thumbnail"
-        android:layout_toEndOf="@id/news_thumbnail"
-        android:text="Welcome to MG 2016"/>
+        android:layout_toEndOf="@id/news_thumbnail"/>
     <TextView
         android:id="@+id/news_byline"
 		style="@style/Text.ListSubtitle"
-		android:layout_marginTop="4dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="@dimen/list_default_padding"
+        android:layout_marginStart="@dimen/list_default_padding"
+        android:layout_marginRight="@dimen/list_default_padding"
+        android:layout_marginEnd="@dimen/list_default_padding"
+        android:paddingBottom="@dimen/list_bottom_padding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 		android:layout_toRightOf="@id/news_thumbnail"
         android:layout_toEndOf="@id/news_thumbnail"
-        android:layout_below="@id/news_title"
-        android:text="June 13-16, 2016"/>
+        android:layout_below="@id/news_title"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="@dimen/list_line_height"
+        android:layout_marginTop="@dimen/list_min_padding"
         android:layout_below="@id/news_byline"
         android:background="@color/colorPrimaryDark"/>
 

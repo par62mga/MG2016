@@ -1,9 +1,5 @@
 package com.pkrobertson.demo.mg2016;
 
-/**
- * Created by Phil Robertson on 4/26/2016.
- */
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -16,7 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 /**
- * Utility class for access to runtime permissions.
+ * Utility class for access to runtime permissions. Pretty much straight from Google Maps API v2
+ *     Android Samples Master
  */
 public abstract class PermissionUtils {
 

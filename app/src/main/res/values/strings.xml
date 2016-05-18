@@ -19,7 +19,7 @@
     <string name="drawer_subtitle">Louisville, KY</string>
     <string name="drawer_news">News</string>
     <string name="drawer_events">Event diary</string>
-    <string name="drawer_lodging">Lodging information</string>
+    <string name="drawer_lodging">Lodging</string>
     <string name="drawer_contact_us">Contact us</string>
 
     <string name="title_news">News</string>
@@ -27,10 +27,25 @@
     <string name="title_lodging">Lodging</string>
     <string name="title_contact">Contact us</string>
 
+    <string name="contact_default_text">This is the unofficial MG 2016 application.\n\nInformation presented by this application is intended exclusively for the use of MG 2016 participants and sponsoring Registers.\n\nTimes shown in the event diary are correct to the best of our knowledge, but subject to change. Please check the app for important updates and also refer to the registration area at the Crowne Plaza hotel.</string>
+    <string name="contact_default_email">mg2016app@mail.com</string>
+
+    <string name="format_sdf_event_day">EEE - dd MMMM</string>
+    <string name="format_lodging_address">%1$s\n%2$s</string>
+    <string name="format_event_calendar">MG 2016: %1$s</string>
+
+    <string name="detail_time_separator">-</string>
+
     <string name="news_share">Share news via</string>
-    <string name="event_calendar">MG 2016:</string>
+    <string name="send_email">Send email via</string>
+    <string name="email_subject">MG 2016 App: Contact Us</string>
+    <string name="email_text">Please enter your questions or comments here:\n\n</string>
 
     <string name="error_empty_list">No items found, please try again later</string>
+    <string name="error_empty_events">Event diary is empty, please try again later</string>
+    <string name="error_no_network">Check your network connection and try again</string>
+    <string name="error_server_down">MG 2016 server is down, please try again</string>
+    <string name="error_server_error">MG 2016 server error, technical support required</string>
 
     <string name="widget_label">MG 2016 at a Glance</string>
     <string name="widget_description">MG 2016 at a Glance</string>
@@ -42,6 +57,15 @@
     <string name="location_permission_denied">This sample requires location permission to view maps. Please try again and grant access to use the location.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt; \'MG 2016\'.</string>
     <string name="permission_required_toast">Location permission is required to view maps.</string>
 
+    <!-- Content descriptions -->
+    <string name="content_time_box">Event start and finish</string>
+    <string name="content_news">News image</string>
+    <string name="content_news_share">Share news</string>
+    <string name="content_lodging">Lodging image</string>
+    <string name="content_contact_us">Contact us image</string>
+    <string name="content_contact_email">Compose email to MG 2016 app support</string>
+    <string name="content_mg_logo">MG 2016 image</string>
+    <string name="content_image_for">Image for %1$s</string>
 
     <!-- Key name for storing location status in SharedPreferences -->
     <string name="pref_server_status_key" translatable="false">server-status</string>

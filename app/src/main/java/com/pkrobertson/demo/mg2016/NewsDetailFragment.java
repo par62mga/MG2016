@@ -1,36 +1,27 @@
 package com.pkrobertson.demo.mg2016;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v7.app.AlertDialog;
-import android.text.Html;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ShareActionProvider;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.pkrobertson.demo.mg2016.data.AppConfig;
 import com.pkrobertson.demo.mg2016.data.DatabaseContract;
-import com.squareup.picasso.Picasso;
 
-
+/**
+ * NewsDetailFragment -- handles news detail either as a dialog (tablet) or as a page
+ *     within the activity
+ */
 public class NewsDetailFragment extends DialogFragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String LOG_TAG = NewsDetailFragment.class.getSimpleName();
 
@@ -74,7 +65,7 @@ public class NewsDetailFragment extends DialogFragment implements LoaderManager.
             mNewsUri = Uri.parse(getArguments().getString(ARG_URISTRING));
         }
         int myTheme = getTheme();
-        setStyle(DialogFragment.STYLE_NORMAL, myTheme);
+        setStyle(DialogFragment.STYLE_NO_TITLE, myTheme);
     }
 
     @Override
@@ -86,7 +77,6 @@ public class NewsDetailFragment extends DialogFragment implements LoaderManager.
         if (mNewsUri != null) {
             getLoaderManager().restartLoader(NEWS_DETAIL_LOADER, null, this);
         }
-
 
         Utility.hideSoftInput(getActivity());
         return mFragmentView;
@@ -115,25 +105,30 @@ public class NewsDetailFragment extends DialogFragment implements LoaderManager.
             return;
         }
 
-        String  newsTitle = data.getString(
+        String newsTitle = data.getString(
                 data.getColumnIndex(DatabaseContract.NewsEntry.COLUMN_TITLE));
+        String contentDescription = String.format(
+                getString(R.string.content_image_for), newsTitle);
 
         Utility.updateActionBarTitle(getActivity(), newsTitle);
         Utility.setImageView((ImageView) mFragmentView.findViewById(R.id.news_photo),
                 getActivity(),
                 data.getString(data.getColumnIndex(DatabaseContract.NewsEntry.COLUMN_IMAGE)),
-                R.drawable.news_placeholder);
+                data.getString(data.getColumnIndex(DatabaseContract.NewsEntry.COLUMN_THUMBNAIL)),
+                R.drawable.news_placeholder,
+                contentDescription);
         Utility.setTextView((TextView) mFragmentView.findViewById(R.id.news_title), newsTitle);
-        Utility.setTextView((TextView) mFragmentView.findViewById(R.id.news_subtitle),
+        Utility.setTextViewOrHide((TextView) mFragmentView.findViewById(R.id.news_subtitle),
                 data,
                 DatabaseContract.NewsEntry.COLUMN_BYLINE1);
-        Utility.setTextView((TextView) mFragmentView.findViewById(R.id.news_date),
+        Utility.setTextViewOrHide((TextView) mFragmentView.findViewById(R.id.news_date),
                 data,
                 DatabaseContract.NewsEntry.COLUMN_BYLINE2);
         Utility.setTextViewFromHTML((TextView) mFragmentView.findViewById(R.id.news_content),
                 data,
                 DatabaseContract.NewsEntry.COLUMN_CONTENT);
 
+        // set up share intent for the share action button
         mShareIntent = new Intent(Intent.ACTION_SEND);
         mShareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
         mShareIntent.setType("text/plain");

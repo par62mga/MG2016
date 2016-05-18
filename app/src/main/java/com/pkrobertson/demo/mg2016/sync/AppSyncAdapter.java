@@ -37,6 +37,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * AppSyncAdapter -- MG 2016 sync adapter, derived from Udacity Sunshine sync adapter and other
+ *     examples/tutorials
+ */
 public class AppSyncAdapter extends AbstractThreadedSyncAdapter {
     private final String LOG_TAG = AppSyncAdapter.class.getSimpleName();
 
@@ -138,8 +142,8 @@ public class AppSyncAdapter extends AbstractThreadedSyncAdapter {
 
         JSONObject appData     = new JSONObject(appDataJson);
 
-        //TODO: add separate publish version file and check that first/only sync on change
-
+        //TODO: improve efficiency by adding a separate "server version" file and only pull full
+        //      content when that changes
         JSONObject configInfo  = appData.getJSONObject ("appConfig");
         JSONArray  lodgingInfo = appData.getJSONArray ("lodgingInfo");
         JSONArray  newsFeed    = appData.getJSONArray ("newsFeed");
@@ -337,7 +341,7 @@ public class AppSyncAdapter extends AbstractThreadedSyncAdapter {
         ContentResolver.setSyncAutomatically(newAccount, context.getString(R.string.content_authority), true);
 
         // perform an initial sync to get data from the server
-        syncImmediately(context);
+        // syncImmediately(context);
     }
 
     public static void initializeSyncAdapter(Context context) {

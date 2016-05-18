@@ -19,6 +19,17 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="Text.NavTitle" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textColor">@color/colorTextLight</item>
+        <item name="android:textSize">@dimen/nav_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.NavSubtitle" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">@color/colorTextLight</item>
+        <item name="android:textSize">@dimen/nav_subtitle_text_size</item>
+    </style>
+
     <style name="Text.ListTitle" parent="TextAppearance.AppCompat.Headline">
         <item name="android:textColor">@color/colorTextLabel</item>
         <item name="android:textSize">@dimen/list_title_text_size</item>
@@ -60,6 +71,40 @@
     <style name="Text.DetailBody" parent="TextAppearance.AppCompat.Body1">
         <item name="android:textColor">@color/colorTextValue</item>
         <item name="android:textSize">@dimen/detail_body_text_size</item>
+    </style>
+
+    <style name="Text.WidgetTitle" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textColor">@color/colorTextLight</item>
+        <item name="android:textSize">@dimen/widget_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.WidgetTimeLarge" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textColor">@color/colorTextLight</item>
+        <item name="android:textSize">@dimen/widget_list_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.WidgetTimeSmall" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">@color/colorTextLight</item>
+        <item name="android:textSize">@dimen/widget_list_subtitle_text_size</item>
+    </style>
+
+    <style name="Text.WidgetListTitle" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textColor">@color/colorTextLabel</item>
+        <item name="android:textSize">@dimen/widget_list_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.WidgetListSubtitle" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">@color/colorTextValue</item>
+        <item name="android:textSize">@dimen/widget_list_subtitle_text_size</item>
+    </style>
+
+    <style name="Text.WidgetEmpty" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textColor">@color/colorTextLabel</item>
+        <item name="android:textSize">@dimen/widget_empty_text_size</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

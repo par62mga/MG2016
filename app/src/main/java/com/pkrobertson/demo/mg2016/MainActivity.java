@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,17 +23,51 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.pkrobertson.demo.mg2016.data.AppConfig;
+import com.pkrobertson.demo.mg2016.data.DateTimeHelper;
+
+/**
+ * MainActivity
+ */
+
+//TODO: clear data/cache when app is restarted, sync adapter is not ran...fix to run on demand if no data found
+//TODO: also need to show drawer when app first launched
+
 public class MainActivity extends AppCompatActivity
         implements  NavigationView.OnNavigationItemSelectedListener,
-                    NewsListAdapter.OnNewsListInteraction {
+                    OnFragmentInteraction {
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private Toolbar      mToolbar;
     private DrawerLayout mDrawer;
 
-    private MenuItem mMenuItemSettings = null;
-    
-    private boolean  mShowingDetail = false;
+    // the following fields manage the Export to Calendar menu item
+    private MenuItem mMenuItemCalendar = null;
+    private boolean  mCalendarEnabled  = false;
+    private long     mCalendarDate;
+    private long     mCalendarStartTime;
+    private long     mCalendarEndTime;
+    private String   mCalendarTitle       = null;
+    private String   mCalendarDescription = null;
+    private String   mCalendarLocation    = null;
+
+    // the following fields manage the Call menu item
+    private MenuItem mMenuItemCall     = null;
+    private boolean  mCallEnabled      = false;
+    private String   mPhoneNumber      = null;
+
+    // the following fields manage the Locate menu item
+    private MenuItem mMenuItemLocate   = null;
+    private boolean  mLocateEnabled    = false;
+    private String   mMapTitle         = null;
+    private String   mMapSnippet       = null;
+    private String   mMapLocation      = null;
+
+    // the following fields manage the Open Website menu item
+    private MenuItem mMenuItemWebsite  = null;
+    private boolean  mWebsiteEnabled   = false;
+    private String   mWebsiteAddress   = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +92,11 @@ public class MainActivity extends AppCompatActivity
             navigationView.inflateHeaderView(R.layout.nav_header_main);
         }
 
-        // show news list
+        // show news list or handle launch intent when there is no saved instance state
         if (savedInstanceState == null) {
             Fragment fragment;
+
+            // see if we were launched by the widget
             if (getIntent() != null && getIntent().getData() != null) {
                 Uri launchUri = getIntent().getData();
                 Log.d(LOG_TAG, "onCreate() launchUri ==> " + launchUri.toString());
@@ -86,7 +123,18 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        mMenuItemSettings = (MenuItem) menu.findItem(R.id.action_settings);
+
+        //mMenuItemSettings = (MenuItem) menu.findItem(R.id.action_settings);
+        mMenuItemCalendar = menu.findItem(R.id.action_calendar);
+        mMenuItemCall     = menu.findItem(R.id.action_call);
+        mMenuItemLocate   = menu.findItem(R.id.action_locate);
+        mMenuItemWebsite  = menu.findItem(R.id.action_website);
+
+        // show menu options only when enabled by the active fragment
+        mMenuItemCalendar.setVisible (mCalendarEnabled);
+        mMenuItemCall.setVisible (mCallEnabled);
+        mMenuItemLocate.setVisible (mLocateEnabled);
+        mMenuItemWebsite.setVisible(mWebsiteEnabled);
         return true;
     }
 
@@ -103,10 +151,52 @@ public class MainActivity extends AppCompatActivity
             if (mDrawer != null) {
                 mDrawer.openDrawer(GravityCompat.START);
             }
-        } else if (id == R.id.action_settings) {
+        } else if (id == R.id.action_calendar) {
+            //TODO: Need to see if location can be improved to go directly to location
+            //      We can either use a separate calendarfor calendar or rework map location to be location string that works both for
+            //      google maps and calendar
+            AppConfig appConfig = AppConfig.getInstance(this);
+            long tzAdjustment = DateTimeHelper.getTimeZoneAdjustment(appConfig.getTzOffset());
+            long startTime = DateTimeHelper.getDateTimeInMillis(mCalendarDate, mCalendarStartTime);
+            long endTime = startTime;
+            if (mCalendarEndTime >= 0) {
+                endTime = DateTimeHelper.getDateTimeInMillis(mCalendarDate, mCalendarEndTime);
+            }
+            if (tzAdjustment != 0) {
+                Toast.makeText(this, appConfig.getEventAdjustText(), Toast.LENGTH_SHORT).show();
+            }
+            Intent intent = new Intent(Intent.ACTION_INSERT)
+                    .setData(CalendarContract.Events.CONTENT_URI)
+                    .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime - tzAdjustment)
+                    .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime - tzAdjustment)
+                    .putExtra(CalendarContract.Events.TITLE,
+                            String.format (getString(R.string.format_event_calendar), mCalendarTitle))
+                    .putExtra(CalendarContract.Events.DESCRIPTION, mCalendarDescription)
+                    .putExtra(CalendarContract.Events.EVENT_LOCATION, mCalendarLocation)
+                    .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.action_call) {
+            Uri dialUri = Uri.parse("tel:" + mPhoneNumber);
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData (dialUri);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
+            return true;
+        } else if (id == R.id.action_locate) {
+            MapActivity.launchMapActivity(
+                    this, mMapTitle, mMapSnippet, mMapLocation);
+            return true;
+        } else if (id == R.id.action_website) {
+            Uri websiteUri = Uri.parse(mWebsiteAddress);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData (websiteUri);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -121,7 +211,14 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_news) {
             newFragment = NewsListFragment.newInstance(NewsListFragment.DEFAULT);
         } else if (id == R.id.nav_events) {
-            newFragment = EventPagerFragment.newInstance(EventPagerFragment.DEFAULT);
+            // see if we have data from the server...
+            AppConfig appConfig = AppConfig.getInstance(this);
+            if (appConfig != null) {
+                newFragment = EventPagerFragment.newInstance(EventPagerFragment.DEFAULT);
+            } else {
+                Toast.makeText(this, getString(R.string.error_empty_events), Toast.LENGTH_SHORT)
+                        .show();
+            }
         } else if (id == R.id.nav_lodging) {
             newFragment = LodgingListFragment.newInstance(LodgingListFragment.DEFAULT);
         } else if (id == R.id.nav_contact_us) {
@@ -129,6 +226,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (newFragment != null) {
+            disableMenuItems();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.container, newFragment).commit();
         }
@@ -139,10 +237,16 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * onNewsListInteraction -- handle news list item selection by launching detail fragment
+     * @param newsUri
+     */
     @Override
     public void onNewsListInteraction(String newsUri) {
         NewsDetailFragment fragment = NewsDetailFragment.newInstance(newsUri);
         FragmentManager fm = getSupportFragmentManager();
+
+        // see if this is a tablet (fixed menu) or phone to determine how detail is shown
         if (mDrawer == null) {
             fragment.show (fm, NewsDetailFragment.FRAGMENT_TAG);
         } else {
@@ -150,6 +254,93 @@ public class MainActivity extends AppCompatActivity
             ft.replace(R.id.container, fragment, NewsDetailFragment.FRAGMENT_TAG);
             ft.addToBackStack(NewsDetailFragment.FRAGMENT_TAG);
             ft.commit();
+        }
+    }
+
+    /**
+     * disableMenuItems -- list item was deselected, turn off menu options to call, locate, etc.
+     */
+    @Override
+    public void disableMenuItems () {
+        mCalendarEnabled = false;
+        mCallEnabled = false;
+        mLocateEnabled = false;
+        mWebsiteEnabled = false;
+        if (mMenuItemCalendar != null) {
+            mMenuItemCalendar.setVisible(false);
+            mMenuItemCall.setVisible(false);
+            mMenuItemLocate.setVisible(false);
+            mMenuItemWebsite.setVisible(false);
+        }
+    }
+
+    /**
+     * enableMenuItemCall -- item selected that supports the call menu action
+     * @param phoneNumber
+     */
+    @Override
+    public void enableMenuItemCall (String phoneNumber) {
+        mPhoneNumber = phoneNumber;
+        mCallEnabled = true;
+        if (mMenuItemCall != null) {
+            mMenuItemCall.setVisible(true);
+        }
+    }
+
+    /**
+     * enableMenuItemLocate -- item selected that supports the locate menu action
+     * @param locationName
+     * @param locationAddress
+     * @param mapLocation
+     */
+    @Override
+    public void enableMenuItemLocate (
+            String locationName, String locationAddress, String mapLocation) {
+        mMapTitle    = locationName;
+        mMapSnippet  = locationAddress;
+        mMapLocation = mapLocation;
+        mLocateEnabled = true;
+        if (mMenuItemLocate != null) {
+            mMenuItemLocate.setVisible(true);
+        }
+
+    }
+
+    /**
+     * enableMenuItemWebsite -- item selected that supports the website menu action
+     * @param websiteURL
+     */
+    @Override
+    public void enableMenuItemWebsite (String websiteURL) {
+        mWebsiteAddress = websiteURL;
+        mWebsiteEnabled = true;
+        if (mMenuItemWebsite != null) {
+            mMenuItemWebsite.setVisible(true);
+        }
+    }
+
+    /**
+     * enableMenuItemCalendar -- item selected that supports the calendar menu action
+     * @param startDate
+     * @param startTime
+     * @param endTime
+     * @param title
+     * @param description
+     * @param location
+     */
+    @Override
+    public void enableMenuItemCalendar (
+            long startDate, long startTime, long endTime,
+            String title, String description, String location) {
+        mCalendarDate        = startDate;
+        mCalendarStartTime   = startTime;
+        mCalendarEndTime     = endTime;
+        mCalendarTitle       = title;
+        mCalendarDescription = description;
+        mCalendarLocation    = location;
+        mCalendarEnabled     = true;
+        if (mMenuItemCalendar != null) {
+            mMenuItemCalendar.setVisible(true);
         }
     }
 

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -5,8 +6,28 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
+        android:id="@+id/action_locate"
+        android:title="@string/action_locate"
+        android:icon="@drawable/ic_locate"
+        android:orderInCategory="1"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_website"
+        android:title="@string/action_website"
+        android:icon="@drawable/ic_website"
+        android:orderInCategory="2"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_call"
+        android:title="@string/action_call"
+        android:icon="@drawable/ic_call"
+        android:orderInCategory="3"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_calendar"
+        android:title="@string/action_calendar"
+        android:icon="@drawable/ic_events"
+        android:orderInCategory="4"
+        app:showAsAction="ifRoom" />
+
 </menu>

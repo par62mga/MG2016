@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
+import com.pkrobertson.demo.mg2016.data.AppConfig;
 import com.pkrobertson.demo.mg2016.sync.AppSyncAdapter;
 
 /**
@@ -23,8 +24,14 @@ public class SplashScreen extends AppCompatActivity {
 
         setContentView(R.layout.activity_splash);
 
-        // initialize database and sync adapter here
+        // initialize database and sync adapter
         AppSyncAdapter.initializeSyncAdapter(this);
+
+        // if no data found, sync right away
+        AppConfig appConfig = AppConfig.getInstance (this);
+        if (appConfig == null) {
+            AppSyncAdapter.syncImmediately(this);
+        }
 
         new Handler().postDelayed(new Runnable() {
             @Override

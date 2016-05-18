@@ -1,32 +1,23 @@
 package com.pkrobertson.demo.mg2016;
 
-import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pkrobertson.demo.mg2016.data.DatabaseContract;
 
-import java.util.List;
-
 /**
- * Created by Phil Robertson on 3/15/2016.
+ * LodgingListFragment -- handles the lodging list page
  */
 public class LodgingListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String LOG_TAG = LodgingListFragment.class.getSimpleName();
@@ -38,14 +29,20 @@ public class LodgingListFragment extends Fragment implements LoaderManager.Loade
 
     private static final int LODGING_LOADER = 100;
 
-    private LodgingListAdapter mLodgingListAdapter;
-    private RecyclerView       mLodgingRecyclerView;
-    private TextView           mEmptyTextView;
+    private LodgingListAdapter  mLodgingListAdapter;
+    private TextView            mEmptyTextView;
 
-    private String mAction      = null;
+    private String mAction = null;
 
     private boolean mLoaderInitialized = false;
 
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param action placeholder until a specific action is needed.
+     * @return A new instance of fragment LodgingListFragment.
+     */
     public static LodgingListFragment newInstance(String action) {
         LodgingListFragment fragment = new LodgingListFragment();
         Bundle args = new Bundle();
@@ -68,7 +65,6 @@ public class LodgingListFragment extends Fragment implements LoaderManager.Loade
         if (getArguments() != null) {
             mAction = getArguments().getString(ARG_ACTION);
         }
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -80,30 +76,18 @@ public class LodgingListFragment extends Fragment implements LoaderManager.Loade
         mEmptyTextView = (TextView)fragmentView.findViewById(R.id.empty_lodging_view);
 
         // set up the recycler view
-        mLodgingRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.lodging_recycler_view);
-        mLodgingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mLodgingListAdapter = new LodgingListAdapter(getActivity(), mEmptyTextView);
-        mLodgingRecyclerView.setAdapter(mLodgingListAdapter);
+        RecyclerView lodgingRecyclerView  = (RecyclerView) fragmentView.findViewById(R.id.lodging_recycler_view);
+        LinearLayoutManager lodgingLayoutManager = new LinearLayoutManager(getActivity());
+        lodgingRecyclerView.setLayoutManager(lodgingLayoutManager);
+        mLodgingListAdapter = new LodgingListAdapter(
+                getActivity(), lodgingRecyclerView, mEmptyTextView);
+        lodgingRecyclerView.setAdapter(mLodgingListAdapter);
+
+        // do we need to restore the selected item?
         if (savedInstanceState != null) {
             mLodgingListAdapter.onRestoreInstanceState(savedInstanceState);
         }
         return fragmentView;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        Log.d(LOG_TAG, "onCreateOptionsMenu()");
-        // Inflate the menu; this adds items to the action bar if it is present.
-        inflater.inflate(R.menu.lodging, menu);
-        mLodgingListAdapter.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (mLodgingListAdapter.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -153,14 +137,12 @@ public class LodgingListFragment extends Fragment implements LoaderManager.Loade
         mLodgingListAdapter.swapCursor(null);
     }
 
-    /*
-        Updates the empty list view with contextually relevant information that the user can
-        use to determine why they aren't seeing weather.
+    /**
+     * updateEmptyView -- updates text message based on what was stored by the sync adapter
      */
     private void updateEmptyView() {
         if ( mLodgingListAdapter.getItemCount() == 0 ) {
-            // int message = Utility.getServerStatusMessage (R.string.empty_lodging_list);
-            mEmptyTextView.setText(R.string.error_empty_list);
+            mEmptyTextView.setText(Utility.getServerStatusMessage(getActivity()));
         }
     }
 

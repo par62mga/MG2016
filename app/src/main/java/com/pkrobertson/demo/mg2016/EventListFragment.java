@@ -1,6 +1,5 @@
 package com.pkrobertson.demo.mg2016;
 
-import android.app.Activity;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,13 +11,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pkrobertson.demo.mg2016.data.DatabaseContract;
@@ -26,7 +20,8 @@ import com.pkrobertson.demo.mg2016.data.DatabaseContract;
 import java.util.List;
 
 /**
- * Created by Phil Robertson on 3/14/2016.
+ * EventListFragment -- handles the event list page that holds one day in the Event Diary managed
+ *     by the EventPagerFragment
  */
 public class EventListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>  {
     private static final String LOG_TAG = EventListFragment.class.getSimpleName();
@@ -39,10 +34,8 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
     private static final int EVENTS_LOADER = 300;
 
     private EventListAdapter mEventListAdapter;
-    private RecyclerView     mEventRecyclerView;
     private TextView         mEmptyTextView;
 
-    private View mFragmentView;
     private Uri  mEventsUri = null;
     private long mEventItem = -1;
 
@@ -52,7 +45,7 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param eventsUri provides news item to view.
+     * @param eventsUri provides a specific event item to view.
      * @return A new instance of fragment EventListFragment.
      */
     public static EventListFragment newInstance(String eventsUri, long selectedItem) {
@@ -79,54 +72,46 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
             mEventsUri = Uri.parse(getArguments().getString(ARG_URISTRING));
             mEventItem = getArguments().getLong(ARG_ITEM);
         }
-        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        mFragmentView = inflater.inflate(R.layout.fragment_event_list, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_event_list, container, false);
         if (mEventsUri != null) {
             getLoaderManager().restartLoader(EVENTS_LOADER, null, this);
         }
-
-        mEmptyTextView = (TextView)mFragmentView.findViewById(R.id.empty_events_view);
+        mEmptyTextView = (TextView)fragmentView.findViewById(R.id.empty_events_view);
 
         // set up the recycler view
-        mEventRecyclerView = (RecyclerView) mFragmentView.findViewById(R.id.events_recycler_view);
-        mEventRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mEventListAdapter = new EventListAdapter(getActivity(), mEmptyTextView, mEventItem);
-        mEventRecyclerView.setAdapter(mEventListAdapter);
+        RecyclerView eventRecyclerView = (RecyclerView)fragmentView.findViewById(
+                R.id.events_recycler_view);
+        LinearLayoutManager eventLayoutManager = new LinearLayoutManager(getActivity());
+        eventRecyclerView.setLayoutManager(eventLayoutManager);
+        mEventListAdapter = new EventListAdapter(
+                getActivity(), eventRecyclerView, mEmptyTextView, mEventItem);
+        eventRecyclerView.setAdapter(mEventListAdapter);
+
+        // see if we need to restore the selected item
         if (savedInstanceState != null) {
             mEventListAdapter.onRestoreInstanceState(savedInstanceState);
         }
-        return mFragmentView;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        Log.d(LOG_TAG, "onCreateOptionsMenu()");
-        // Inflate the menu; this adds items to the action bar if it is present.
-        inflater.inflate(R.menu.events, menu);
-        mEventListAdapter.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (mEventListAdapter.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return fragmentView;
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         Log.d(LOG_TAG, "onSaveInstanceState()");
         // When tablets rotate, the currently selected list item needs to be saved
-        //TODO: fix crash on back-to-back rotation
         mEventListAdapter.onSaveInstanceState(outState);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onPause () {
+        super.onPause();
+        Log.d (LOG_TAG, "onPause()");
     }
 
     @Override
@@ -170,14 +155,16 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
         mEventListAdapter.swapCursor(null);
     }
 
-    /*
-        Updates the empty list view with contextually relevant information that the user can
-        use to determine why they aren't seeing weather.
+    public void onPageNotVisible () {
+        mEventListAdapter.onPageNotVisible ();
+    }
+
+    /**
+     * updateEmptyView -- updates text message based on what was stored by the sync adapter
      */
     private void updateEmptyView() {
         if ( mEventListAdapter.getItemCount() == 0 ) {
-            // int message = Utility.getServerStatusMessage (R.string.empty_lodging_list);
-            mEmptyTextView.setText(R.string.error_empty_list);
+            mEmptyTextView.setText(Utility.getServerStatusMessage(getActivity()));
         }
     }
 

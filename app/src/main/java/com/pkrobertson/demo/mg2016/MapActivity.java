@@ -4,8 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -25,10 +23,11 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.pkrobertson.demo.mg2016.data.AppConfig;
 
-import java.util.List;
 
 /**
- * Created by Phil Robertson on 4/26/2016.
+ * MapActivity -- an activity to show user's location and the address of the MG2016 event/hotel.
+ *     This was directly taken from the Google Maps API v2 Android Samples Master:
+ *     MyLocationDemoActivity with updates to show MG2016 info.
  */
 public class MapActivity extends AppCompatActivity
         implements
@@ -48,6 +47,7 @@ public class MapActivity extends AppCompatActivity
      */
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
+    // information provided by MG2016 when the map is launched
     private String mMapTitle    = null;
     private String mMapSnippet  = null;
     private String mMapLocation = null;
@@ -60,7 +60,7 @@ public class MapActivity extends AppCompatActivity
 
     private GoogleMap mMap;
 
-    public static void lauchMapActivity (
+    public static void launchMapActivity (
             Context context, String mapTitle, String mapSnippet, String mapLocation) {
         Intent mapIntent = new Intent(context, MapActivity.class);
         mapIntent.putExtra (EXTRA_MAP_TITLE, mapTitle);
@@ -89,6 +89,8 @@ public class MapActivity extends AppCompatActivity
             mMapLocation = appConfig.getDefaultMap();
         }
         ActionBar actionBar = getSupportActionBar();
+
+        // show title of location
         actionBar.setTitle(mMapTitle);
         actionBar.setSubtitle(R.string.app_name);
 
@@ -116,6 +118,7 @@ public class MapActivity extends AppCompatActivity
         mMap.getUiSettings().setZoomControlsEnabled(true);
         enableMyLocation();
 
+        // make sure we got a lat,long map location as expected.
         int foundComma = mMapLocation.indexOf (',');
         if (foundComma > 0) {
             double lat = Double.parseDouble(mMapLocation.substring(0, foundComma));
@@ -126,6 +129,8 @@ public class MapActivity extends AppCompatActivity
                             " lng ==> " + String.valueOf(lng));
 
             final LatLng location = new LatLng(lat, lng);
+
+            // add marker to location based on title and snippet
             Marker marker = mMap.addMarker(new MarkerOptions()
                     .position(location)
                     .title(mMapTitle)
@@ -136,6 +141,8 @@ public class MapActivity extends AppCompatActivity
 
             // Zoom in, animating the camera.
             mMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
+
+            // this let's them select navigate and other options
             marker.showInfoWindow();
         }
     }

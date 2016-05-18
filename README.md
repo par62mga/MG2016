@@ -2,7 +2,7 @@
 
 ## Background
 
-Udacity Android Developer Nanodegree final project (presently under construction: task 5 complete).
+Udacity Android Developer Nanodegree final project (presently under construction: task 12 complete).
 
 **Project Requirements**
 
@@ -45,41 +45,58 @@ To “meet specifications”, the app must fulfill all of the criteria listed in
 
 ### Core Platform Development
 
-* App integrates a third-party library
+* App integrates a third-party library: 
+**Picasso (and Google Maps).**
 * App validates all input from servers and users. If data does not exist or is in the wrong format, the app logs this fact and does not crash.
+**App handles no input and possibility of JSON from server being invalid.**
 * App includes support for accessibility. That includes content descriptions,  navigation using a D-pad, and, if applicable, non-audio versions of audio cues.
+**Content descriptions set for all images. Checked navigation flow and operation for consistency.**
 * App keeps all strings in a strings.xml file and enables RTL layout switching on all layouts.
+**All "user text" is in strings.xml and RTL is supported in all layouts.**
 * App provides a widget to provide relevant information to the user on the home screen.
+**MG At a Glance widget is provided.**
 
 ### Google Play Services
 
 * App integrates two or more Google services.
+**Location and Maps.**
 * Each service imported in the build.gradle is used in the app.
 * If Location is used, the app customizes the user’s experience by using the device’s location.
+**MapActivity shows both user location and destination on map (if user is a long way from the destination may need to zoom out to see this).**
 * If Admob is used, the app displays test ads. If admob was not used, student meets specifications.
 * If Analytics is used, the app creates only one analytics instance. If analytics was not used, student meets specifications.
 * If Maps is used, the map provides relevant information to the user. If maps was not used, student meets specifications.
+**MapActivity shows event title and information in the snippet.**
 * If Identity is used, the user’s identity influences some portion of the app. If identity was not used, student meets specifications.
 
 ### Material Design
 
 * App theme extends AppCompat.
+**Yes**
 * App uses an app bar and associated toolbars.
+**Yes**
 * App uses standard and simple transitions between activities.
+**Yes**
 
 ### Building
 
 * App builds from a clean repository checkout with no additional configuration.
+**Yes**
 * App builds and deploys using the installRelease Gradle task.
+**Will be done in task 13**
 * App is equipped with a signing configuration, and the keystore and passwords are included in the repository. Keystore is referred to by a relative path.
+**Will be done in task 13**
 * All app dependencies are managed by Gradle.
+**Yes**
 
 ### Data Persistence
 
 * App implements a ContentProvider to access locally stored data.
+**See AppContentProvider.**
 * Must implement at least one of the three:
 
-If it regularly pulls or sends data to/from a web service or API, app updates data in its cache at regular intervals using a SyncAdapter. OR
+If it regularly pulls or sends data to/from a web service or API, app updates data in its cache at regular intervals using a SyncAdapter. 
+**See AppSyncAdapter.** OR
 
 If it needs to pull or send data to/from a web service or API only once, or on a per request basis (such as a search application), app uses an IntentService to do so. OR
 
@@ -91,6 +108,7 @@ If it performs short duration, on-demand requests(such as search), app uses an A
 
 To receive “exceeds specifications”, the app must fully implement all of the criteria listed under at least two of the five categories
 below (e.g. Notifications, ShareActionProvider, Broadcast Events, and Custom Views).
+**Optional Components were not implemented.**
 
 ### Material Design
 

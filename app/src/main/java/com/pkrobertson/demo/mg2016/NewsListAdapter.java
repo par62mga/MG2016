@@ -1,33 +1,22 @@
 package com.pkrobertson.demo.mg2016;
 
-import android.animation.ObjectAnimator;
-import android.content.ContentUris;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.pkrobertson.demo.mg2016.data.AppConfig;
 import com.pkrobertson.demo.mg2016.data.DatabaseContract;
-import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 /**
- * Created by Phil Robertson on 12/14/2015.
+ * NewsListAdapter -- handles the news list recycler view that is held under the
+ *     NewsListFragment
  */
 public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsViewHolder> {
     private static final String LOG_TAG = NewsListAdapter.class.getSimpleName();
@@ -35,14 +24,17 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
     private static final String SELECTION_KEY = "news_selection_key";
     private static final int    NO_SELECTION  = -1;
 
-    private int mSelectedItem = NO_SELECTION;
+    // this is a reference to the "selected" row actually in view or nearly in view
     private NewsViewHolder mSelectedRow = null;
 
     private Context mContext;
     private Cursor  mCursor;
     private View    mEmptyView;
+
+    // used to restore selected item after screen rotation
     private int     mRestoreSelectedItem = NO_SELECTION;
 
+    // database column IDs used to access cursor data
     private int     mIndexID;
     private int     mIndexThumbnail;
     private int     mIndexTitle;
@@ -52,7 +44,6 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
         ImageView mImageViewNewsThumbnail;
         TextView  mTextViewNewsTitle;
         TextView  mTextViewNewsByline;
-
         long      mNewsID = NO_SELECTION;
 
         public NewsViewHolder(View view) {
@@ -64,48 +55,52 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
             view.setOnClickListener(this);
         }
 
-        public void selectItem (int position) {
-            mSelectedItem = position;
-            mSelectedRow  = this;
-            mSelectedRow.itemView.setSelected(true);
-        }
-
         @Override
         public void onClick(View v) {
+            boolean selectThisRow = this != mSelectedRow;
             if (mSelectedRow != null) {
-                mSelectedRow.itemView.setSelected(false);
+                deselectItem (mSelectedRow);
             }
-            selectItem(getAdapterPosition());
-            if (mNewsID != NO_SELECTION) {
-                OnNewsListInteraction handler = null;
-                try {
-                    handler = (OnNewsListInteraction)mContext;
-                } catch (ClassCastException e) {
-                    throw new ClassCastException(mContext.toString()
-                            + " must implement OnNewsListInteraction");
-                }
+            if (selectThisRow) {
+                selectItem(this);
+
+                // launch news detail page
                 Uri newsUri = DatabaseContract.NewsEntry.buildNewsUri(mNewsID);
-                handler.onNewsListInteraction(newsUri.toString());
+                getHandler().onNewsListInteraction(newsUri.toString());
             }
         }
 
     };
 
 
+    /**
+     * NewsListAdapter -- constructor
+     * @param context
+     * @param emptyView
+     */
     public NewsListAdapter (Context context, View emptyView) {
         // save reference to context
         mContext = context;
+
         // mOnClickListener = listener;
         mEmptyView = emptyView;
 
     }
 
+    /**
+     * onSaveInstanceState -- called by the fragment to save currently selected hotel
+     * @param outState
+     */
     public void onSaveInstanceState(Bundle outState) {
-        if (mSelectedItem != NO_SELECTION) {
-            outState.putInt (SELECTION_KEY, mSelectedItem);
+        if (mSelectedRow != null) {
+            outState.putInt (SELECTION_KEY, mSelectedRow.getAdapterPosition());
         }
     }
 
+    /**
+     * onRestoreInstanceState -- called by the fragment to restore the selection
+     * @param savedInstanceState
+     */
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         if ( savedInstanceState.containsKey(SELECTION_KEY)) {
             // selected item to show on restore
@@ -133,18 +128,37 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
         }
         mCursor.moveToPosition(position);
         viewHolder.mNewsID = mCursor.getInt (mIndexID);
+        String newsTitle   = mCursor.getString(mIndexTitle);
+        String contentDescription = String.format(
+                mContext.getString(R.string.content_image_for), newsTitle);
 
         Utility.setImageView(viewHolder.mImageViewNewsThumbnail,
                 mContext,
                 mCursor.getString(mIndexThumbnail),
-                R.drawable.news_placeholder);
+                null,
+                R.drawable.news_placeholder,
+                contentDescription);
         Utility.setTextView(viewHolder.mTextViewNewsTitle, mCursor.getString(mIndexTitle));
         Utility.setTextView(viewHolder.mTextViewNewsByline, mCursor.getString(mIndexByline1));
+    }
 
-        if (position == mRestoreSelectedItem) {
-            mRestoreSelectedItem = NO_SELECTION;
-            viewHolder.selectItem(position);
+    @Override
+    public void onViewAttachedToWindow (NewsViewHolder viewHolder) {
+        // view is about to be displayed, time to restore the selected item after rotation/change
+        if (viewHolder.getAdapterPosition() == mRestoreSelectedItem) {
+            Log.d(LOG_TAG, "onViewAttachedToWindow () mRestoreSelectedItem ==> " + mRestoreSelectedItem);
+            selectItem(viewHolder);
         }
+        super.onViewAttachedToWindow(viewHolder);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow (NewsViewHolder viewHolder) {
+        // view is about to go off screen, deselect the row if selected
+        if (viewHolder == mSelectedRow) {
+            deselectItem (viewHolder);
+        }
+        super.onViewDetachedFromWindow(viewHolder);
     }
 
     @Override
@@ -152,6 +166,10 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
         return mCursor == null ? 0 : mCursor.getCount();
     }
 
+    /**
+     * swapCursor -- new data set is ready or old data set is no longer available
+     * @param newCursor
+     */
     public void swapCursor(Cursor newCursor) {
         if (mCursor != null) {
             mCursor.close();
@@ -169,20 +187,43 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
         mEmptyView.setVisibility(getItemCount() == 0 ? View.VISIBLE : View.GONE);
     }
 
-    public int getSelectedItem () {
-        return mSelectedItem;
-    }
-
     public Cursor getCursor() {
         return mCursor;
     }
 
     /**
-     * This interface must be implemented by MainActivity to handle the news list item click and
-     * open up the news detail fragment/dialog.
+     * getHandler -- casts activity to the OnFragmentInteraction handler to get access to turn
+     *     on/off Call, Locate and Website menu options
+     * @return handler
      */
-    public interface OnNewsListInteraction {
-        public void onNewsListInteraction(String newsItemUri);
+    private OnFragmentInteraction getHandler () {
+        OnFragmentInteraction handler = null;
+
+        try {
+            handler = (OnFragmentInteraction) mContext;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(mContext.toString()
+                    + " must implement OnFragmentInteraction");
+        }
+        return handler;
     }
 
+    /**
+     * deselectItem -- used to deselect a currently selected row and hide detail text
+     * @param viewHolder
+     */
+    private void deselectItem (NewsViewHolder viewHolder) {
+        mSelectedRow = null;
+        viewHolder.itemView.setSelected(false);
+    }
+
+    /**
+     * selectItem -- used to select a row and expand detail text
+     * @param viewHolder
+     */
+    private void selectItem (NewsViewHolder viewHolder) {
+        mRestoreSelectedItem = NO_SELECTION;
+        mSelectedRow = viewHolder;
+        viewHolder.itemView.setSelected(true);
+    }
 }

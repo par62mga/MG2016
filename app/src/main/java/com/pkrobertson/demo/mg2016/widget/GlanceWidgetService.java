@@ -61,6 +61,8 @@ public class GlanceWidgetService extends RemoteViewsService {
             if (mCursor != null) {
                 mCursor.close();
             }
+            AppConfig appConfig = AppConfig.getInstance(GlanceWidgetService.this);
+
             // This method is called by the app hosting the widget (e.g., the launcher)
             // However, our ContentProvider is not exported so it doesn't have access to the
             // data. Therefore we need to clear (and finally restore) the calling identity so
@@ -68,8 +70,8 @@ public class GlanceWidgetService extends RemoteViewsService {
             final long identityToken = Binder.clearCallingIdentity();
 
             // get current date & time to only show events from this point forward
-            long dateToday = DateTimeHelper.getCurrentDate();
-            long timeToday = DateTimeHelper.getCurrentTime();
+            long dateToday = DateTimeHelper.getCurrentDate(appConfig.getTzOffset());
+            long timeToday = DateTimeHelper.getCurrentTime(appConfig.getTzOffset());
             Log.d (LOG_TAG, "onDataSetChanged() dateToday ==> " + String.valueOf(dateToday) +
                     " timeToday ==> " + String.valueOf(timeToday));
 
@@ -131,14 +133,15 @@ public class GlanceWidgetService extends RemoteViewsService {
 
             int eventColor = Utility.getEventColor(eventId);
             views.setInt (R.id.widget_event_time, "setBackgroundResource", eventColor);
-            //viewHolder.mViewEventTime.setBackgroundColor(mContext.getResources().getColor(eventColor));
             views.setTextViewText(R.id.widget_event_date,
                     DateTimeHelper.formatDate("EEE - dd MMMM", eventDate));
             views.setTextViewText(R.id.widget_event_start,
-                    DateTimeHelper.formatTime(eventStartTime, false) + " -");
+                    DateTimeHelper.formatTime(eventStartTime,
+                            Utility.is24HourFormat(GlanceWidgetService.this)) + " -");
             String endText = "";
             if (eventEndTime >= 0) {
-                endText = DateTimeHelper.formatTime(eventEndTime, false);
+                endText = DateTimeHelper.formatTime(eventEndTime,
+                        Utility.is24HourFormat(GlanceWidgetService.this));
             }
             views.setTextViewText(R.id.widget_event_end, endText);
             views.setTextViewText(R.id.widget_event_title, mCursor.getString(INDEX_TITLE));

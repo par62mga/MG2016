@@ -6,75 +6,62 @@
 
     <LinearLayout
         android:id="@+id/event_time"
-        android:layout_marginTop="4dp"
-        android:paddingTop="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginStart="4dp"
-        android:paddingLeft="4dp"
-        android:paddingStart="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginEnd="4dp"
-        android:paddingRight="4dp"
-        android:paddingEnd="4dp"
-        android:layout_marginBottom="4dp"
-        android:paddingBottom="4dp"
+        android:layout_margin="@dimen/list_min_padding"
+        android:padding="@dimen/list_min_padding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="80dp"
+        android:minWidth="@dimen/list_time_width"
         android:orientation="vertical"
-        android:background="@color/colorEventDefault">
+        android:background="@color/colorEventDefault"
+        android:contentDescription="@string/content_time_box">
         <TextView
             android:id="@+id/event_start"
             style="@style/Text.LightTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="9:00am"/>
+            android:layout_gravity="center_horizontal" />
         <TextView
             style="@style/Text.LightTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="-" />
+            android:text="@string/detail_time_separator" />
         <TextView
             android:id="@+id/event_end"
             style="@style/Text.LightSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|end"
-            android:text="2:00pm"/>
+            android:layout_gravity="right|end"/>
     </LinearLayout>
     <TextView
         android:id="@+id/event_title"
         style="@style/Text.ListTitle"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="@dimen/list_default_padding"
+        android:layout_marginLeft="@dimen/list_default_padding"
+        android:layout_marginStart="@dimen/list_default_padding"
+        android:layout_marginRight="@dimen/list_default_padding"
+        android:layout_marginEnd="@dimen/list_default_padding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/event_time"
-        android:layout_toEndOf="@id/event_time"
-        android:text="MG2016 Car Show"/>
+        android:layout_toEndOf="@id/event_time"/>
     <TextView
         android:id="@+id/event_subtitle"
         style="@style/Text.ListSubtitle"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="@dimen/list_min_padding"
+        android:layout_marginLeft="@dimen/list_double_padding"
+        android:layout_marginStart="@dimen/list_double_padding"
+        android:layout_marginRight="@dimen/list_default_padding"
+        android:layout_marginEnd="@dimen/list_default_padding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/event_time"
-        android:text="Waterfront Park\nRocker Cover Races at Show"
         android:maxLines="2"
         android:ellipsize="end"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="@dimen/list_line_height"
+        android:layout_marginTop="@dimen/list_min_padding"
         android:layout_below="@id/event_subtitle"
         android:background="@color/colorPrimaryDark"/>
 
