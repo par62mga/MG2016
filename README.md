@@ -2,7 +2,17 @@
 
 ## Background
 
-Udacity Android Developer Nanodegree final project (presently under construction: task 12 complete).
+Udacity Android Developer Nanodegree final project
+
+**Building the Project**
+
+1. Import the project into Android Studio.
+2. Configure your gradle.properties file to define API keys for Google Maps:
+MyGoogleMapsApiDebugKey="**your google maps android debug API key here**"
+MyGoogleMapsApiProductionKey="**same as above or a production key based on a unique app signing key**"
+3. Select build variant build/run the app
+
+NOTE: the application pulls content from the AWS server defined in "strings.xml" Server assets are also stored under the "doc" directory if you wish to set up your own server to deliver appData.json and image content.
 
 **Project Requirements**
 
@@ -83,9 +93,9 @@ To “meet specifications”, the app must fulfill all of the criteria listed in
 * App builds from a clean repository checkout with no additional configuration.
 **Yes**
 * App builds and deploys using the installRelease Gradle task.
-**Will be done in task 13**
+**Yes**
 * App is equipped with a signing configuration, and the keystore and passwords are included in the repository. Keystore is referred to by a relative path.
-**Will be done in task 13**
+**Yes, see app/keystore directory and app/build.gradle**
 * All app dependencies are managed by Gradle.
 **Yes**
 

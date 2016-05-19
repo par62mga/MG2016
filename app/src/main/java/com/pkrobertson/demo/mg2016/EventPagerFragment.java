@@ -37,6 +37,7 @@ public class EventPagerFragment extends Fragment {
     private static Context mContext;
 
     // identifies the selected page launched by the widget
+    private static int     mSelectedPage = NO_SELECTION;
     private static long    mSelectedItem = NO_SELECTION;
 
     private ViewPager mEventViewPager;
@@ -120,14 +121,15 @@ public class EventPagerFragment extends Fragment {
 
         // if Uri present it holds an event ID that encodes the day (page)
         if (mEventUri != null &&
-                getActivity().getContentResolver().getType(mEventUri) ==
-                        DatabaseContract.EventsEntry.CONTENT_ITEM_TYPE) {
+                getActivity().getContentResolver().getType(mEventUri).contentEquals(
+                        DatabaseContract.EventsEntry.CONTENT_ITEM_TYPE)) {
             mSelectedItem = Long.parseLong (mEventUri.getLastPathSegment());
-            int selectedPage = (int)(mSelectedItem / 100) - 1;
-            Log.d (LOG_TAG, "onCreateView() URI Item ==> " + mSelectedItem + " Page ==> " + selectedPage);
-            mEventViewPager.setCurrentItem(selectedPage, true);
-            mEventPagerAdapter.newPageSelected (selectedPage);
+            mSelectedPage = (int)(mSelectedItem / 100) - 1;
+            Log.d (LOG_TAG, "onCreateView() URI Item ==> " + mSelectedItem + " Page ==> " + mSelectedPage);
+            mEventViewPager.setCurrentItem(mSelectedPage, true);
+            mEventPagerAdapter.newPageSelected (mSelectedPage);
         } else {
+            mSelectedPage = NO_SELECTION;
             mSelectedItem = NO_SELECTION;
 
             // if today is >= first day in the event diary, go to that or the last page
@@ -161,7 +163,7 @@ public class EventPagerFragment extends Fragment {
 
         private long mStartDate;
         private long mNumberPages;
-        private int  mSelectedPage;
+        private int  mCurrentPage;
 
         private EventListFragment mEventFragments[];
 
@@ -170,7 +172,7 @@ public class EventPagerFragment extends Fragment {
 
             mStartDate      = startDate;
             mNumberPages    = numberPages;
-            mSelectedPage   = 0;
+            mCurrentPage    = 0;
             mEventFragments = new EventListFragment[(int)numberPages];
         }
 
@@ -197,8 +199,8 @@ public class EventPagerFragment extends Fragment {
                     mStartDate + "; " +
                     thisDate + "; ");
             mEventFragments[position] = EventListFragment.newInstance (
-                    DatabaseContract.EventsEntry.buildEventsUriWithStartDate(
-                            thisDate).toString(), mSelectedItem);
+                    DatabaseContract.EventsEntry.buildEventsUriWithStartDate(thisDate).toString(),
+                    position == mSelectedPage ? mSelectedItem : NO_SELECTION);
             return mEventFragments[position];
         }
 
@@ -210,10 +212,10 @@ public class EventPagerFragment extends Fragment {
         }
 
         public void newPageSelected (int page) {
-            if (mEventFragments[mSelectedPage] != null) {
-                mEventFragments[mSelectedPage].onPageNotVisible();
+            if (mEventFragments[mCurrentPage] != null) {
+                mEventFragments[mCurrentPage].onPageNotVisible();
             }
-            mSelectedPage = page;
+            mCurrentPage = page;
         }
 
     }

@@ -75,7 +75,7 @@ public class DatabaseContract {
         // string: ending date for events that appear in the diary
         public static final String COLUMN_END_DATE = "end_date";
 
-        // string: ending date for events that appear in the diary
+        // string: text telling used that event time/date was adjusted due to time zone difference
         public static final String COLUMN_EVENT_ADJUSTMENT = "event_adjustment";
 
         // string: amount information shown on the contact us page

@@ -4,7 +4,6 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,7 +22,7 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
     private static final String LOG_TAG       = LodgingListAdapter.class.getSimpleName();
 
     private static final String SELECTION_KEY = "lodging_selection_key";
-    private static final int    NO_SELECTION  = -1;
+    public  static final int    NO_SELECTION  = -1;
 
     private static final int    MIN_TEXT_LINES  = 1;
     private static final int    MAX_TEXT_LINES  = 32;
@@ -33,6 +32,10 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
 
     // this is a reference to the "selected" row actually in view or nearly in view
     private LodgingViewHolder mSelectedRow = null;
+
+    // this is a hack to ignore spurious onDetailFromWindow call that occurs with the last element
+    // after a screen rotation
+    private LodgingViewHolder mLastOnAttachView = null;
 
     private Context      mContext;
     private Cursor       mCursor;
@@ -63,9 +66,6 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
         String      mMapLocation;
         String      mLodgingWebsite;
 
-        // used to fix issue where onDetachedFromView is called spuriously...
-        boolean     mRowWasVisible;
-
         public LodgingViewHolder(View view) {
             super(view);
             mImageViewLodgingImage  = (ImageView)  view.findViewById(R.id.lodging_thumbnail);
@@ -73,7 +73,6 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
             mTextViewLodgingAddress = (TextView)   view.findViewById(R.id.lodging_address);
             mTextViewLodgingPhone   = (TextView)   view.findViewById(R.id.lodging_phone);
             mTextViewLodgingDetail  = (TextView)   view.findViewById(R.id.lodging_detail);
-            mRowWasVisible = false;
             view.setClickable(true);
             view.setOnClickListener(this);
         }
@@ -81,7 +80,6 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
         @Override
         public void onClick(View v) {
             boolean selectThisRow = this != mSelectedRow;
-            mRowWasVisible = true;
             if (mSelectedRow != null) {
                 deselectItem (mSelectedRow, true);
             }
@@ -90,7 +88,7 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
             }
         }
 
-    };
+    }
 
 
     /**
@@ -123,17 +121,16 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
      * onRestoreInstanceState -- called by the fragment to restore the selection
      * @param savedInstanceState
      */
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
+    public int onRestoreInstanceState(Bundle savedInstanceState) {
         if ( savedInstanceState.containsKey(SELECTION_KEY)) {
             // selected item to show on restore
             mRestoreSelectedItem = savedInstanceState.getInt(SELECTION_KEY);
         } else {
             mRestoreSelectedItem = NO_SELECTION;
         }
-        if (mRestoreSelectedItem != NO_SELECTION) {
-            mRecyclerView.smoothScrollToPosition(mRestoreSelectedItem);
-        }
+
         Log.d (LOG_TAG, "onRestoreInstanceState() mRestoreSelectedItem ==> " + mRestoreSelectedItem);
+        return mRestoreSelectedItem;
     }
 
     @Override
@@ -155,7 +152,6 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
             return;
         }
         mCursor.moveToPosition(position);
-        viewHolder.mRowWasVisible = false;
         String lodgingTitle = mCursor.getString(mIndexName);
         String contentDescription = String.format(
                 mContext.getString(R.string.content_image_for), lodgingTitle);
@@ -189,22 +185,19 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
     @Override
     public void onViewAttachedToWindow (LodgingViewHolder viewHolder) {
         // view is about to be displayed, time to restore the selected item after rotation/change
-        viewHolder.mRowWasVisible = true;
         if (viewHolder.getAdapterPosition() == mRestoreSelectedItem) {
             Log.d(LOG_TAG, "onViewAttachedToWindow () mRestoreSelectedItem ==> " + mRestoreSelectedItem);
             selectItem(viewHolder, false);
         }
+        mLastOnAttachView = viewHolder;
         super.onViewAttachedToWindow(viewHolder);
     }
 
     @Override
     public void onViewDetachedFromWindow (LodgingViewHolder viewHolder) {
-        // fix issue where this is spuriously called for last item in recycler view
-        if (!viewHolder.mRowWasVisible) {
-            return;
-        }
         // view is about to go off screen, deselect the row if selected
-        if (viewHolder == mSelectedRow) {
+        // ignore onViewDetached call when it occurs right after onViewAttached...
+        if ((viewHolder != mLastOnAttachView) && (viewHolder == mSelectedRow)) {
             Log.d(LOG_TAG, "onViewDetatchedFromWindow () item ==> " + viewHolder.getAdapterPosition());
             deselectItem (viewHolder, false);
         }
@@ -215,8 +208,6 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
     public int getItemCount() {
         return mCursor == null ? 0 : mCursor.getCount();
     }
-
-
 
     /**
      * swapCursor -- new data set is ready or old data set is no longer available
@@ -305,6 +296,7 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
                 String.valueOf(viewHolder.mTextViewLodgingAddress.getText()),
                 viewHolder.mMapLocation);
         handler.enableMenuItemWebsite(viewHolder.mLodgingWebsite);
+        handler.showMenuItems();
 
         // show extra text
         if (withAnimation) {

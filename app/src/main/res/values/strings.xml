@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">MG 2016</string>
 
+    <!-- server settings -->
+    <string name="server_base_url" translatable="false">http://ec2-52-9-163-231.us-west-1.compute.amazonaws.com:8080</string>
+    <string name="server_path_data" translatable="false">/appData.json</string>
+
     <!-- Content Provider and Sync Adapter settings -->
     <string name="content_authority" translatable="false">com.pkrobertson.demo.mg2016</string>
     <string name="sync_account_type" translatable="false">mg2016.demo.pkrobertson.com</string>
@@ -12,7 +16,6 @@
     <string name="action_locate">Locate</string>
     <string name="action_website">Open website</string>
     <string name="action_calendar">Send to calendar</string>
-    <string name="action_settings">Settings</string>
 
     <!-- navigation drawer strings -->
     <string name="drawer_title">MG 2016</string>
@@ -48,7 +51,6 @@
     <string name="error_server_error">MG 2016 server error, technical support required</string>
 
     <string name="widget_label">MG 2016 at a Glance</string>
-    <string name="widget_description">MG 2016 at a Glance</string>
     <string name="widget_updated">Updated MG 2016 at a Glance</string>
     <string name="widget_empty_text">No upcoming events</string>
 
@@ -60,14 +62,14 @@
     <!-- Content descriptions -->
     <string name="content_time_box">Event start and finish</string>
     <string name="content_news">News image</string>
-    <string name="content_news_share">Share news</string>
     <string name="content_lodging">Lodging image</string>
     <string name="content_contact_us">Contact us image</string>
     <string name="content_contact_email">Compose email to MG 2016 app support</string>
     <string name="content_mg_logo">MG 2016 image</string>
     <string name="content_image_for">Image for %1$s</string>
 
-    <!-- Key name for storing location status in SharedPreferences -->
+    <!-- Key names for SharedPreferences -->
     <string name="pref_server_status_key" translatable="false">server-status</string>
+    <string name="pref_open_drawer" translatable="false">open-drawer</string>
 
 </resources>

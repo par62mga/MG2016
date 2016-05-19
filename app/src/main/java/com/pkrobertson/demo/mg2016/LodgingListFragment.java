@@ -29,12 +29,14 @@ public class LodgingListFragment extends Fragment implements LoaderManager.Loade
 
     private static final int LODGING_LOADER = 100;
 
+    private RecyclerView        mLodgingRecyclerView;
     private LodgingListAdapter  mLodgingListAdapter;
     private TextView            mEmptyTextView;
 
     private String mAction = null;
 
     private boolean mLoaderInitialized = false;
+    private int     mItemToShow = LodgingListAdapter.NO_SELECTION;
 
     /**
      * Use this factory method to create a new instance of
@@ -76,16 +78,18 @@ public class LodgingListFragment extends Fragment implements LoaderManager.Loade
         mEmptyTextView = (TextView)fragmentView.findViewById(R.id.empty_lodging_view);
 
         // set up the recycler view
-        RecyclerView lodgingRecyclerView  = (RecyclerView) fragmentView.findViewById(R.id.lodging_recycler_view);
+        mLodgingRecyclerView  = (RecyclerView) fragmentView.findViewById(R.id.lodging_recycler_view);
         LinearLayoutManager lodgingLayoutManager = new LinearLayoutManager(getActivity());
-        lodgingRecyclerView.setLayoutManager(lodgingLayoutManager);
+        mLodgingRecyclerView.setLayoutManager(lodgingLayoutManager);
         mLodgingListAdapter = new LodgingListAdapter(
-                getActivity(), lodgingRecyclerView, mEmptyTextView);
-        lodgingRecyclerView.setAdapter(mLodgingListAdapter);
+                getActivity(), mLodgingRecyclerView, mEmptyTextView);
+        mLodgingRecyclerView.setAdapter(mLodgingListAdapter);
 
         // do we need to restore the selected item?
         if (savedInstanceState != null) {
-            mLodgingListAdapter.onRestoreInstanceState(savedInstanceState);
+            mItemToShow = mLodgingListAdapter.onRestoreInstanceState(savedInstanceState);
+        } else {
+            mItemToShow = LodgingListAdapter.NO_SELECTION;
         }
         return fragmentView;
     }
@@ -105,6 +109,9 @@ public class LodgingListFragment extends Fragment implements LoaderManager.Loade
         if (! mLoaderInitialized) {
             getLoaderManager().initLoader(LODGING_LOADER, null, this);
             mLoaderInitialized = true;
+        } else if (mItemToShow != LodgingListAdapter.NO_SELECTION) {
+            mLodgingRecyclerView.smoothScrollToPosition(mItemToShow);
+            mItemToShow = LodgingListAdapter.NO_SELECTION;
         }
         Utility.updateActionBarTitle(getActivity(), getString(R.string.title_lodging));
     }
@@ -128,6 +135,11 @@ public class LodgingListFragment extends Fragment implements LoaderManager.Loade
         Log.d(LOG_TAG, "onLoadFinished()");
         mLodgingListAdapter.swapCursor(data);
         updateEmptyView();
+
+        if (mItemToShow != LodgingListAdapter.NO_SELECTION) {
+            mLodgingRecyclerView.smoothScrollToPosition(mItemToShow);
+            mItemToShow = LodgingListAdapter.NO_SELECTION;
+        }
     }
 
 

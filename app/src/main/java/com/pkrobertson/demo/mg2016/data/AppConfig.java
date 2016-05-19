@@ -47,7 +47,7 @@ public class AppConfig {
     /**
      * getInstance () -- return current config object or get a new one
      * @param context
-     * @return shared null if no data is available or config object.
+     * @return shared null if no data is available when server is down.
      *     NOTES:(config contents may change so do not keep outside of method scope)
      */
     public static AppConfig getInstance (Context context) {

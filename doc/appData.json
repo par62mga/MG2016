@@ -181,7 +181,14 @@
 		"location": "default",
 		"content": "Presented by <b>John Twist</b>"
 	}, {
-		"id": "234",
+	    "id": "234",
+	    "startDate": "2016/06/14",
+	    "startTime": "09:00",
+	    "title": "Tech Session - Powdercoating 101",
+	    "location": "default",
+	    "content": "Presented by Pete Mantell"
+	}, {
+		"id": "235",
 		"startDate": "2016/06/14",
 		"startTime": "10:30",
 		"endTime": "11:30",
@@ -189,14 +196,15 @@
 		"location": "default",
 		"content": "Presented by Horst Schach"
 	}, {
-		"id": "235",
-		"startDate": "2016/06/14",
-		"startTime": "09:00",
-		"title": "Tech Session - Powdercoating 101",
-		"location": "default",
-		"content": "Presented by Pete Mantell"
+	    "id": "236",
+	    "startDate": "2016/06/14",
+	    "startTime": "13:00",
+	    "endTime": "14:00",
+	    "title": "Tech Session - Insurance: Hagerty Valuation",
+	    "location": "default",
+	    "content": "Presented by Hagerty"
 	}, {
-		"id": "236",
+		"id": "237",
 		"startDate": "2016/06/14",
 		"startTime": "13:00",
 		"endTime": "15:30",
@@ -204,7 +212,7 @@
 		"location": "default",
 		"content": "Presented by <b>John Twist</b>"
 	}, {
-		"id": "237",
+		"id": "238",
 		"startDate": "2016/06/14",
 		"startTime": "14:30",
 		"endTime": "15:30",
@@ -212,21 +220,13 @@
 		"location": "default",
 		"content": "Presented by Lloyd Faust"
 	}, {
-		"id": "238",
+		"id": "239",
 		"startDate": "2016/06/14",
-		"startTime": "04:30",
+		"startTime": "14:30",
 		"endTime": "15:30",
 		"title": "Tech Session - Circumnavigating the World in Classic MGs",
 		"location": "default",
 		"content": "Presented by Dave Godwin"
-	}, {
-		"id": "239",
-		"startDate": "2016/06/14",
-		"startTime": "13:00",
-		"endTime": "14:00",
-		"title": "Tech Session - Insurance: Hagerty Valuation",
-		"location": "default",
-		"content": "Presented by Hagerty"
 	}, {
 		"id": "250",
 		"startDate": "2016/06/14",
@@ -361,13 +361,6 @@
 		"location": "default",
 		"content": "Presented by Hagerty"
 	}, {
-		"id": "337",
-		"startDate": "2016/06/15",
-		"startTime": "14:30",
-		"title": "Tech Session - Tuning by the Numbers",
-		"location": "default",
-		"content": "Presented by Dave Braun"
-	}, {
 		"id": "338",
 		"startDate": "2016/06/15",
 		"startTime": "13:00",
@@ -400,6 +393,13 @@
 		"location": "default",
 		"content": "Presented by Pete Mantell"
 	}, {
+	    "id": "342",
+	    "startDate": "2016/06/15",
+	    "startTime": "14:30",
+	    "title": "Tech Session - Tuning by the Numbers",
+	    "location": "default",
+	    "content": "Presented by Dave Braun"
+	}, {
 		"id": "350",
 		"startDate": "2016/06/15",
 		"startTime": "08:30",
@@ -409,7 +409,15 @@
 		"mapLocation": "38.1918749,-85.7426178",
 		"content": "Hop on the bus and leave the driving to us.\nEnjoy a tour of Stephen Foster's 'My Old Kentucky Home', explore the Heritage Bourbon Center along with a tasting, downtown Bardstown where you can select one of the many eating options for lunch, and last but not least a stop at Jim Beam for complimentary tastings and for any who wish to purchase a barn tour."
 	}, {
-		"id": "351",
+	    "id": "351",
+	    "startDate": "2016/06/15",
+	    "startTime": "09:00",
+	    "title": "Bus trip to Bernheim Forest, Winery and Zappos",
+	    "location": "Leaves from Crowne Plaza",
+	    "mapLocation": "38.1918749,-85.7426178",
+	    "content": "Variety is the spice of life! Enjoy a visit to beautiful 14,378 acre Bernheim Forest (bernheim.org) where we will be entertained and enlightened with a program on edible weeds and other wild plants. Included in the program will be a short walk to observe and identify plants and then recipes and a small sampling of the edibles.\nClose to Bernheim we will visit Forest Edge Winery and have a sample tasting of award winning wines. Leaving the forest area we will travel a few miles to Slow Poke Farm and enjoy a private lunch. Comfortably satiated with food, a few more miles down the road will bring us to Zappo's (6pm.com) Shoe Outlet which also has some clothing and purses. Shop for an hour and then a pleasant ride back to the Crowne Plaza will end our varied tour.\n<i>Starting time to be confirmed.</i>"
+	}, {
+		"id": "352",
 		"startDate": "2016/06/15",
 		"startTime": "11:00",
 		"endTime": "15:30",
@@ -417,15 +425,7 @@
 	    "location": "Exact location TBC: New Albany, IN",
 	    "mapLocation": "38.3145901,-85.8938775",
 		"content": "This follow the leader drive of about 90 miles round trip, travels some of the most scenic roads in southern IN and will be offered Tuesday and Wednesday (limited to 15 MGB's each day). We leave from New Albany IN and travel back roads to Corydon IN, our first capital, stop for a break on the 'Square'. From there, we travel to the Overlook restaurant for lunch and a panoramic view of the Ohio river from their dining room. After Lunch we will travel back to Corydon a different way, and on to The Turtle Winery. After the tasting, the trip back to New Albany will take about 30 minutes for a total trip time of about 5 hours. Cost involved is anything you buy in shops on the Square, food ordered off the menu at the Overlook, and your wine at the Turtle."
-	}, {
-		"id": "352",
-		"startDate": "2016/06/15",
-		"startTime": "09:00",
-		"title": "Bus trip to Bernheim Forest, Winery and Zappos",
-		"location": "Leaves from Crowne Plaza",
-		"mapLocation": "38.1918749,-85.7426178",
-		"content": "Variety is the spice of life! Enjoy a visit to beautiful 14,378 acre Bernheim Forest (bernheim.org) where we will be entertained and enlightened with a program on edible weeds and other wild plants. Included in the program will be a short walk to observe and identify plants and then recipes and a small sampling of the edibles.\nClose to Bernheim we will visit Forest Edge Winery and have a sample tasting of award winning wines. Leaving the forest area we will travel a few miles to Slow Poke Farm and enjoy a private lunch. Comfortably satiated with food, a few more miles down the road will bring us to Zappo's (6pm.com) Shoe Outlet which also has some clothing and purses. Shop for an hour and then a pleasant ride back to the Crowne Plaza will end our varied tour.\n<i>Starting time to be confirmed.</i>"
-	}, {
+	},  {
 		"id": "353",
 		"startDate": "2016/06/15",
 		"startTime": "18:00",

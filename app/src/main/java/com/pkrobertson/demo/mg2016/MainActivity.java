@@ -1,15 +1,12 @@
 package com.pkrobertson.demo.mg2016;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,20 +16,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.pkrobertson.demo.mg2016.data.AppConfig;
 import com.pkrobertson.demo.mg2016.data.DateTimeHelper;
+import com.pkrobertson.demo.mg2016.sync.AppSyncAdapter;
 
 /**
  * MainActivity
  */
-
-//TODO: clear data/cache when app is restarted, sync adapter is not ran...fix to run on demand if no data found
-//TODO: also need to show drawer when app first launched
-
 public class MainActivity extends AppCompatActivity
         implements  NavigationView.OnNavigationItemSelectedListener,
                     OnFragmentInteraction {
@@ -73,6 +65,15 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // make sure sync adapter/content resolver are really when launched by Widget
+        AppSyncAdapter.initializeSyncAdapter(this);
+
+        // if no data found, try syncing again
+        AppConfig appConfig = AppConfig.getInstance (this);
+        if (appConfig == null) {
+            AppSyncAdapter.syncImmediately(this);
+        }
+
         setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle((CharSequence) getString(R.string.drawer_title));
@@ -84,6 +85,11 @@ public class MainActivity extends AppCompatActivity
                     this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
             mDrawer.setDrawerListener(toggle);
             toggle.syncState();
+
+            // open drawer when the app is initially launched to show the feature...
+            if (Utility.openDrawerOnLaunch(this)) {
+                mDrawer.openDrawer(GravityCompat.START);
+            }
         }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -111,6 +117,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void onResume () {
+        Log.d (LOG_TAG, "onResume()...");
+        super.onResume();
+    }
+
+    @Override
     public void onBackPressed() {
         if ( (mDrawer != null) && (mDrawer.isDrawerOpen(GravityCompat.START)) ) {
             mDrawer.closeDrawer(GravityCompat.START);
@@ -121,6 +133,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d (LOG_TAG, "onCreateOptionsMenu()...");
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
@@ -262,16 +275,28 @@ public class MainActivity extends AppCompatActivity
      */
     @Override
     public void disableMenuItems () {
+        Log.d (LOG_TAG, "disableMenuItems()...");
         mCalendarEnabled = false;
         mCallEnabled = false;
         mLocateEnabled = false;
         mWebsiteEnabled = false;
+
         if (mMenuItemCalendar != null) {
             mMenuItemCalendar.setVisible(false);
             mMenuItemCall.setVisible(false);
             mMenuItemLocate.setVisible(false);
             mMenuItemWebsite.setVisible(false);
         }
+    }
+
+    /**
+     * showMenuItems -- this ugly bit of code is needed to make sure menu items reliably show
+     *     up on the action bar...yuck!
+     */
+    @Override
+    public void showMenuItems () {
+        Log.d (LOG_TAG, "showMenuItems()...");
+        invalidateOptionsMenu ();
     }
 
     /**

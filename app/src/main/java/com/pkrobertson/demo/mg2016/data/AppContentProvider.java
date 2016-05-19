@@ -66,7 +66,7 @@ public class AppContentProvider extends ContentProvider {
             selection = "";
         }
         selection = DatabaseContract.EventsEntry._ID + " = " + uri.getLastPathSegment() + selection;
-        Log.d (LOG_TAG, "query() selection ==> " + selection);
+        //Log.d (LOG_TAG, "query() selection ==> " + selection);
         return selection;
     }
 
@@ -134,7 +134,7 @@ public class AppContentProvider extends ContentProvider {
                         selection = "";
                     }
                     selection = DatabaseContract.EventsEntry.COLUMN_START_DATE + " = " + startDate + selection;
-                    Log.d (LOG_TAG, "query() selection ==> " + selection);
+                    //Log.d (LOG_TAG, "query() selection ==> " + selection);
                 }
                 break;
 
@@ -177,7 +177,7 @@ public class AppContentProvider extends ContentProvider {
                 null,
                 null,
                 sortOrder);
-        Log.d (LOG_TAG, "setNotificationUri() ==> " + uri.toString());
+        //Log.d (LOG_TAG, "setNotificationUri() ==> " + uri.toString());
         retCursor.setNotificationUri(getContext().getContentResolver(), uri);
         return retCursor;
     }
@@ -297,7 +297,7 @@ public class AppContentProvider extends ContentProvider {
         int rowsUpdated = mOpenHelper.getWritableDatabase().update(
                 tableName, values, selection, selectionArgs);
         if (rowsUpdated != 0) {
-            Log.d (LOG_TAG, "notifyChange() ==> " + uri.toString());
+            //Log.d (LOG_TAG, "notifyChange() ==> " + uri.toString());
             getContext().getContentResolver().notifyChange(uri, null);
         }
         return rowsUpdated;

@@ -24,7 +24,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
     private static final String LOG_TAG       = EventListAdapter.class.getSimpleName();
 
     private static final String SELECTION_KEY = "event_selection_key";
-    private static final int    NO_SELECTION  = -1;
+    public  static final int    NO_SELECTION  = -1;
 
     private static final int    MIN_TEXT_LINES  = 2;
     private static final int    MAX_TEXT_LINES  = 32;
@@ -34,6 +34,10 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
 
     // this is a reference to the "selected" row actually in view or nearly in view
     private EventViewHolder mSelectedRow = null;
+
+    // this is a hack to ignore spurious onDetailFromWindow call that occurs with the last element
+    // after a screen rotation
+    private EventViewHolder mLastOnAttachView = null;
 
     private Context      mContext;
     private Cursor       mCursor;
@@ -56,8 +60,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
     private int     mIndexMapLocation;
     private int     mIndexContent;
 
-    class EventViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener, View.OnFocusChangeListener {
+    class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         View        mViewEventTime;
         TextView    mTextViewEventStart;
         TextView    mTextViewEventEnd;
@@ -80,9 +83,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
             mTextViewEventTitle    = (TextView)view.findViewById(R.id.event_title);
             mTextViewEventSubtitle = (TextView)view.findViewById(R.id.event_subtitle);
             view.setClickable(true);
-            view.setFocusable(true);
             view.setOnClickListener(this);
-            view.setOnFocusChangeListener(this);
         }
 
 
@@ -94,19 +95,11 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
                 deselectItem (mSelectedRow, true);
             }
             if (selectThisRow) {
-                selectItem (this, true);
+                selectItem(this, true);
             }
         }
 
-        @Override
-        public void onFocusChange (View v, boolean hasFocus) {
-            Log.d (LOG_TAG, "onFocusChange() focus ==> " + hasFocus);
-            if (!hasFocus && this == mSelectedRow) {
-                deselectItem(mSelectedRow, true);
-            }
-        }
-
-    };
+    }
 
 
     /**
@@ -115,8 +108,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
      * @param emptyView
      * @param selectedItem
      */
-    public EventListAdapter (Context context, RecyclerView recyclerView,
-                             View emptyView, long selectedItem) {
+    public EventListAdapter (
+            Context context, RecyclerView recyclerView, View emptyView, long selectedItem) {
         // save reference to context
         mContext = context;
         // save reference to recycler view
@@ -142,18 +135,17 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
     /**
      * onRestoreInstanceState -- called by the fragment to restore the selection
      * @param savedInstanceState
+     * @return sekected item or NO_SELECTION
      */
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
+    public int onRestoreInstanceState(Bundle savedInstanceState) {
         if ( savedInstanceState.containsKey(SELECTION_KEY)) {
             // selected item to show on restore
             mRestoreSelectedItem = savedInstanceState.getInt(SELECTION_KEY);
         } else {
             mRestoreSelectedItem = NO_SELECTION;
         }
-        if (mRestoreSelectedItem != NO_SELECTION) {
-            mRecyclerView.smoothScrollToPosition(mRestoreSelectedItem);
-        }
         Log.d(LOG_TAG, "onRestoreInstanceState() mRestoreSelectedItem ==> " + mRestoreSelectedItem);
+        return mRestoreSelectedItem;
     }
 
     @Override
@@ -170,6 +162,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
 
     @Override
     public void onBindViewHolder(EventViewHolder viewHolder, int position) {
+        Log.d (LOG_TAG, "onBindViewHolder () position ==> " + position);
         if (mCursor == null) {
             return;
         }
@@ -206,6 +199,15 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
             viewHolder.mEventLocation = location;
             viewHolder.mEventMap      = mCursor.getString(mIndexMapLocation);
         }
+
+        // view is about to be displayed, time to restore the selected item after rotation/change
+        if (viewHolder.getAdapterPosition() == mRestoreSelectedItem) {
+            Log.d(LOG_TAG, "onBindViewHolder () mRestoreSelectedItem ==> " + mRestoreSelectedItem);
+            selectItem (viewHolder, false);
+        } else if ((mRestoreSelectedItem == NO_SELECTION) && (viewHolder.mEventId == mWidgetItem)) {
+            Log.d(LOG_TAG, "onViewAttachedToWindow () mWidgetItem ==> " + mWidgetItem);
+            selectItem (viewHolder, false);
+        }
     }
 
     @Override
@@ -218,13 +220,16 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
             Log.d(LOG_TAG, "onViewAttachedToWindow () mWidgetItem ==> " + mWidgetItem);
             selectItem (viewHolder, false);
         }
+        mLastOnAttachView = viewHolder;
         super.onViewAttachedToWindow(viewHolder);
     }
 
     @Override
     public void onViewDetachedFromWindow (EventViewHolder viewHolder) {
         // view is about to go off screen, deselect the row if selected
-        if (viewHolder == mSelectedRow) {
+        // ignore onViewDetached call when it occurs right after onViewAttached...
+        if ((viewHolder != mLastOnAttachView) && (viewHolder == mSelectedRow)) {
+            Log.d(LOG_TAG, "onViewDetatchedFromWindow () item ==> " + viewHolder.getAdapterPosition());
             deselectItem(viewHolder, false);
         }
         super.onViewDetachedFromWindow(viewHolder);
@@ -264,6 +269,10 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
         return mCursor;
     }
 
+    /**
+     * onPageNotVisible -- used to deselect item when user scrolls to a different page in the
+     *     event diary
+     */
     public void onPageNotVisible () {
         // page is off screen, deselect row
         Log.d (LOG_TAG, "onPageNotVisible()");
@@ -326,6 +335,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
 
         // turn on menu options for calendar and locate
         OnFragmentInteraction handler = getHandler();
+        Log.d (LOG_TAG, "selectItem() enabling calendar...");
         handler.enableMenuItemCalendar(
                 viewHolder.mEventDate, viewHolder.mEventStartTime, viewHolder.mEventEndTime,
                 String.valueOf(viewHolder.mTextViewEventTitle.getText()),
@@ -337,6 +347,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
                     viewHolder.mEventLocation,
                     viewHolder.mEventMap);
         }
+        handler.showMenuItems();
 
         // show extra text
         if (withAnimation) {

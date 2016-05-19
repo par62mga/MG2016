@@ -44,11 +44,6 @@ import java.net.URL;
 public class AppSyncAdapter extends AbstractThreadedSyncAdapter {
     private final String LOG_TAG = AppSyncAdapter.class.getSimpleName();
 
-    private static final String BASE_SERVER_URL =
-            "http://ec2-52-9-163-231.us-west-1.compute.amazonaws.com:8080";
-    private static final String PATH_DATA       =
-            "/appData.json";
-
     public static final String ACTION_DATA_UPDATED =
             "com.pkrobertson.demo.mg2016.ACTION_DATA_UPDATED";
 
@@ -84,7 +79,10 @@ public class AppSyncAdapter extends AbstractThreadedSyncAdapter {
         BufferedReader reader = null;
 
         try {
-            URL url = new URL(BASE_SERVER_URL + PATH_DATA);
+            String serverURL = mContext.getString(R.string.server_base_url) +
+                    mContext.getString(R.string.server_path_data);
+            Log.d (LOG_TAG, "onPerformSync() serverURL ==> " + serverURL);
+            URL url = new URL(serverURL);
 
             // Create the request to OpenWeatherMap, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();

@@ -33,13 +33,15 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
 
     private static final int EVENTS_LOADER = 300;
 
+    private RecyclerView     mEventRecyclerView;
     private EventListAdapter mEventListAdapter;
     private TextView         mEmptyTextView;
 
     private Uri  mEventsUri = null;
-    private long mEventItem = -1;
+    private long mEventItem = EventListAdapter.NO_SELECTION;
 
     private boolean mLoaderInitialized = false;
+    private int     mItemToShow = EventListAdapter.NO_SELECTION;
 
     /**
      * Use this factory method to create a new instance of
@@ -52,7 +54,7 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
         EventListFragment fragment = new EventListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_URISTRING, eventsUri);
-        args.putLong (ARG_ITEM, selectedItem);
+        args.putLong(ARG_ITEM, selectedItem);
         fragment.setArguments(args);
         return fragment;
     }
@@ -71,6 +73,8 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
         if (getArguments() != null) {
             mEventsUri = Uri.parse(getArguments().getString(ARG_URISTRING));
             mEventItem = getArguments().getLong(ARG_ITEM);
+        } else {
+            mEventItem = EventListAdapter.NO_SELECTION;
         }
     }
 
@@ -85,17 +89,18 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
         mEmptyTextView = (TextView)fragmentView.findViewById(R.id.empty_events_view);
 
         // set up the recycler view
-        RecyclerView eventRecyclerView = (RecyclerView)fragmentView.findViewById(
-                R.id.events_recycler_view);
+        mEventRecyclerView = (RecyclerView)fragmentView.findViewById(R.id.events_recycler_view);
         LinearLayoutManager eventLayoutManager = new LinearLayoutManager(getActivity());
-        eventRecyclerView.setLayoutManager(eventLayoutManager);
+        mEventRecyclerView.setLayoutManager(eventLayoutManager);
         mEventListAdapter = new EventListAdapter(
-                getActivity(), eventRecyclerView, mEmptyTextView, mEventItem);
-        eventRecyclerView.setAdapter(mEventListAdapter);
+                getActivity(), mEventRecyclerView, mEmptyTextView, mEventItem);
+        mEventRecyclerView.setAdapter(mEventListAdapter);
 
         // see if we need to restore the selected item
         if (savedInstanceState != null) {
-            mEventListAdapter.onRestoreInstanceState(savedInstanceState);
+            mItemToShow = mEventListAdapter.onRestoreInstanceState(savedInstanceState);
+        } else {
+            mItemToShow = LodgingListAdapter.NO_SELECTION;
         }
         return fragmentView;
     }
@@ -111,7 +116,7 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onPause () {
         super.onPause();
-        Log.d (LOG_TAG, "onPause()");
+        Log.d(LOG_TAG, "onPause()");
     }
 
     @Override
@@ -122,6 +127,14 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
         if (! mLoaderInitialized) {
             getLoaderManager().initLoader(EVENTS_LOADER, null, this);
             mLoaderInitialized = true;
+        } else {
+            if (mItemToShow == EventListAdapter.NO_SELECTION) {
+                mItemToShow = findWidgetItem();
+            }
+            if (mItemToShow != EventListAdapter.NO_SELECTION) {
+                mEventRecyclerView.smoothScrollToPosition(mItemToShow);
+                mItemToShow = EventListAdapter.NO_SELECTION;
+            }
         }
         Utility.updateActionBarTitle(getActivity(), getString(R.string.title_events));
     }
@@ -146,6 +159,14 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
         Log.d(LOG_TAG, "onLoadFinished()");
         mEventListAdapter.swapCursor(data);
         updateEmptyView();
+
+        if (mItemToShow == EventListAdapter.NO_SELECTION) {
+            mItemToShow = findWidgetItem();
+        }
+        if (mItemToShow != EventListAdapter.NO_SELECTION) {
+            mEventRecyclerView.smoothScrollToPosition(mItemToShow);
+            mItemToShow = EventListAdapter.NO_SELECTION;
+        }
     }
 
 
@@ -156,7 +177,7 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     public void onPageNotVisible () {
-        mEventListAdapter.onPageNotVisible ();
+        mEventListAdapter.onPageNotVisible();
     }
 
     /**
@@ -168,4 +189,34 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
         }
     }
 
+    /**
+     * findWidgetItem -- search active cursor to find position matching the selected item
+     * @return
+     */
+    private int findWidgetItem () {
+        Cursor cursor = mEventListAdapter.getCursor();
+        if ((cursor == null) || (mEventItem == EventListAdapter.NO_SELECTION)) {
+            return EventListAdapter.NO_SELECTION;
+        }
+
+        // find item matching the ID of the one selected by the widget
+        int item = 0;
+        int indexID = cursor.getColumnIndex(DatabaseContract.EventsEntry._ID);
+        int startPosition = cursor.getPosition();
+        while (item < cursor.getCount()) {
+            cursor.moveToPosition (item);
+            int eventItem = cursor.getInt(indexID);
+            if (eventItem == mEventItem) {
+                Log.d (LOG_TAG, "findWidgetItem() found ID ==> " + mEventItem);
+                cursor.moveToPosition(startPosition);
+                return (item);
+            }
+            item++;
+        }
+
+        // not found, should not happen...
+        Log.e (LOG_TAG, "findWidgetItem() did not find ID ==> " + mEventItem);
+        cursor.moveToPosition(startPosition);
+        return EventListAdapter.NO_SELECTION;
+    }
 }

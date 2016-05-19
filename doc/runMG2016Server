@@ -2,7 +2,7 @@
 #
 # An AWS ec2 instance was set up to serve MG 2016 files:
 #     /home/ec2-user/mg2016-Server: holds files available to the Android client via http
-#     /etc/rc.d/rc.local updated to execute this shell script whenver the AWS instance runs
+#     /etc/rc.d/rc.local updated to execute this shell script whenever the AWS instance runs
 #
 # Python SimpleHTTPServer is used to serve files over http using port 8080    
 #

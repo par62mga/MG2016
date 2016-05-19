@@ -21,18 +21,9 @@ import com.pkrobertson.demo.mg2016.data.DatabaseContract;
 public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsViewHolder> {
     private static final String LOG_TAG = NewsListAdapter.class.getSimpleName();
 
-    private static final String SELECTION_KEY = "news_selection_key";
-    private static final int    NO_SELECTION  = -1;
-
-    // this is a reference to the "selected" row actually in view or nearly in view
-    private NewsViewHolder mSelectedRow = null;
-
     private Context mContext;
     private Cursor  mCursor;
     private View    mEmptyView;
-
-    // used to restore selected item after screen rotation
-    private int     mRestoreSelectedItem = NO_SELECTION;
 
     // database column IDs used to access cursor data
     private int     mIndexID;
@@ -44,7 +35,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
         ImageView mImageViewNewsThumbnail;
         TextView  mTextViewNewsTitle;
         TextView  mTextViewNewsByline;
-        long      mNewsID = NO_SELECTION;
+        long      mNewsID;
 
         public NewsViewHolder(View view) {
             super(view);
@@ -57,20 +48,12 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
 
         @Override
         public void onClick(View v) {
-            boolean selectThisRow = this != mSelectedRow;
-            if (mSelectedRow != null) {
-                deselectItem (mSelectedRow);
-            }
-            if (selectThisRow) {
-                selectItem(this);
-
-                // launch news detail page
-                Uri newsUri = DatabaseContract.NewsEntry.buildNewsUri(mNewsID);
-                getHandler().onNewsListInteraction(newsUri.toString());
-            }
+            // launch news detail page
+            Uri newsUri = DatabaseContract.NewsEntry.buildNewsUri(mNewsID);
+            getHandler().onNewsListInteraction(newsUri.toString());
         }
 
-    };
+    }
 
 
     /**
@@ -92,9 +75,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
      * @param outState
      */
     public void onSaveInstanceState(Bundle outState) {
-        if (mSelectedRow != null) {
-            outState.putInt (SELECTION_KEY, mSelectedRow.getAdapterPosition());
-        }
+        // not needed for news items...
     }
 
     /**
@@ -102,18 +83,14 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
      * @param savedInstanceState
      */
     public void onRestoreInstanceState(Bundle savedInstanceState) {
-        if ( savedInstanceState.containsKey(SELECTION_KEY)) {
-            // selected item to show on restore
-            mRestoreSelectedItem = savedInstanceState.getInt(SELECTION_KEY);
-        } else {
-            mRestoreSelectedItem = NO_SELECTION;
-        }
+        // not needed for news items...
     }
 
     @Override
     public NewsViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         if ( viewGroup instanceof RecyclerView ) {
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.news_list_item, viewGroup, false);
+            View view = LayoutInflater.from(
+                    viewGroup.getContext()).inflate(R.layout.news_list_item, viewGroup, false);
             view.setFocusable(true);
             return new NewsViewHolder(view);
         } else {
@@ -140,25 +117,6 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
                 contentDescription);
         Utility.setTextView(viewHolder.mTextViewNewsTitle, mCursor.getString(mIndexTitle));
         Utility.setTextView(viewHolder.mTextViewNewsByline, mCursor.getString(mIndexByline1));
-    }
-
-    @Override
-    public void onViewAttachedToWindow (NewsViewHolder viewHolder) {
-        // view is about to be displayed, time to restore the selected item after rotation/change
-        if (viewHolder.getAdapterPosition() == mRestoreSelectedItem) {
-            Log.d(LOG_TAG, "onViewAttachedToWindow () mRestoreSelectedItem ==> " + mRestoreSelectedItem);
-            selectItem(viewHolder);
-        }
-        super.onViewAttachedToWindow(viewHolder);
-    }
-
-    @Override
-    public void onViewDetachedFromWindow (NewsViewHolder viewHolder) {
-        // view is about to go off screen, deselect the row if selected
-        if (viewHolder == mSelectedRow) {
-            deselectItem (viewHolder);
-        }
-        super.onViewDetachedFromWindow(viewHolder);
     }
 
     @Override
@@ -206,24 +164,5 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
                     + " must implement OnFragmentInteraction");
         }
         return handler;
-    }
-
-    /**
-     * deselectItem -- used to deselect a currently selected row and hide detail text
-     * @param viewHolder
-     */
-    private void deselectItem (NewsViewHolder viewHolder) {
-        mSelectedRow = null;
-        viewHolder.itemView.setSelected(false);
-    }
-
-    /**
-     * selectItem -- used to select a row and expand detail text
-     * @param viewHolder
-     */
-    private void selectItem (NewsViewHolder viewHolder) {
-        mRestoreSelectedItem = NO_SELECTION;
-        mSelectedRow = viewHolder;
-        viewHolder.itemView.setSelected(true);
     }
 }

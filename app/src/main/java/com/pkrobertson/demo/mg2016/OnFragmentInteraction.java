@@ -6,18 +6,19 @@ package com.pkrobertson.demo.mg2016;
  *     menu options for Calendar, Call, Locate and Website
  */
 public interface OnFragmentInteraction {
-    public void onNewsListInteraction(String newsItemUri);
+    void onNewsListInteraction(String newsItemUri);
 
-    public void disableMenuItems ();
+    void disableMenuItems ();
 
-    public void enableMenuItemCall (String phoneNumber);
+    void showMenuItems ();
 
-    public void enableMenuItemLocate (
-            String locationName, String locationAddress, String mapLocation);
+    void enableMenuItemCall (String phoneNumber);
 
-    public void enableMenuItemWebsite (String websiteURL);
+    void enableMenuItemLocate (String locationName, String locationAddress, String mapLocation);
 
-    public void enableMenuItemCalendar (
+    void enableMenuItemWebsite (String websiteURL);
+
+    void enableMenuItemCalendar (
             long startDate, long startTime, long endTime,
             String title, String description, String location);
 }

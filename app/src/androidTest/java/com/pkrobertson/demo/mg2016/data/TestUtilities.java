@@ -55,6 +55,9 @@ public class TestUtilities extends AndroidTestCase {
         configValues.put(DatabaseContract.ConfigEntry.COLUMN_CONTACT_EMAIL, "goaway@dontcare.com");
         configValues.put(DatabaseContract.ConfigEntry.COLUMN_DEFAULT_LOCATION, "Paradise Lakes");
         configValues.put(DatabaseContract.ConfigEntry.COLUMN_DEFAULT_MAP, "12345678,-12345678");
+        configValues.put(DatabaseContract.ConfigEntry.COLUMN_START_DATE, 20160613);
+        configValues.put(DatabaseContract.ConfigEntry.COLUMN_END_DATE, 20160616);
+        configValues.put(DatabaseContract.ConfigEntry.COLUMN_EVENT_ADJUSTMENT, "Adjusted for EDT");
         configValues.put(DatabaseContract.ConfigEntry.COLUMN_ABOUT_INFO, "About us");
 
         return configValues;
@@ -70,7 +73,9 @@ public class TestUtilities extends AndroidTestCase {
         lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_NAME, "Roach Hotel");
         lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_ADDRESS1, "123 Bad Part of Town");
         lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_ADDRESS2, "Plano, TX 12345");
+        lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_MAP_LOCATION, "12345678,-12345678");
         lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_PHONE, "972-727-2727");
+        lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_WEBSITE, "http://www.google.com");
         lodgingValues.put(DatabaseContract.LodgingEntry.COLUMN_DETAILS, "Lots of cool insects");
 
         return lodgingValues;
@@ -84,10 +89,12 @@ public class TestUtilities extends AndroidTestCase {
         newsValues.put(DatabaseContract.NewsEntry._ID, 1);
         newsValues.put(DatabaseContract.NewsEntry.COLUMN_DATE, 20160329);
         newsValues.put(DatabaseContract.NewsEntry.COLUMN_TIME, 1200);
+        newsValues.put(DatabaseContract.NewsEntry.COLUMN_THUMBNAIL, "news_thumbnail.gif");
         newsValues.put(DatabaseContract.NewsEntry.COLUMN_IMAGE, "news.gif");
         newsValues.put(DatabaseContract.NewsEntry.COLUMN_TITLE, "Welcome");
         newsValues.put(DatabaseContract.NewsEntry.COLUMN_BYLINE1, "MG 2016");
         newsValues.put(DatabaseContract.NewsEntry.COLUMN_BYLINE2, "Hello");
+        newsValues.put(DatabaseContract.NewsEntry.COLUMN_SHARE, "Share cool news article");
         newsValues.put(DatabaseContract.NewsEntry.COLUMN_CONTENT, "Yada Yada Yada");
 
         return newsValues;

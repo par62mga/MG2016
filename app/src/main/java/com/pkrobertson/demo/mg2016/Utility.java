@@ -38,13 +38,13 @@ public class Utility {
 
 
     /**
-     *
+     * getServerStatus -- returns server status stored by the sync adapter
      * @param c Context used to get the SharedPreferences
      * @return the location status integer type
      */
     @SuppressWarnings("ResourceType")
-    static public @AppSyncAdapter.AppServerStatus
-    int getLocationStatus(Context c){
+    public static @AppSyncAdapter.AppServerStatus
+    int getServerStatus(Context c){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(c);
         return sp.getInt(c.getString(R.string.pref_server_status_key), AppSyncAdapter.SERVER_STATUS_UNKNOWN);
     }
@@ -60,7 +60,7 @@ public class Utility {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         int serverMessage = R.string.error_empty_list;
         if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
-            int serverStatus = getLocationStatus(c);
+            int serverStatus = getServerStatus(c);
             switch (serverStatus) {
                 case AppSyncAdapter.SERVER_STATUS_DOWN:
                     serverMessage = R.string.error_server_down;
@@ -75,6 +75,22 @@ public class Utility {
             serverMessage = R.string.error_no_network;
         }
         return serverMessage;
+    }
+
+    /**
+     * openDrawerOnLaunch -- check preferences and open drawer if this is the first launch
+     * @param c Context used to get the SharedPreferences
+     * @return the location status integer type
+     */
+    public static boolean openDrawerOnLaunch (Context c){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(c);
+        boolean openDrawer = sp.getBoolean(c.getString(R.string.pref_open_drawer), true);
+        if (openDrawer) {
+            SharedPreferences.Editor spe = sp.edit();
+            spe.putBoolean(c.getString(R.string.pref_open_drawer), false);
+            spe.commit();
+        }
+        return openDrawer;
     }
 
     /**
