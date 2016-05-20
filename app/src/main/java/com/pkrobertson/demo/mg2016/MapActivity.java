@@ -123,10 +123,10 @@ public class MapActivity extends AppCompatActivity
         if (foundComma > 0) {
             double lat = Double.parseDouble(mMapLocation.substring(0, foundComma));
             double lng = Double.parseDouble(mMapLocation.substring(foundComma + 1));
-            Log.d(LOG_TAG,
-                    "onMapReady() location ==> " + mMapLocation +
-                            " lat ==> " + String.valueOf(lat) +
-                            " lng ==> " + String.valueOf(lng));
+            //Log.d(LOG_TAG,
+            //        "onMapReady() location ==> " + mMapLocation +
+            //                " lat ==> " + String.valueOf(lat) +
+            //                " lng ==> " + String.valueOf(lng));
 
             final LatLng location = new LatLng(lat, lng);
 

@@ -20,7 +20,7 @@ public class AppSyncService extends Service {
 
     @Override
     public void onCreate() {
-        Log.d(LOG_TAG, "onCreate ()");
+        //Log.d(LOG_TAG, "onCreate ()");
         synchronized (sSyncAdapterLock) {
             if (sSyncAdapter == null) {
                 sSyncAdapter = new AppSyncAdapter(getApplicationContext(), true);

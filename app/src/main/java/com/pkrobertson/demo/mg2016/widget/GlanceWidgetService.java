@@ -16,7 +16,7 @@ import com.pkrobertson.demo.mg2016.data.DatabaseContract;
 import com.pkrobertson.demo.mg2016.data.DateTimeHelper;
 
 /**
- * Created by Phil Robertson on 5/3/2016.
+ * GlanceWidgetService -- implements MG2016 At a Glance widget functionality
  */
 public class GlanceWidgetService extends RemoteViewsService {
     private final String LOG_TAG = GlanceWidgetService.class.getSimpleName();
@@ -57,7 +57,7 @@ public class GlanceWidgetService extends RemoteViewsService {
 
         @Override
         public void onDataSetChanged() {
-            Log.d(LOG_TAG, "onDataSetChanged()");
+            //Log.d(LOG_TAG, "onDataSetChanged()");
             if (mCursor != null) {
                 mCursor.close();
             }
@@ -72,8 +72,8 @@ public class GlanceWidgetService extends RemoteViewsService {
             // get current date & time to only show events from this point forward
             long dateToday = DateTimeHelper.getCurrentDate(appConfig.getTzOffset());
             long timeToday = DateTimeHelper.getCurrentTime(appConfig.getTzOffset());
-            Log.d (LOG_TAG, "onDataSetChanged() dateToday ==> " + String.valueOf(dateToday) +
-                    " timeToday ==> " + String.valueOf(timeToday));
+            //Log.d (LOG_TAG, "onDataSetChanged() dateToday ==> " + String.valueOf(dateToday) +
+            //        " timeToday ==> " + String.valueOf(timeToday));
 
             // search for all events starting today or later
             Uri    eventsUri = DatabaseContract.EventsEntry.CONTENT_URI;
@@ -97,7 +97,7 @@ public class GlanceWidgetService extends RemoteViewsService {
                     null,            // selection args
                     DatabaseContract.EventsEntry.COLUMN_START_DATE + "," +
                             DatabaseContract.EventsEntry.COLUMN_START_TIME + " ASC"); // order by clause
-            Log.d (LOG_TAG, "numberOfRecords ==> " + String.valueOf(mCursor.getCount()));
+            //Log.d (LOG_TAG, "numberOfRecords ==> " + String.valueOf(mCursor.getCount()));
             Binder.restoreCallingIdentity(identityToken);
         }
 

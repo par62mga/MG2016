@@ -101,7 +101,7 @@ public class NewsListFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onResume () {
         super.onResume();
-        Log.d(LOG_TAG, "onResume()");
+        //Log.d(LOG_TAG, "onResume()");
         if (! mLoaderInitialized) {
             getLoaderManager().initLoader(NEWS_LOADER, null, this);
             mLoaderInitialized = true;
@@ -111,7 +111,7 @@ public class NewsListFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        Log.d(LOG_TAG, "onCreateLoader()");
+        //Log.d(LOG_TAG, "onCreateLoader()");
         // Sort order:  record ID ascending
         String sortOrder = DatabaseContract.NewsEntry._ID + " ASC";
 
@@ -125,7 +125,7 @@ public class NewsListFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Log.d(LOG_TAG, "onLoadFinished()");
+        //Log.d(LOG_TAG, "onLoadFinished()");
         mNewsListAdapter.swapCursor(data);
         updateEmptyView();
     }
@@ -133,7 +133,7 @@ public class NewsListFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        Log.d(LOG_TAG, "onLoaderReset()");
+        //Log.d(LOG_TAG, "onLoaderReset()");
         mNewsListAdapter.swapCursor(null);
     }
 

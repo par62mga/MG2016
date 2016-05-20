@@ -73,7 +73,7 @@ public class LodgingListFragment extends Fragment implements LoaderManager.Loade
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        Log.d(LOG_TAG, "onCreateView()");
+        //Log.d(LOG_TAG, "onCreateView()");
         View fragmentView = inflater.inflate(R.layout.fragment_lodging_list, container, false);
         mEmptyTextView = (TextView)fragmentView.findViewById(R.id.empty_lodging_view);
 
@@ -96,7 +96,7 @@ public class LodgingListFragment extends Fragment implements LoaderManager.Loade
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        Log.d(LOG_TAG, "onSaveInstanceState()");
+        //Log.d(LOG_TAG, "onSaveInstanceState()");
         // When tablets rotate, the currently selected list item needs to be saved
         mLodgingListAdapter.onSaveInstanceState(outState);
         super.onSaveInstanceState(outState);
@@ -105,7 +105,7 @@ public class LodgingListFragment extends Fragment implements LoaderManager.Loade
     @Override
     public void onResume () {
         super.onResume();
-        Log.d(LOG_TAG, "onResume()");
+        //Log.d(LOG_TAG, "onResume()");
         if (! mLoaderInitialized) {
             getLoaderManager().initLoader(LODGING_LOADER, null, this);
             mLoaderInitialized = true;
@@ -118,7 +118,7 @@ public class LodgingListFragment extends Fragment implements LoaderManager.Loade
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        Log.d(LOG_TAG, "onCreateLoader()");
+        //Log.d(LOG_TAG, "onCreateLoader()");
         // Sort order:  record ID ascending
         String sortOrder = DatabaseContract.LodgingEntry._ID + " ASC";
 
@@ -132,7 +132,7 @@ public class LodgingListFragment extends Fragment implements LoaderManager.Loade
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Log.d(LOG_TAG, "onLoadFinished()");
+        //Log.d(LOG_TAG, "onLoadFinished()");
         mLodgingListAdapter.swapCursor(data);
         updateEmptyView();
 
@@ -145,7 +145,7 @@ public class LodgingListFragment extends Fragment implements LoaderManager.Loade
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        Log.d(LOG_TAG, "onLoaderReset()");
+        //Log.d(LOG_TAG, "onLoaderReset()");
         mLodgingListAdapter.swapCursor(null);
     }
 

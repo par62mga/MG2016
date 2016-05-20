@@ -133,7 +133,7 @@ public class Utility {
     public void showAddressOnMap (Activity activity, String streetAddress) {
                 Uri geoLocation = Uri.parse(
                         "geo:0,0?q=" + streetAddress.replace(' ', '+'));
-        Log.d(LOG_TAG, "navigateWorkOrder ==> " + geoLocation.toString());
+        //Log.d(LOG_TAG, "navigateWorkOrder ==> " + geoLocation.toString());
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(geoLocation);
         if (intent.resolveActivity(activity.getPackageManager()) != null) {
@@ -154,13 +154,13 @@ public class Utility {
                                      String imageFile, String imageThumbnail,
                                      int imageDefault, CharSequence contentDescription) {
         final String imageURL = AppConfig.getInstance(context).getImageURL(imageFile);
-        Log.d(LOG_TAG, "setImageView () imageURL ==> " + imageURL);
+        //Log.d(LOG_TAG, "setImageView () imageURL ==> " + imageURL);
 
         // load contact us image using "Picasso" or with a default image if the URL is not valid
         if ((imageURL != null) && Patterns.WEB_URL.matcher(imageURL).matches()) {
             try {
                 String thumbnailURL = AppConfig.getInstance(context).getImageURL(imageThumbnail);
-                Log.d(LOG_TAG, "setImageView () thumbnailURL ==> " + thumbnailURL);
+                //Log.d(LOG_TAG, "setImageView () thumbnailURL ==> " + thumbnailURL);
                 if ((thumbnailURL != null) && Patterns.WEB_URL.matcher(thumbnailURL).matches()) {
 
                     Picasso.with(context)
@@ -191,7 +191,7 @@ public class Utility {
                             .into(view);
                 }
             } catch (Exception e) {
-                Log.d(LOG_TAG, "Picasso call failed" + e.toString());
+                //Log.d(LOG_TAG, "Picasso call failed" + e.toString());
                 view.setImageResource(imageDefault);
             }
         } else {

@@ -89,7 +89,7 @@ public class NewsDetailFragment extends DialogFragment implements LoaderManager.
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        Log.d(LOG_TAG, "onCreateLoader()");
+        //Log.d(LOG_TAG, "onCreateLoader()");
 
         return new CursorLoader(getActivity(),
                 mNewsUri,
@@ -147,7 +147,7 @@ public class NewsDetailFragment extends DialogFragment implements LoaderManager.
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        Log.d(LOG_TAG, "onLoaderReset()");
+        //Log.d(LOG_TAG, "onLoaderReset()");
     }
 
 }

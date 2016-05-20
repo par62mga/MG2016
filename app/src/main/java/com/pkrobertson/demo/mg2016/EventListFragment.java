@@ -107,23 +107,17 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        Log.d(LOG_TAG, "onSaveInstanceState()");
+        //Log.d(LOG_TAG, "onSaveInstanceState()");
         // When tablets rotate, the currently selected list item needs to be saved
         mEventListAdapter.onSaveInstanceState(outState);
         super.onSaveInstanceState(outState);
     }
 
     @Override
-    public void onPause () {
-        super.onPause();
-        Log.d(LOG_TAG, "onPause()");
-    }
-
-    @Override
     public void onResume () {
         super.onResume();
 
-        Log.d(LOG_TAG, "onResume()");
+        //Log.d(LOG_TAG, "onResume()");
         if (! mLoaderInitialized) {
             getLoaderManager().initLoader(EVENTS_LOADER, null, this);
             mLoaderInitialized = true;
@@ -141,7 +135,7 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        Log.d(LOG_TAG, "onCreateLoader()");
+        //Log.d(LOG_TAG, "onCreateLoader()");
 
         // Sort order:  record ID ascending
         String sortOrder = DatabaseContract.EventsEntry._ID + " ASC";
@@ -156,7 +150,7 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Log.d(LOG_TAG, "onLoadFinished()");
+        //Log.d(LOG_TAG, "onLoadFinished()");
         mEventListAdapter.swapCursor(data);
         updateEmptyView();
 
@@ -172,7 +166,7 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        Log.d(LOG_TAG, "onLoaderReset()");
+        //Log.d(LOG_TAG, "onLoaderReset()");
         mEventListAdapter.swapCursor(null);
     }
 
@@ -207,7 +201,7 @@ public class EventListFragment extends Fragment implements LoaderManager.LoaderC
             cursor.moveToPosition (item);
             int eventItem = cursor.getInt(indexID);
             if (eventItem == mEventItem) {
-                Log.d (LOG_TAG, "findWidgetItem() found ID ==> " + mEventItem);
+                //Log.d (LOG_TAG, "findWidgetItem() found ID ==> " + mEventItem);
                 cursor.moveToPosition(startPosition);
                 return (item);
             }

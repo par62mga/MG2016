@@ -129,7 +129,7 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
             mRestoreSelectedItem = NO_SELECTION;
         }
 
-        Log.d (LOG_TAG, "onRestoreInstanceState() mRestoreSelectedItem ==> " + mRestoreSelectedItem);
+        //Log.d (LOG_TAG, "onRestoreInstanceState() mRestoreSelectedItem ==> " + mRestoreSelectedItem);
         return mRestoreSelectedItem;
     }
 
@@ -147,7 +147,7 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
 
     @Override
     public void onBindViewHolder(LodgingViewHolder viewHolder, int position) {
-        Log.d (LOG_TAG, "onBindViewHolder () position ==> " + position);
+        //Log.d (LOG_TAG, "onBindViewHolder () position ==> " + position);
         if (mCursor == null) {
             return;
         }
@@ -177,7 +177,7 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
 
         // view is about to be displayed, time to restore the selected item after rotation/change
         if (viewHolder.getAdapterPosition() == mRestoreSelectedItem) {
-            Log.d(LOG_TAG, "onBindViewHolder () mRestoreSelectedItem ==> " + mRestoreSelectedItem);
+            //Log.d(LOG_TAG, "onBindViewHolder () mRestoreSelectedItem ==> " + mRestoreSelectedItem);
             selectItem (viewHolder, false);
         }
     }
@@ -186,7 +186,7 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
     public void onViewAttachedToWindow (LodgingViewHolder viewHolder) {
         // view is about to be displayed, time to restore the selected item after rotation/change
         if (viewHolder.getAdapterPosition() == mRestoreSelectedItem) {
-            Log.d(LOG_TAG, "onViewAttachedToWindow () mRestoreSelectedItem ==> " + mRestoreSelectedItem);
+            //Log.d(LOG_TAG, "onViewAttachedToWindow () mRestoreSelectedItem ==> " + mRestoreSelectedItem);
             selectItem(viewHolder, false);
         }
         mLastOnAttachView = viewHolder;
@@ -198,7 +198,7 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
         // view is about to go off screen, deselect the row if selected
         // ignore onViewDetached call when it occurs right after onViewAttached...
         if ((viewHolder != mLastOnAttachView) && (viewHolder == mSelectedRow)) {
-            Log.d(LOG_TAG, "onViewDetatchedFromWindow () item ==> " + viewHolder.getAdapterPosition());
+            //Log.d(LOG_TAG, "onViewDetatchedFromWindow () item ==> " + viewHolder.getAdapterPosition());
             deselectItem (viewHolder, false);
         }
         super.onViewDetachedFromWindow(viewHolder);
@@ -310,7 +310,7 @@ public class LodgingListAdapter extends RecyclerView.Adapter<LodgingListAdapter.
                 position += 1;
             }
             mRecyclerView.smoothScrollToPosition(position);
-            Log.d(LOG_TAG, "selectItem() scrolling to ==> " + position);
+            //Log.d(LOG_TAG, "selectItem() scrolling to ==> " + position);
         } else {
             viewHolder.mTextViewLodgingDetail.setMaxLines(MAX_TEXT_LINES);
         }

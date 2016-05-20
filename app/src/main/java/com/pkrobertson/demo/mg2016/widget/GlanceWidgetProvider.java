@@ -14,7 +14,7 @@ import com.pkrobertson.demo.mg2016.MainActivity;
 import com.pkrobertson.demo.mg2016.R;
 
 /**
- * Created by Phil Robertson on 5/3/2016.
+ * GlanceWidgetProvider -- implements MG2016 At a Glance widget functionality
  */
 public class GlanceWidgetProvider extends AppWidgetProvider {
     private final String LOG_TAG = GlanceWidgetProvider.class.getSimpleName();

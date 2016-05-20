@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity
             // see if we were launched by the widget
             if (getIntent() != null && getIntent().getData() != null) {
                 Uri launchUri = getIntent().getData();
-                Log.d(LOG_TAG, "onCreate() launchUri ==> " + launchUri.toString());
+                //Log.d(LOG_TAG, "onCreate() launchUri ==> " + launchUri.toString());
                 fragment = EventPagerFragment.newInstance (launchUri.toString());
             } else {
                 fragment = NewsListFragment.newInstance(NewsListFragment.DEFAULT);
@@ -114,12 +114,6 @@ public class MainActivity extends AppCompatActivity
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().add(R.id.container, fragment).commit();
         }
-    }
-
-    @Override
-    public void onResume () {
-        Log.d (LOG_TAG, "onResume()...");
-        super.onResume();
     }
 
     @Override
@@ -133,7 +127,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.d (LOG_TAG, "onCreateOptionsMenu()...");
+        //Log.d (LOG_TAG, "onCreateOptionsMenu()...");
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
@@ -166,8 +160,8 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.action_calendar) {
             //TODO: Need to see if location can be improved to go directly to location
-            //      We can either use a separate calendarfor calendar or rework map location to be location string that works both for
-            //      google maps and calendar
+            //      We can either use a separate calendar location or rework map location
+            //      to be location string that works both for google maps and calendar
             AppConfig appConfig = AppConfig.getInstance(this);
             long tzAdjustment = DateTimeHelper.getTimeZoneAdjustment(appConfig.getTzOffset());
             long startTime = DateTimeHelper.getDateTimeInMillis(mCalendarDate, mCalendarStartTime);
@@ -275,7 +269,7 @@ public class MainActivity extends AppCompatActivity
      */
     @Override
     public void disableMenuItems () {
-        Log.d (LOG_TAG, "disableMenuItems()...");
+        //Log.d (LOG_TAG, "disableMenuItems()...");
         mCalendarEnabled = false;
         mCallEnabled = false;
         mLocateEnabled = false;
@@ -295,7 +289,7 @@ public class MainActivity extends AppCompatActivity
      */
     @Override
     public void showMenuItems () {
-        Log.d (LOG_TAG, "showMenuItems()...");
+        //Log.d (LOG_TAG, "showMenuItems()...");
         invalidateOptionsMenu ();
     }
 

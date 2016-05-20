@@ -71,7 +71,7 @@ public class AppSyncAdapter extends AbstractThreadedSyncAdapter {
 
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
-        Log.d(LOG_TAG, "Starting sync");
+        //Log.d(LOG_TAG, "Starting sync");
 
         mContext = getContext();
 
@@ -81,7 +81,7 @@ public class AppSyncAdapter extends AbstractThreadedSyncAdapter {
         try {
             String serverURL = mContext.getString(R.string.server_base_url) +
                     mContext.getString(R.string.server_path_data);
-            Log.d (LOG_TAG, "onPerformSync() serverURL ==> " + serverURL);
+            //Log.d (LOG_TAG, "onPerformSync() serverURL ==> " + serverURL);
             URL url = new URL(serverURL);
 
             // Create the request to OpenWeatherMap, and open the connection
@@ -189,7 +189,7 @@ public class AppSyncAdapter extends AbstractThreadedSyncAdapter {
             }
             mContext.getContentResolver().delete(DatabaseContract.LodgingEntry.CONTENT_URI, null, null);
             int count = mContext.getContentResolver().bulkInsert(DatabaseContract.LodgingEntry.CONTENT_URI, contentArray);
-            Log.d (LOG_TAG, "inserted (" + count + ") lodging records");
+            //Log.d (LOG_TAG, "inserted (" + count + ") lodging records");
         }
 
         {// parse news info
@@ -215,7 +215,7 @@ public class AppSyncAdapter extends AbstractThreadedSyncAdapter {
             }
             mContext.getContentResolver().delete(DatabaseContract.NewsEntry.CONTENT_URI, null, null);
             int count = mContext.getContentResolver().bulkInsert(DatabaseContract.NewsEntry.CONTENT_URI, contentArray);
-            Log.d(LOG_TAG, "inserted (" + count + ") news records");
+            //Log.d(LOG_TAG, "inserted (" + count + ") news records");
         }
 
         {// parse event info
@@ -245,10 +245,10 @@ public class AppSyncAdapter extends AbstractThreadedSyncAdapter {
             }
             mContext.getContentResolver().delete(DatabaseContract.EventsEntry.CONTENT_URI, null, null);
             int count = mContext.getContentResolver().bulkInsert(DatabaseContract.EventsEntry.CONTENT_URI, contentArray);
-            Log.d (LOG_TAG, "inserted (" + count + ") event records");
+            //Log.d (LOG_TAG, "inserted (" + count + ") event records");
         }
 
-        Log.d(LOG_TAG, "Sync Complete");
+        //Log.d(LOG_TAG, "Sync Complete");
         setServerStatus(mContext, SERVER_STATUS_OK);
 
         // update sync interval based on configuration file settings

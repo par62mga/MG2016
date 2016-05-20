@@ -92,7 +92,7 @@ public class EventPagerFragment extends Fragment {
         AppConfig appConfig = AppConfig.getInstance(mContext);
         long startDate = appConfig.getStartDate();
         long numberPages = DateTimeHelper.getNumberDays(appConfig.getEndDate(), startDate) + 1;
-        Log.d (LOG_TAG, "onCreateView() == numPages " + numberPages);
+        //Log.d (LOG_TAG, "onCreateView() == numPages " + numberPages);
         if (numberPages > MAX_ITEMS) {
             numberPages = MAX_ITEMS;
         }
@@ -110,7 +110,7 @@ public class EventPagerFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                Log.d (LOG_TAG, "onPageSelected() position ==> " + position);
+                //Log.d (LOG_TAG, "onPageSelected() position ==> " + position);
                 mEventPagerAdapter.newPageSelected(position);
             }
 
@@ -125,7 +125,7 @@ public class EventPagerFragment extends Fragment {
                         DatabaseContract.EventsEntry.CONTENT_ITEM_TYPE)) {
             mSelectedItem = Long.parseLong (mEventUri.getLastPathSegment());
             mSelectedPage = (int)(mSelectedItem / 100) - 1;
-            Log.d (LOG_TAG, "onCreateView() URI Item ==> " + mSelectedItem + " Page ==> " + mSelectedPage);
+            //Log.d (LOG_TAG, "onCreateView() URI Item ==> " + mSelectedItem + " Page ==> " + mSelectedPage);
             mEventViewPager.setCurrentItem(mSelectedPage, true);
             mEventPagerAdapter.newPageSelected (mSelectedPage);
         } else {
@@ -186,7 +186,6 @@ public class EventPagerFragment extends Fragment {
             Fragment createdFragment = (Fragment)super.instantiateItem (container, position);
 
             // save reference to what might be a recycled fragment
-            // TODO: may need way to reload events if needed
             mEventFragments[position] = (EventListFragment)createdFragment;
             return createdFragment;
         }
@@ -194,10 +193,10 @@ public class EventPagerFragment extends Fragment {
         @Override
         public Fragment getItem (int position) {
             long thisDate = DateTimeHelper.addNumberDays(mStartDate, position);
-            Log.d (LOG_TAG, "getItem position, startDate, thisDate ==> " +
-                    position + "; " +
-                    mStartDate + "; " +
-                    thisDate + "; ");
+            //Log.d (LOG_TAG, "getItem position, startDate, thisDate ==> " +
+            //        position + "; " +
+            //        mStartDate + "; " +
+            //        thisDate + "; ");
             mEventFragments[position] = EventListFragment.newInstance (
                     DatabaseContract.EventsEntry.buildEventsUriWithStartDate(thisDate).toString(),
                     position == mSelectedPage ? mSelectedItem : NO_SELECTION);
